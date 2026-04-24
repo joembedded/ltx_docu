@@ -198,8 +198,8 @@ Die Datei `sys_param.lxp` enthält Netzwerk-, Batterie- und Speicherparameter, d
 | 0 | I | `I` | String, FIX | `@200` | `@200` | **Dateikennung.** Muss exakt `@200` lauten. *(nicht editierbar)* |
 | 1 | a | `a` | String | max. 65 Zeichen | `iot.1nce.net` | **APN (Access Point Name).** Mobilfunk-Zugangspunkt der SIM-Karte. Beispiele: `iot.1nce.net` für 1NCE-SIMs, `internet.telekom` für Telekom. |
 | 2 | s | `s` | String | max. 65 Zeichen | `joembedded.de` | **Server / VPN.** Internet-Adresse des Zielservers für Datenübertragung. Kann auch ein VPN-Gateway sein. |
-| 3 | c | `c` | String | max. 65 Zeichen | `ltx/sw/lxu_v1.php` | **Script / ID.** Pfad zum serverseitigen Empfangsskript. Bei HTTP/HTTPS: relativer URL-Pfad; bei anderen Protokollen: Protokoll-ID. |
-| 4 | k | `k` | String | max. 65 Zeichen | `LX1310` | **API-Key.** Zugriffsschlüssel, mit dem sich der Logger beim Server authentifiziert. Muss mit der Serverkonfiguration übereinstimmen. |
+| 3 | c | `c` | String | max. 65 Zeichen | `ltx/xxSWxx/lxu_v1.php` | **Script / ID.** Pfad zum serverseitigen Empfangsskript. Bei HTTP/HTTPS: relativer URL-Pfad; bei anderen Protokollen: Protokoll-ID. |
+| 4 | k | `k` | String | max. 65 Zeichen | `xxAPIxKEYxx` | **API-Key.** Zugriffsschlüssel, mit dem sich der Logger beim Server authentifiziert. Muss mit der Serverkonfiguration übereinstimmen. |
 | 5 | f | `f` | Uint16 | 0 … 255 | `2` | **Verbindungs-Flags** (Bitmaske): `Bit 0` (1)=Verbose (ausführliches Logging); `Bit 1` (2)=Roaming erlaubt (Standard bei modernen SIMs empfohlen); `Bit 4` (16)=Log-Datei schreiben (max. ~100 kB, nur bei Bedarf); `Bit 5` (32)=UART-Logging; `Bit 7` (128)=Debug. Gerät: `2` = nur Roaming aktiv. |
 | 6 | n | `n` | Uint16 | 0 … 65535 | `0` | **SIM-PIN.** PIN der SIM-Karte als Zahl. `0` = keine PIN (SIM nicht gesperrt). |
 | 7 | u | `u` | String | max. 65 Zeichen | leer | **APN-Benutzername.** Nur bei APN-Authentifizierung erforderlich. In der Regel leer. |
@@ -347,8 +347,8 @@ Die zweite Datei enthält die Einstellungen für die Kommunikation über LTE cat
 | Dateikennung | `I` | `@200` | Gültiger System-Block |
 | APN | `a` | `iot.1nce.net` | 1NCE IoT-SIM, kein Roaming-Problem |
 | Server | `s` | `joembedded.de` | JoEmbedded Datenserver |
-| Script | `c` | `ltx/sw/lxu_v1.php` | PHP-Empfangsskript auf dem Server |
-| API-Key | `k` | `LX1310` | Geräteklassen-Key für Serverauthentifizierung |
+| Script | `c` | `ltx/xxSWxx/lxu_v1.php` | PHP-Empfangsskript auf dem Server |
+| API-Key | `k` | `xxAPIxKEYxx` | Geräteklassen-Key für Serverauthentifizierung |
 | Verbindungs-Flags | `f` | `2` | Bit1: **Roaming erlaubt** |
 | SIM-PIN | `n` | `0` | Keine PIN (SIM nicht gesperrt) |
 | APN-User | `u` | *(leer)* | Keine APN-Authentifizierung |
