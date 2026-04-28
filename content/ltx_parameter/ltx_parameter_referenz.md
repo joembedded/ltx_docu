@@ -1,6 +1,6 @@
 # LTX-Logger – Parameter-Referenz
 
-**Stand:** `V0.10 / 24.04.2026` / (C) JoEmbedded.de
+**Stand:** `V0.11 / 24.04.2026` / (C) JoEmbedded.de
 
 ---
 
