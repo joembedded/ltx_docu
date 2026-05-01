@@ -21,7 +21,10 @@
 - Übertragung per UDP TCP (LoRa Satellit)
 
 ## Thema APP allgemein
-- Terminalkommandos 
+- Terminalkommandos Arten
+- BLX-Kommandos in LOCKED https://github.com/joembedded/blxdashboard/blob/master/jo_notes/blx_commands.txt 
+
+- LTX-Systemkommandos: 'i', 'i3', ... extrahieren aus Projekt
 
 
 ## Thema Sensorik
