@@ -1,7 +1,7 @@
 # JesFS – kompakte Zusammenfassung
 
 ## Was ist JesFS?
-JesFS (Jo's Embedded Serial File System) ist ein leichtgewichtiges Dateisystem für kleine Embedded-Systeme mit seriellen NOR-Flash-Speichern. Es wurde für sehr kleine MCUs ausgelegt (geringer RAM-[...]
+JesFS (Jo's Embedded Serial File System) ist ein leichtgewichtiges Dateisystem für kleine Embedded-Systeme mit seriellen NOR-Flash-Speichern. Es wurde für sehr kleine MCUs ausgelegt und benötigt entsprechend wenig RAM und Flash.
 
 ## Funktionsüberblick
 - **Dateibasiertes Speichern auf NOR-Flash** statt fester Datenstrukturen im Firmware-Code.
