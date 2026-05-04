@@ -47,7 +47,7 @@ Viele der Kommandos können aber auch von remote geschickt werden, z.B. über Lo
 > Dies ist ein **Referenzdokument** und daher recht umfangreich! Für spezielle Aufgabenbereiche
 > wie etwa Parametrierung der SDI-12-Messungen oder Internet-Kommunikation für reguläre Benutzer sind eigene,
 > auf das Thema mehr spezialisierte Dokus vorgesehen.
-> Wichtig: Referenzen auf Funktionsnamen im Programmcode dienen zur internen Orientierung,und haben für Anwender keine Relevanz.
+> Wichtig: Referenzen auf Funktionsnamen im Programmcode dienen lediglich zur internen Orientierung, und haben für Anwender keine Relevanz.
 
 ### relevante Gerätetypen
 
