@@ -1,9 +1,6 @@
 # LTX-Logger Kommando-Referenz
 
 Stand: 2026-05-04  
-Quelle: Firmware-Projekt `LTX-Logger`, insbesondere `jw_libs/ltx_ble.c`,
-`logger_types/osx_main.c`, `logger_types/user_func.c`, `jw_libs/filepool.c`,
-`modem_libs/lora_modem.c` und `Projekt_LTXLogger/device.h`.
 
 
 ## Inhaltsverzeichnis
@@ -50,6 +47,7 @@ Viele der Kommandos können aber auch von remote geschickt werden, z.B. über Lo
 > Dies ist ein **Referenzdokument** und daher recht umfangreich! Für spezielle Aufgabenbereiche
 > wie etwa Parametrierung der SDI-12-Messungen oder Internet-Kommunikation für reguläre Benutzer sind eigene,
 > auf das Thema mehr spezialisierte Dokus vorgesehen.
+> Wichtig: Referenzen auf Funktionsnamen im Programmcode dienen zur internen Orientierung,und haben für Anwender keine Relevanz.
 
 ### relevante Gerätetypen
 
@@ -455,14 +453,6 @@ Logger relevant. Für geschützte Kommandos muss die PIN-Freigabe erfolgt sein.
 
 | Datei | Relevanz |
 |---|---|
-| `Projekt_LTXLogger/device.h` | DEVICE_TYP, Hardwaregruppen, Kanal-/HK-Anzahl |
-| `logger_types/osx_pins.h` | setzt `DEVICE_HAS_INTERNET` bzw. `DEVICE_HAS_LORA` je Plattform |
-| `jw_libs/ltx_ble.c` | BLE-Kommando-Layer, Datei-Up/Download, BLE-Messkommando `e`, Modemterminal `#` |
-| `logger_types/osx_main.c` | `device_cmdline()`, `i`, `@`, Mobilfunk-/LoRa-Spezialkommandos, `menu_parse_payload()` |
-| `logger_types/user_func.c` | Mobilfunk-Downlink-Verarbeitung |
-| `jw_libs/filepool.c` | `x...`-Parameterparser und `xWrite` |
-| `modem_libs/lora_modem.c` | LoRa-Systemkommandos `$...`, LoRa-AT-Terminal |
-| `modem_libs/lora_modem.md` | Detaildokumentation der LoRa-Systemkommandos |
 | `C:\html\ltx_docu\content\ltx_parameter\ltx_parameter_referenz.md` | Detailreferenz für `x...` und Parameterdateien |
 | `C:\html\ltx_docu\content\lora\ltx_lora_at_kommandos.md` | Detailreferenz der LoRaWAN-AT-Kommandos |
 | `C:\html\ltx_docu\content\ltx_typen\logger_Zusammenfassung.md` | Gerätetypen und Funkvarianten |
