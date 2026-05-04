@@ -112,7 +112,7 @@ Verfügbar bei `DEVICE_HAS_SDI12_0`, also bei den betrachteten SDI-12-Loggern.
 |---|---|
 | `Z<kommando>` | komplettes SDI-12-Messkommando ausführen, z. B. `Z*3000 1M`; das abschließende `!` wird nicht mit eingegeben |
 | `z<kommando>` | direktes SDI-12-Kommando senden und Antwortzeilen ausgeben |
-| `z+` | SDI-12-Versorgung dauerhaft einschalten |
+| `z+` | SDI-12-Versorgung dauerhaft (max. 600 sec) einschalten |
 | `z-` | SDI-12-Versorgung ausschalten |
 | `zdbg` / `zdbg0` / `zdbg1` | BLE-SDI-Debugstatus anzeigen bzw. setzen |
 
@@ -122,7 +122,7 @@ Bei `z` kann vor dem SDI-Befehl optional `*<msec>` stehen. Beispiel:
 z*3000 0M
 ```
 
-Damit wird länger auf SDI-12-Antworten gewartet.
+Dies ist die 'Aufwärmzeit' in msec nach dem Anschalten des SDI-12 Busses, bevor das erste SDI-12-Kommando ausgeführt wird. Der Default sind 500 msec (`*500`).
 
 ## Parameter-Kommando `x...`
 
@@ -230,7 +230,7 @@ Modemfamilie wird über `osx_pins.h` gesetzt, z. B. `QUECTEL_BG600L`,
 | `i<flags>` | wie `i`, mit Verbose-/Debugflags; im Code kommentiert: 1 Verbose, 2 ExtraLong, 128 Debug |
 | `m` | Modem ins Netz einbuchen / registrieren |
 | `m<verbose>` | Registrierung mit Verbose-Level |
-| `M` | Modem ausbuchen / abmelden |
+| `M` | Modem ausbuchen / abmelden (aktiv abschalten)|
 | `?` | Signal- und Modeminfo abfragen |
 | `??` | kompakten Modemstatus ausgeben |
 | `@AT...` | direktes AT-Kommando an das Mobilfunkmodem senden |
