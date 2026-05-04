@@ -1,7 +1,7 @@
-# jesFS – kompakte Zusammenfassung
+# JesFS – kompakte Zusammenfassung
 
-## Was ist jesFS?
-jesFS (Jo's Embedded Serial File System) ist ein leichtgewichtiges Dateisystem für kleine Embedded-Systeme mit seriellen NOR-Flash-Speichern. Es wurde für sehr kleine MCUs ausgelegt (geringer RAM-/Code-Bedarf) und fokussiert robuste Datenspeicherung auch bei Spannungsausfall.
+## Was ist JesFS?
+JesFS (Jo's Embedded Serial File System) ist ein leichtgewichtiges Dateisystem für kleine Embedded-Systeme mit seriellen NOR-Flash-Speichern. Es wurde für sehr kleine MCUs ausgelegt (geringer RAM-[...]
 
 ## Funktionsüberblick
 - **Dateibasiertes Speichern auf NOR-Flash** statt fester Datenstrukturen im Firmware-Code.
@@ -11,14 +11,14 @@ jesFS (Jo's Embedded Serial File System) ist ein leichtgewichtiges Dateisystem f
 - **Hohe Lesegeschwindigkeit** für typische Embedded-Auslesevorgänge.
 - **Journaling-/Logging-geeigneter Modus** für sehr viele Schreibzyklen.
 
-## Wie jesFS intern arbeitet (vereinfacht)
+## Wie JesFS intern arbeitet (vereinfacht)
 1. Daten werden als Dateien in Flash-Blöcken abgelegt.
 2. Schreiben erfolgt so, dass NOR-Flash-Eigenschaften (löschen blockweise, schreiben bitweise) berücksichtigt werden.
 3. Verwaltungseinträge (Metadaten) erlauben das Wiederfinden von Dateien nach Neustart.
 4. Beim Erreichen von Grenzen einzelner Bereiche wird auf andere Flash-Bereiche verteilt (Wear-Leveling).
 
 ## Einsatz auf Loggern: warum gut geeignet
-Für Datenlogger ist jesFS besonders passend, weil:
+Für Datenlogger ist JesFS besonders passend, weil:
 - **Viele kleine Messdatensätze** fortlaufend gespeichert werden können.
 - **Ausfallsicherheit** bei Batteriewechseln oder Spannungseinbrüchen wichtig ist.
 - **Lange Laufzeiten** durch flash-schonende Strategien unterstützt werden.
@@ -32,6 +32,9 @@ Für Datenlogger ist jesFS besonders passend, weil:
 - Wartungsfunktionen vorsehen: Speicherstand, Dateianzahl, älteste/neuste Datei, Exportstatus.
 
 ## Grenzen und Hinweise
-- jesFS ist für **NOR-Flash und Embedded** optimiert, nicht als allgemeiner Desktop-Dateisystemersatz gedacht.
+- JesFS ist für **NOR-Flash und Embedded** optimiert, nicht als allgemeiner Desktop-Dateisystemersatz gedacht.
 - Konkrete API-Details und Integrationsschritte hängen vom Ziel-MCU/Board und der Flash-Anbindung (SPI/QSPI) ab.
 - Vor Serienbetrieb sollten Lasttests mit realistischen Schreibprofilen (Intervall, Temperatur, Brownout-Szenarien) durchgeführt werden.
+
+## Quellen / Originaldokumentation
+- JesFS – Originaldokumentation / Projektseite (GitHub): https://github.com/joembedded/jesfs
