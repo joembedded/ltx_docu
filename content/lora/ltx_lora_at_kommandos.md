@@ -7,7 +7,7 @@ Dieses Dokument beschreibt alle AT-Befehle der LoRaWAN-AT-Schnittstelle für die
 
 > [!TIP]
 > Entfernt wurde nicht relevante AT-Kommandos (z.B. für Class B und Class C Betrieb). Bei Unklarheiten: AN5481.
-> Im Text gekennzeichnet ist die Herkunft der Kommandos (AN5481 oder *LTX-erweitert* [LoRaWAN Extended AT Slave 🔒](https://github.com/joembedded/ltx_lora_at_slave) ). 
+> Im Text gekennzeichnet ist die Herkunft der Kommandos (AN5481 oder *LTX-erweitert, für Collaborators* [LoRaWAN Extended AT Slave 🔒](https://github.com/joembedded/ltx_lora_at_slave) ). 
 
 
 > [!IMPORTANT]
