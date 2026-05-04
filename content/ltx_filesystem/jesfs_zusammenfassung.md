@@ -61,7 +61,7 @@ JesFS unterteilt den Flash-Speicher in drei logische Bereiche:
 > - Escape-Sequenz: `0xFE 0x01` als Ersatz für `0xFF`
 > - Oder: ASCII- bzw. Base64-Kodierung der Nutzdaten
 
-**Ergebnis:** Stromausfall, Reset, Brownout – die Daten bis zum letzten vollständig geschriebenen Block bleiben konsistent und sind sofort nach dem Neustart wieder verfügbar. ✅
+**Ergebnis:** Stromausfall, Reset, Brownout – die Daten bis zum letzten vollständig geschriebenen Block bleiben konsistent und sind sofort nach dem Neustart wieder verfügbar.
 
 ---
 
