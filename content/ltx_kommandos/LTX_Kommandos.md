@@ -417,8 +417,8 @@ Filesystem voraus, außer `I/K/L` für internen Speicher.
 | `V` | gründlichen Disk-Check ausführen |
 | `X` | `iparam.lxp` neu einlesen/prüfen; bei Fehler alte Kopie zurückschreiben |
 | `Y` | `sys_param.lxp` neu einlesen/prüfen; bei Fehler alte Kopie zurückschreiben |
-| `T` | BLE/UART | aktuelle Zeit, Runtime und nächste Messzeit abfragen |
-| `R` | BLE/UART | System-Reset |
+| `T` | aktuelle Zeit, Runtime und nächste Messzeit abfragen |
+| `R` | System-Reset |
 
 ## Allgemeine BLE-Kommandos (überwiegend für internen Gebrauch)
 
@@ -426,7 +426,7 @@ Diese Kommandos liegen im BLE-Layer und sind daher für alle BLE-fähigen
 Logger relevant. Für geschützte Kommandos muss die PIN-Freigabe erfolgt sein.
 
 > [!NOTE]
-> Für den regulären Betrieb sind diese Kommandos so gut wie wichtig!
+> Für den regulären Betrieb sind diese Kommandos absolut unwichtig!
 
 | Kommando | Verfügbarkeit | Funktion |
 |---|---|---|
