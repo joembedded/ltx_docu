@@ -49,8 +49,8 @@ Gibt Orientierung bei der Modulauswahl in Bezug auf Energieverbrauch und Batteri
 
 ## Dateisystem
 
-### [jesfs_zusammenfassung.md](ltx_filesystem/jesfs_zusammenfassung.md)
-Kompakter Überblick zu jesFS (Jo's Embedded Serial File System) für serielle NOR-Flash-Speicher.
+### [Jesfs_zusammenfassung.md](ltx_filesystem/jesfs_zusammenfassung.md)
+Kompakter Überblick (rein informativ) zu JesFS (Jo's Embedded Serial File System) für serielle NOR-Flash-Speicher.
 Beschreibt Funktionsprinzip, Logging-Eignung auf LTX-Datenloggern sowie praktische Einsatzempfehlungen für robuste, flash-schonende Messdatenspeicherung.
 
 ---
@@ -64,4 +64,4 @@ Beschreibt Funktionsprinzip, Logging-Eignung auf LTX-Datenloggern sowie praktisc
 | [ltx_parameter_referenz.md](ltx_parameter/ltx_parameter_referenz.md) | Parameterdateien, `x...`-Kommandos | Parametrierung, Konfiguration |
 | [ltx_lora_at_kommandos.md](lora/ltx_lora_at_kommandos.md) | LoRaWAN-AT-Kommandos (vollständig) | LoRa-Inbetriebnahme |
 | [energie_vergleich.md](lora/energie_vergleich.md) | LoRa-Modulvergleich Stromverbrauch | Hardware-Auswahl |
-| [jesfs_zusammenfassung.md](ltx_filesystem/jesfs_zusammenfassung.md) | jesFS-Dateisystem für Logger | Speicher-/Firmware-Konzept |
+| [jesfs_zusammenfassung.md](ltx_filesystem/jesfs_zusammenfassung.md) | JesFS-Dateisystem für Logger | Speicher-/Firmware-Konzept |
