@@ -11,7 +11,7 @@ JesFS (Jo's Embedded Serial File System) ist ein leichtgewichtiges Dateisystem f
 - **Hohe Lesegeschwindigkeit** für typische Embedded-Auslesevorgänge.
 - **Journaling-/Logging-geeigneter Modus** für sehr viele Schreibzyklen.
 
-**Besonderheit („unclosed files“):** Bei einem plötzlichen Reset/Power-Loss kann es vorkommen, dass eine zuletzt beschriebene Datei nicht „sauber geschlossen“ wurde. JesFS ist darauf ausgelegt, dass das Dateisystem dabei dennoch konsistent bleibt: Die betroffene Datei ist als unvollständig erkennbar und kann beim nächsten Start gezielt verworfen, gekürzt (bis zum letzten gültigen Datensatz) oder finalisiert werden. Für Logger ist das hilfreich, weil typischerweise höchstens der letzte angefangene Schreibabschnitt betroffen ist – nicht der gesamte Datenbestand.
+**Besonderheit („unclosed files“):** JesFS kommt ohne klassisches „Close, um Metadaten zu finalisieren“ aus, wie man es von Dateisystemen mit separater File-Allocation-Table (FAT) bzw. zusätzlichen Verzeichnis-/Metadaten-Updates kennt. Sobald ein Datenblock/Dateifragment im Flash geschrieben und verifiziert ist, ist er bereits ein gültiger, wiederfindbarer Bestandteil des Dateisystems – ein späteres „Datei schließen“ ist nicht nötig, um die Daten abzusichern. Das reduziert zusätzliche Schreibzugriffe (weniger Metadaten-Updates), spart Flash-Verschleiß und erhöht die Resilienz bei Power-Loss, weil kein zweiter, separater Update-Schritt (z. B. FAT/Directory-Eintrag) mehr „verpasst“ werden kann.
 
 ## Wie JesFS intern arbeitet (vereinfacht)
 1. Daten werden als Dateien in Flash-Blöcken abgelegt.
