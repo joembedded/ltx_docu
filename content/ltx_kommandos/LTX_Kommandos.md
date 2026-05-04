@@ -90,19 +90,19 @@ manueller Terminal-/BLE-Eingabe ist nach `x...`-Änderungen normalerweise
 Diese Kommandos sind für alle drei Gruppen relevant, soweit die jeweilige
 Hardware die benötigte Funktion besitzt.
 
-| Kommando | Gruppe | Funktion |
-|---|---|---|
-| `e` | alle Logger mit `HK_FLAGS` | Messung sofort auslösen. BLE liefert Kanalwerte als `~#<kanal>:` und HK-Werte als `~H<kanal>:` zurück |
-| `e<flags>` | lokale UART | Messung mit Flags: Bit 0 HK erzwingen, Bit 1 Messung loggen, Bit 2 Hello-Flags behalten |
-| `n` | Logger mit Filesystem | neue Messreihe starten: Log-/Daten-Dateien löschen, nächste Messung planen |
-| `n1` | Logger mit Filesystem | Disk soft formatieren, Parameter zurückschreiben, neue Messreihe starten |
-| `l[anzahl]` | alle Logger mit Filesystem | `logfile.txt` ausgeben; Standardwert 250 Zeilen |
-| `W FactoryWrite` | alle Logger | aktuelle System-, I- und Kanalparameter als Factory-Setup in internes NVM schreiben |
-| `W FactoryRestore` | alle Logger | Factory-Setup aus internem NVM laden |
-| `W FactoryDelete` | alle Logger | Factory-Setup im internen NVM löschen |
-| `W FactoryReset` | alle Logger | Flash soft formatieren, danach Reset |
-| `=` | alle Logger | interne CPU-Spannung ausgeben |
-| `E` | Logger mit HK-Energiekanal | Roh-Energiezähler in mAh ausgeben |
+| Kommando | Funktion |
+|---|---|
+| `e` | Messung sofort auslösen. BLE liefert Kanalwerte als `~#<kanal>:` und HK-Werte als `~H<kanal>:` zurück |
+| `e<flags>` | Messung mit Flags: Bit 0 HK erzwingen, Bit 1 Messung loggen, Bit 2 Hello-Flags behalten |
+| `n` | neue Messreihe starten: Log-/Daten-Dateien löschen, nächste Messung planen |
+| `n1` | Disk soft formatieren, Parameter zurückschreiben, neue Messreihe starten |
+| `l[anzahl]` | `logfile.txt` ausgeben; Standardwert 250 Zeilen |
+| `W FactoryWrite` | aktuelle System-, I- und Kanalparameter als Factory-Setup in internes NVM schreiben |
+| `W FactoryRestore` | Factory-Setup aus internem NVM laden |
+| `W FactoryDelete` | Factory-Setup im internen NVM löschen |
+| `W FactoryReset` | Flash soft formatieren, danach Reset |
+| `=` | interne CPU-Spannung ausgeben |
+| `E` | Roh-Energiezähler in mAh ausgeben |
 
 ## SDI-12-Kommandos
 
