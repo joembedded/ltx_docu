@@ -6,6 +6,10 @@ Einstiegsdokument für die LTX-Logger-Dokumentation. Alle inhaltlichen Dokumente
 
 ---
 
+> [!IMPORTANT]
+> **An diesem Dokument und Unter-Dokumenten wird noch gearbeitet!**
+> Bitte bei ungeklärten Fragen direkt melden!
+
 ## Gerätetypen und Hardware
 
 ### [logger_Zusammenfassung.md](ltx_typen/logger_Zusammenfassung.md)

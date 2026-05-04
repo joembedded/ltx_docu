@@ -6,6 +6,36 @@ Quelle: Firmware-Projekt `LTX-Logger`, insbesondere `jw_libs/ltx_ble.c`,
 `modem_libs/lora_modem.c` und `Projekt_LTXLogger/device.h`.
 
 
+## Inhaltsverzeichnis
+
+- [LTX-Logger Kommando-Referenz](#ltx-logger-kommando-referenz)
+  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Vorbemerkung](#vorbemerkung)
+    - [relevante Gerätetypen](#relevante-gerätetypen)
+  - [Kommunikationswege](#kommunikationswege)
+  - [Gemeinsame Logger-Kommandos](#gemeinsame-logger-kommandos)
+  - [SDI-12-Kommandos](#sdi-12-kommandos)
+  - [Parameter-Kommando `x...`](#parameter-kommando-x)
+    - [Syntax in dieser Firmware](#syntax-in-dieser-firmware)
+    - [Beispiele](#beispiele)
+    - [Wichtige Parameter für Funkbetrieb](#wichtige-parameter-für-funkbetrieb)
+  - [Gruppe: Kein Modem](#gruppe-kein-modem)
+  - [Gruppe: Mobilfunk-Modem](#gruppe-mobilfunk-modem)
+    - [Mobilfunk-Kommandos](#mobilfunk-kommandos)
+    - [Mobilfunk-Downlink-Kommandos](#mobilfunk-downlink-kommandos)
+    - [Direktes Mobilfunk-Terminal](#direktes-mobilfunk-terminal)
+  - [Gruppe: LoRa-Modem](#gruppe-lora-modem)
+    - [LTX-LoRa-Kommandos auf Logger-Ebene](#ltx-lora-kommandos-auf-logger-ebene)
+    - [LTX-LoRa-Systemkommandos (`@$...`)](#ltx-lora-systemkommandos-)
+    - [LoRa-AT-Kommandos](#lora-at-kommandos)
+    - [LoRa-Downlink-Kommandos](#lora-downlink-kommandos)
+  - [Kurztabelle nach Gruppe](#kurztabelle-nach-gruppe)
+  - [Datei- und Speicherkommandos über BLE](#datei--und-speicherkommandos-über-ble)
+  - [Allgemeine BLE-Kommandos (überwiegend für internen Gebrauch)](#allgemeine-ble-kommandos-überwiegend-für-internen-gebrauch)
+  - [Quellen im Projekt](#quellen-im-projekt)
+
+---
+
 ## Vorbemerkung
 
 Die LTX-Logger haben zwar dem Benuzer gegenüber in den jeweiligen UIs Buttons z.B. für Messung ausführen, Internet-Übertragung, Zeit setzen, etc... Aber auf unterer Ebene werden diese zumeist in ASCII-Kommandos übersetzt, 
@@ -46,56 +76,16 @@ setzt `DEVICE_HAS_LORA` direkt in `device.h`.
 | LoRa-Downlink | `menu_parse_payload()` in `logger_types/osx_main.c` | ASCII-Kommandos werden zerlegt und wie Kommandozeilen-Kommandos verarbeitet |
 
 Downlink-Payloads dürfen mehrere Kommandos enthalten. `menu_parse_payload()`
-trennt bei `|` und bei Steuerzeichen kleiner Space. Beispiel:
+trennt bei `|` und bei Steuerzeichen kleiner Space. Beispiel (für Gerät mit LoRa-Modem):
 
 ```text
-xip600|xih31|xWrite
+xip600|xih31|x@AT+DR=3
 ```
 
 Bei Loggern (`DEVICE_TYP > 1000`) werden Parameteränderungen nach der
 Downlink-Verarbeitung automatisch mit `slfix_changes()` gespeichert. Bei
 manueller Terminal-/BLE-Eingabe ist nach `x...`-Änderungen normalerweise
 `xWrite` erforderlich.
-
-## Allgemeine BLE-Kommandos
-
-Diese Kommandos liegen im BLE-Layer und sind daher für alle BLE-fähigen
-Logger relevant. Für geschützte Kommandos muss die PIN-Freigabe erfolgt sein.
-
-| Kommando | Verfügbarkeit | Funktion |
-|---|---|---|
-| leeres Kommando | nach PIN | Antwort `OK` |
-| `~` | BLE | Hello/Handshake. Antwort enthält MTU und 16-Byte-MAC in zwei 32-Bit-Hälften: `~B:<mtu> <mac_h><mac_l>` |
-| `/ <challenge-response>` | BLE | PIN/Challenge freischalten. Antwort `~V:<device_type> <fw> <boot_cookie> <cpu> <inet>` |
-| `T` | BLE/UART | aktuelle Zeit, Runtime und nächste Messzeit abfragen |
-| `T<unix>` | BLE/UART | Unix-Zeit setzen; bei RTC-Hardware wird die RTC mit gesetzt |
-| `C` | BLE | BLE-Connection-Intervall abfragen |
-| `CS` | BLE | Standard-Connection-Intervall setzen |
-| `CF` | BLE | schnelles Connection-Intervall setzen |
-| `C<wert>` | BLE | Connection-Intervall numerisch setzen |
-| `R` | BLE/UART | System-Reset |
-| `R<wert>` | BLE | bei gesetztem Wert Full-Reset-Marker setzen, dann Reset |
-
-## Datei- und Speicherkommandos über BLE
-
-Diese Kommandos werden vom BLX-Dashboard für Parameterdateien, Messdaten und
-Firmware-/Speicheroperationen verwendet. Sie setzen ein vorhandenes
-Filesystem voraus, außer `I/K/L` für internen Speicher.
-
-| Kommando | Funktion |
-|---|---|
-| `v` | Verzeichnis / virtuelle Disk listen |
-| `V` | gründlichen Disk-Check ausführen |
-| `X` | `iparam.lxp` neu einlesen/prüfen; bei Fehler alte Kopie zurückschreiben |
-| `Y` | `sys_param.lxp` neu einlesen/prüfen; bei Fehler alte Kopie zurückschreiben |
-| `D:<datei>` | Datei löschen |
-| `P:<datei>` | Datei zum Upload öffnen; danach Binärblöcke senden |
-| `P!:<datei>` | Upload mit External-Sync-Flag öffnen |
-| `L` | laufenden Upload/Speichertransfer schließen; Antwort `~L:<bytes>` |
-| `N:<datei>` | Datei zum Download öffnen; Antwort `~N:<len> <ctime>` |
-| `G[<len> [<pos>]]` | nach `N:` Datei ganz oder teilweise senden |
-| `K:<addr> <len>` | interne Flash-Sektoren ab Adresse löschen |
-| `I:<addr>` | internen Flash zum Schreiben öffnen |
 
 ## Gemeinsame Logger-Kommandos
 
@@ -115,7 +105,6 @@ Hardware die benötigte Funktion besitzt.
 | `W FactoryReset` | alle Logger | Flash soft formatieren, danach Reset |
 | `=` | alle Logger | interne CPU-Spannung ausgeben |
 | `E` | Logger mit HK-Energiekanal | Roh-Energiezähler in mAh ausgeben |
-| `&[wert]` | Service | Factory-Test-Lock anzeigen/setzen |
 
 ## SDI-12-Kommandos
 
@@ -187,13 +176,13 @@ Werte fachlich vorsehen.
 | `xis0` | Internet-/Funk-Übertragungs-Offset auf 0 s setzen |
 | `xi0a1` | Kanal 0 Action auf 1 setzen |
 | `xi0p768` | Kanal 0 physikalischen Kanal auf 768 setzen, typisch SDI-12 Bus 0 |
-| `xi0um` | Kanal 0 Einheit auf `m` setzen; Strings beginnen direkt nach dem Mnemonic |
+| `xi3um` | Kanal 3 Einheit auf `m` setzen; Strings beginnen direkt nach dem Mnemonic |
 | `xi0x*1800 0MC` | Kanal 0 Xbytes/SDI-12-Messkommando setzen |
 | `xsaiot.1nce.net` | APN setzen |
 | `xssjoembedded.de` | Server setzen |
 | `xsp80` | Port setzen |
 | `xso0` | Mobilfunk-/LoRa-Protokollfeld setzen |
-| `xWrite` | Änderungen dauerhaft speichern |
+| `xWrite` | Änderungen dauerhaft speichern (wichtig bei lokalen Änderungen, remote wird automatisch gespeichert) |
 
 ### Wichtige Parameter für Funkbetrieb
 
@@ -417,6 +406,50 @@ der bevorzugte Weg; komplette Dateien sind für LoRa normalerweise zu groß.
 | `m`, `M`, `?`, `%`, `$` | nein | ja | nein |
 | `q`, `g`, `k` | nein | optional GPS/QLBS | nein |
 | Datei-BLE `P/N/G/L/D/v/V/X/Y` | ja | ja | ja |
+
+## Datei- und Speicherkommandos über BLE
+
+Diese Kommandos werden vom BLX-Dashboard für Parameterdateien, Messdaten und
+Firmware-/Speicheroperationen verwendet. Sie setzen ein vorhandenes
+Filesystem voraus, außer `I/K/L` für internen Speicher.
+
+| Kommando | Funktion |
+|---|---|
+| `v` | Verzeichnis / virtuelle Disk listen |
+| `V` | gründlichen Disk-Check ausführen |
+| `X` | `iparam.lxp` neu einlesen/prüfen; bei Fehler alte Kopie zurückschreiben |
+| `Y` | `sys_param.lxp` neu einlesen/prüfen; bei Fehler alte Kopie zurückschreiben |
+| `T` | BLE/UART | aktuelle Zeit, Runtime und nächste Messzeit abfragen |
+| `R` | BLE/UART | System-Reset |
+
+## Allgemeine BLE-Kommandos (überwiegend für internen Gebrauch)
+
+Diese Kommandos liegen im BLE-Layer und sind daher für alle BLE-fähigen
+Logger relevant. Für geschützte Kommandos muss die PIN-Freigabe erfolgt sein.
+
+> [!NOTE]
+> Für den regulären Betrieb sind diese Kommandos so gut wie wichtig!
+
+| Kommando | Verfügbarkeit | Funktion |
+|---|---|---|
+| leeres Kommando | nach PIN | Antwort `OK` |
+| `~` | BLE | Hello/Handshake. Antwort enthält MTU und 16-Byte-MAC in zwei 32-Bit-Hälften: `~B:<mtu> <mac_h><mac_l>` |
+| `/ <challenge-response>` | BLE | PIN/Challenge freischalten. Antwort `~V:<device_type> <fw> <boot_cookie> <cpu> <inet>` |
+| `T<unix>` | BLE/UART | Unix-Zeit setzen; bei RTC-Hardware wird die RTC mit gesetzt |
+| `C` | BLE | BLE-Connection-Intervall abfragen |
+| `CS` | BLE | Standard-Connection-Intervall setzen |
+| `CF` | BLE | schnelles Connection-Intervall setzen |
+| `C<wert>` | BLE | Connection-Intervall numerisch setzen |
+| `R<wert>` | BLE | bei gesetztem Wert Full-Reset-Marker setzen, dann Reset |
+| `D:<datei>` | Datei löschen |
+| `P:<datei>` | Datei zum Upload öffnen; danach Binärblöcke senden |
+| `P!:<datei>` | Upload mit External-Sync-Flag öffnen |
+| `L` | laufenden Upload/Speichertransfer schließen; Antwort `~L:<bytes>` |
+| `N:<datei>` | Datei zum Download öffnen; Antwort `~N:<len> <ctime>` |
+| `G[<len> [<pos>]]` | nach `N:` Datei ganz oder teilweise senden |
+| `K:<addr> <len>` | interne Flash-Sektoren ab Adresse löschen |
+| `I:<addr>` | internen Flash zum Schreiben öffnen |
+| `&[wert]` | (internes) Factory-Test-Lock anzeigen/setzen |
 
 ## Quellen im Projekt
 
