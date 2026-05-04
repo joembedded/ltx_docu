@@ -13,7 +13,6 @@
 - Grundidee LoRa
 - Verschiedene Stacks
 - Datarate/ADR
-- Direkte AT-Kommandos
 
 
 ## Thema Mobilfunk
@@ -22,10 +21,7 @@
 
 ## Thema APP allgemein
 - Terminalkommandos Arten
-- BLX-Kommandos in LOCKED https://github.com/joembedded/blxdashboard/blob/master/jo_notes/blx_commands.txt 
-
-- LTX-Systemkommandos: 'i', 'i3', ... extrahieren aus Projekt
-
+- Demos LTX-Systemkommandos: 'i', 'i3', ... extrahieren aus Projekt
 
 ## Thema Sensorik
 - SDI-12 Allgemein
