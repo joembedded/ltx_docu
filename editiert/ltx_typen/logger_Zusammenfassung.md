@@ -255,6 +255,10 @@ Passt in Polycarbonat und ALU-Variante (ALU: Externe BLE Antenne möglich):
 
 *„BoPla" mit LTE-Modem und AA-Batteriehalter (Typ1800)*
 
+![BoPla mit LTE-Modem im Gehäuse (Polycarbonat)](../img/T1800_ABS_H.jpg)
+
+*„BoPla" mit LTE-Modem und im Gehäuse (Polycarbonat) (Typ1800)*
+
 #### Mechanische Daten
 
 | Parameter | Wert |

@@ -1,6 +1,6 @@
 # LTX-Logger Dokumentation – Übersicht
 
-Stand: 2026-05-04
+Stand: 2026-05-08
 
 Einstiegsdokument für die LTX-Logger-Dokumentation. Alle inhaltlichen Dokumente liegen im selben Verzeichnis `content/`.
 
@@ -47,6 +47,18 @@ Erklärt das Dateiformat (zeilenweise ASCII), alle Kanalparameter, Systemparamet
 
 ---
 
+## Datenfiles
+
+### [ltx_fileformat_edt.md](ltx_datenfiles/ltx_fileformat_edt.md)
+Referenz des LTX Easy-Data-Textformats (`*.edt`) für Messwertdateien wie `data.edt`, `data.edt.bak` und `data.edt.old`.
+Beschreibt Dateirotation und BLE-Synchronisation, Info-Tags (`<...>`), Tabellenköpfe (`!U`), Messzeilen (`!`), UTC- und Relativzeiten, Kanal-/HK-Zuordnung, Fehlerwerte, alarmierte Werte sowie Base64-codierte Binärpayloads (`$...`) inklusive Token-Referenz und Empfehlungen zur Speicheroptimierung.
+
+> Hinweis: neben regulären Datenfiles sind auf den Geräten auch andere Filestypen, z.B. Logdateien, Firmware oder Kalibrierdaten möglich. Genauere Beschreibungen folgen. *todo*
+
+
+---
+
+
 ## LoRa
 
 ### [ltx_lora_at_kommandos.md](lora/ltx_lora_at_kommandos.md)
@@ -80,6 +92,7 @@ Beschreibt Funktionsprinzip, Logging-Eignung auf LTX-Datenloggern sowie praktisc
 | [blx_commands.md](blx_dashboard/blx_commands.md) | BLX Dashboard SysCommands, Store, Dateioperationen | BLE-App-Nutzung, Inbetriebnahme |
 | [LTX_Kommandos.md](ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) | Integration, Service |
 | [ltx_parameter_referenz.md](ltx_parameter/ltx_parameter_referenz.md) | Parameterdateien, `x...`-Kommandos | Parametrierung, Konfiguration |
+| [ltx_fileformat_edt.md](ltx_datenfiles/ltx_fileformat_edt.md) | EDT-Messdatenformat, CSV-Expansion, Payload-Decoding | Datenanalyse, Import, Service |
 | [ltx_lora_at_kommandos.md](lora/ltx_lora_at_kommandos.md) | LoRaWAN-AT-Kommandos (vollständig) | LoRa-Inbetriebnahme |
 | [lora_payload.md](lora/lora_payload.md) | LoRa-Payload, Uplink-Decoder, Downlink-Kommandos | Plattform-Integration |
 | [energie_vergleich.md](lora/energie_vergleich.md) | LoRa-Modulvergleich Stromverbrauch | Hardware-Auswahl |
