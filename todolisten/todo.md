@@ -8,6 +8,8 @@
 	- Alarme
 	- Cache
 	- Linearisierung
+- Erklärung EDT-Format
+- PayOff: C:\dokus\doku_ltx\PayOff_KomprimiertePayloadInEDT.txt
 
 ## Thema LoRa
 - Grundidee LoRa

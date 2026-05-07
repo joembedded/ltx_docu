@@ -1,12 +1,12 @@
 # Zusammenfassung: LTX Logger mit SDI-12 – Varianten
 
-**Version:** V0.3 / 28.04.2026 / JoEm
+**Version:** V0.4 / 07.05.2026 / JoEm
 
 ---
 
 ## Inhaltsverzeichnis
 
-- [Zusammenfassung: LTX Logger mit SDI-12 - Varianten](#zusammenfassung-ltx-logger-mit-sdi-12---varianten)
+- [Zusammenfassung: LTX Logger mit SDI-12 – Varianten](#zusammenfassung-ltx-logger-mit-sdi-12--varianten)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
   - [1. Übersicht](#1-übersicht)
   - [2. Mobilfunk- und Funktechnologien](#2-mobilfunk--und-funktechnologien)
@@ -30,6 +30,7 @@
       - [Extras](#extras)
       - [Varianten](#varianten-1)
       - [Beispiele 'in Bildern'](#beispiele-in-bildern)
+    - [3.3 Integrierter Speicher](#33-integrierter-speicher)
   - [4. Energiebetrachtung – Beispiel Tensiomark (3 Sensoren)](#4-energiebetrachtung--beispiel-tensiomark-3-sensoren)
     - [Sensorparameter (TensioMark)](#sensorparameter-tensiomark)
     - [4.1 „BoPla"](#41-bopla)
@@ -355,6 +356,37 @@ Einige Bilder:
 ![Typ2000 – Kleiner Logger ('Midi'), kein Modem, mit präziser Uhr](../img/t2000_sdi12midi_logger.png)
 
 *Typ2000 – Kleiner Logger ('Midi'), kein Modem, mit präziser Uhr*
+
+---
+
+### 3.3 Integrierter Speicher
+
+**Bestückung:**
+
+- Speichergrößen bis **16 MB** sind vorgesehen; die maximale bestückbare Größe wird oft durch die Gehäusebauform begrenzt.
+- Typen **≥ 1500** werden üblicherweise mit **8 MB** bestückt. Bei Chip-Engpässen sind auch 4 MB, 2 MB oder 1 MB möglich.
+
+**Betriebsmodi:**
+
+| Modus | Beschreibung |
+|---|---|
+| **Ringspeicher** *(Default)* | 50–100 % der Speichergröße als historische Daten verfügbar; Gerät überschreibt älteste Daten automatisch – ähnlich einem Flugschreiber. Speicher pflegt sich selbst. |
+| **Linearbetrieb** *(explizit einzustellen)* | Gerät stoppt die Aufzeichnung, sobald der Speicher voll ist. |
+
+> [!TIP]
+> Hintergrund zum Ringspeicher-Konzept (JesFs Black-Box): <https://github.com/joembedded/JesFs/tree/master/usecase_BlackBox/readme.md>
+
+**Speicherverbrauch (Überschlag):**
+
+Messwerte werden per Default im Textformat (**EDT-Format**, siehe *ltx_datenfiles*) gespeichert. Die Anzahl der Nachkommastellen ist pro Kanal konfigurierbar und beeinflusst den Verbrauch direkt. Faustregel bei ca. 8 Zeichen/Wert (Anzahl Messwert mind. ca.):
+
+| Speichergröße | Historische Messwerte bei Ringspeicher | Linearspeicher |
+|---|---|---|
+| 1 MB | 100.000 | 200.000 |
+| 8 MB | 400.000 | 800.000 |
+
+> [!NOTE]
+> Es ist auch ein **komprimiertes Format (Base64)** einstellbar in den Parametern des Gerätes, das ca. das 2- bis 6-Fache an Daten speichern kann. Es ist jedoch schlechter direkt lesbar; die Standardeinstellung ist daher Text.
 
 ---
 
