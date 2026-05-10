@@ -31,7 +31,7 @@
 
 ## Thema APP allgemein
 - Terminalkommandos Arten
-- Demos LTX-Systemkommandos: 'i', 'i3', ... extrahieren aus Projekt
+- Demos LTX-Systemkommandos: 'i', 'i3', 'i131' ... extrahieren aus Projekt
 
 
 
