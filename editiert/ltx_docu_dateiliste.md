@@ -84,6 +84,14 @@ Beschreibt Funktionsprinzip, Logging-Eignung auf LTX-Datenloggern sowie praktisc
 
 ---
 
+## Mobilfunk
+
+### [mobileErrors.md](ltx_mobile/mobileErrors.md)
+Strukturierte Fehlercode-Referenz für häufige Mobilfunkprobleme in LTX-Projekten.
+Enthält die Bereiche Modem Basic, UDP, HTTP, Content, GPRS_TRANSFER und LFTP mit typischen Fehlercodes und Kurzbeschreibung.
+
+---
+
 ## Schnellübersicht
 
 | Dokument | Thema | Zielgruppe |
@@ -97,3 +105,4 @@ Beschreibt Funktionsprinzip, Logging-Eignung auf LTX-Datenloggern sowie praktisc
 | [lora_payload.md](lora/lora_payload.md) | LoRa-Payload, Uplink-Decoder, Downlink-Kommandos | Plattform-Integration |
 | [energie_vergleich.md](lora/energie_vergleich.md) | LoRa-Modulvergleich Stromverbrauch | Hardware-Auswahl |
 | [jesfs_zusammenfassung.md](ltx_filesystem/jesfs_zusammenfassung.md) | JesFS-Dateisystem für Logger | Speicher-/Firmware-Konzept |
+| [mobileErrors.md](ltx_mobile/mobileErrors.md) | Häufige Mobilfunk-Fehlercodes | Service, Diagnose |

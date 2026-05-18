@@ -28,6 +28,7 @@
 - Allgemeines SIM / LTE /LTE-M / LTE-N
 - Übertragung per UDP TCP (LoRa, Satellit, ...)
 - Allgemeine BestPractices
+- MobileErrors.txt
 
 ## Thema APP allgemein
 - Terminalkommandos Arten
