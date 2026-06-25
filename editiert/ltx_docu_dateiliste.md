@@ -16,6 +16,10 @@ Einstiegsdokument für die LTX-Logger-Dokumentation. Alle inhaltlichen Dokumente
 Übersicht aller LTX-Logger-Varianten mit SDI-12-Unterstützung (Typen 1500–3000).
 Beschreibt verfügbare Mobilfunk- und Funktechnologien (LTE Cat1, LTE-M, NB-IoT, LoRa EU868), Hardware-Baukästen („BoPla"-Trägerplatine, „2-Zoll"-Logger), Energiebetrachtungen sowie eine Jahresbetrieb-Beispielberechnung.
 
+### [LTX_T1720_LoRaWAN.MD](ltx_typen/LTX_T1720_LoRaWAN.MD)
+Kurz-Datenblatt für den SDI-12-Datenlogger LTX Typ 1720 mit LoRaWAN EU868.
+Enthält Merkmale, technische Daten, lokale Datensicherung, Hinweise zum LoRaWAN-Modem sowie den Vergleich zum LTX Typ 1820 (gleicher Modemkern, unterschiedliche Batterie- und Gehäusekonzepte).
+
 ---
 
 ## BLX Dashboard
@@ -97,6 +101,7 @@ Enthält die Bereiche Modem Basic, UDP, HTTP, Content, GPRS_TRANSFER und LFTP mi
 | Dokument | Thema | Zielgruppe |
 |---|---|---|
 | [logger_Zusammenfassung.md](ltx_typen/logger_Zusammenfassung.md) | Gerätetypen, Hardware, Funkoptionen | Projektplanung, Inbetriebnahme |
+| [LTX_T1720_LoRaWAN.MD](ltx_typen/LTX_T1720_LoRaWAN.MD) | Typ-1720-Datenblatt, LoRaWAN, Energieversorgung | Geräteauswahl, LoRa-Projekte |
 | [blx_commands.md](blx_dashboard/blx_commands.md) | BLX Dashboard SysCommands, Store, Dateioperationen | BLE-App-Nutzung, Inbetriebnahme |
 | [LTX_Kommandos.md](ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) | Integration, Service |
 | [ltx_parameter_referenz.md](ltx_parameter/ltx_parameter_referenz.md) | Parameterdateien, `x...`-Kommandos | Parametrierung, Konfiguration |
