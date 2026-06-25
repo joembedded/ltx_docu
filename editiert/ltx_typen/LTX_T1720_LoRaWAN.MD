@@ -103,9 +103,13 @@ Die Inbetriebnahme und Wartung erfolgen lokal per Bluetooth mit dem
 **BLX Dashboard**. Darüber lassen sich unter anderem Sensorabfragen,
 Messintervalle, Geräteparameter und Diagnoseinformationen bearbeiten.
 
+<img src="../img/blxDashboard_preview640x480.png" alt="BLX Dashboard zur Bluetooth-Bedienung von LTX-Loggern" width="420">
+
+*BLX Dashboard: Bluetooth-App zur Bedienung und Konfiguration von LTX-Loggern vor Ort.*
+
 Für die Cloud-Anbindung stehen offene Softwarekomponenten zur Verfügung:
 
-- [BLX Dashboard](https://github.com/joembedded/JoEm-Dashboard)
+- [BLX Dashboard](https://github.com/joembedded/ltx_ble_demo)
 - [LTX Payload Decoder](https://github.com/joembedded/payload-decoder)
 - [LTX Microcloud](https://github.com/joembedded/LTX_Server)
 

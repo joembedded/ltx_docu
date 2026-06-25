@@ -24,6 +24,10 @@ Enthält Merkmale, technische Daten, lokale Datensicherung, Hinweise zum LoRaWAN
 
 ## BLX Dashboard
 
+<img src="img/blxDashboard_preview640x480.png" alt="BLX Dashboard Bluetooth-App fuer LTX-Logger" width="360">
+
+*Bluetooth-App zur Bedienung und Konfiguration von LTX-Loggern.*
+
 ### [blx_commands.md](blx_dashboard/blx_commands.md)
 Vollständige Kommando-Referenz für das BLX Dashboard (Web-App zur BLE-Kommunikation mit LTX-Loggern).
 Beschreibt alle SysCommands (beginnen mit `.`), den internen Browser-Store (IndexedDB), Audio-Funktionen,

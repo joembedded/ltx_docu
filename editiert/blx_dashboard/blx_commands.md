@@ -11,22 +11,46 @@
 
 ## Inhaltsverzeichnis
 
-- [Übersicht](#übersicht)
-- [SysCommands – Befehle beginnend mit `.`](#syscommands-befehle-beginnend-mit-)
-  - Terminal-Steuerung: `.?` · `.q`/`.quit` · `.cls`
-  - Store: `.s`/`.store` mit Unterbefehlen `v`, `c`, `r`, `l`, `m`
-  - Export: `.e`/`.export`
-  - Audio: `.a`/`.audio` · `.f`
-  - Verbindungsoptionen: `.k`/`.keep` · `.rs`/`.rssi` · `.cf`/`.connectionfast` · `.bfast`/`.bslow`
-  - Terminal-Anzeige: `.l`/`.lines` · `.sl`/`.sleep`
-  - BLE-Verbindung: `.c`/`.connect` · `.d`/`.disconnect` · `.r`/`.reconnect` · `.i`/`.identify`
-  - Gerätefunktionen: `.m`/`.memory` · `.u`/`.upload` · `.x`/`.xtract`
-  - Dateisystem: `.g`/`.get` · `.p`/`.put` · `.memput` · `.fput` · `.del` · `.firmware`
-  - Systemkommandos: `.reset` · `.t`/`.time` · `.devicelist`
-  - Skripting: `.crun` · `.expect` · `.shell`
-- [Systemvariablen im Store](#systemvariablen-im-store)
-- [Hinweise zur Browserkompatibilität](#hinweise-zur-browserkompatibilität)
-- [Quellen und weiterführende Informationen](#quellen-und-weiterführende-informationen)
+- [BLX Dashboard – Kommando-Referenz](#blx-dashboard--kommando-referenz)
+  - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Übersicht](#übersicht)
+  - [SysCommands (Befehle beginnend mit `.`)](#syscommands-befehle-beginnend-mit-)
+    - [`.?`](#)
+    - [`.q` / `.quit`](#q--quit)
+    - [`.cls`](#cls)
+    - [`.s [Unterbefehl]` / `.store [Unterbefehl]`](#s-unterbefehl--store-unterbefehl)
+      - [Unterbefehle:](#unterbefehle)
+    - [`.e [KEY]` / `.export [KEY]`](#e-key--export-key)
+    - [`.a [[RSSI] TERM]` / `.audio [[RSSI] TERM]`](#a-rssi-term--audio-rssi-term)
+    - [`.f [FRQ [DUR [VOL]]]`](#f-frq-dur-vol)
+    - [`.k [CONT]` / `.keep [CONT]`](#k-cont--keep-cont)
+    - [`.rs [SHOW_RSSI]` / `.rssi [SHOW_RSSI]`](#rs-show_rssi--rssi-show_rssi)
+    - [`.cf [[VAL_FS] VAL_MEM]` / `.connectionfast [[VAL_FS] VAL_MEM]`](#cf-val_fs-val_mem--connectionfast-val_fs-val_mem)
+    - [`.bfast` / `.bslow`](#bfast--bslow)
+    - [`.l [ANZ]` / `.lines [ANZ]`](#l-anz--lines-anz)
+    - [`.sl MSEC` / `.sleep MSEC`](#sl-msec--sleep-msec)
+    - [`.c [PIN [CTRIES]]` / `.connect [PIN [CTRIES]]`](#c-pin-ctries--connect-pin-ctries)
+    - [`.d` / `.disconnect`](#d--disconnect)
+    - [`.r [PIN]` / `.reconnect [PIN]`](#r-pin--reconnect-pin)
+    - [`.i [PIN]` / `.identify [PIN]`](#i-pin--identify-pin)
+    - [`.m` / `.memory`](#m--memory)
+    - [`.u` / `.upload`](#u--upload)
+    - [`.x [MAC]` / `.xtract [MAC]`](#x-mac--xtract-mac)
+    - [`.g FNAME [pos0 [anz]]` / `.get FNAME [pos0 [anz]]`](#g-fname-pos0-anz--get-fname-pos0-anz)
+    - [`.p [SYNCFLAG]` / `.put [SYNCFLAG]`](#p-syncflag--put-syncflag)
+    - [`.memput`](#memput)
+    - [`.fput KEY`](#fput-key)
+    - [`.del FNAME`](#del-fname)
+    - [`.firmware`](#firmware)
+    - [`.reset`](#reset)
+    - [`.t [set]` / `.time [set]`](#t-set--time-set)
+    - [`.devicelist`](#devicelist)
+    - [`.crun [URL]`](#crun-url)
+    - [`.expect [Bedingung]`](#expect-bedingung)
+    - [`.shell BEFEHL`](#shell-befehl)
+  - [Systemvariablen im Store](#systemvariablen-im-store)
+  - [Hinweise zur Browserkompatibilität](#hinweise-zur-browserkompatibilität)
+  - [Quellen und weiterführende Informationen](#quellen-und-weiterführende-informationen)
 
 ---
 
@@ -34,6 +58,10 @@
 
 Das BLX Dashboard kommuniziert über Web Bluetooth (BLE) mit LTX-Loggern.
 Es gibt zwei Klassen von Kommandos:
+
+<img src="../img/blxDashboard_preview640x480.png" alt="BLX Dashboard Vorschau zur Bluetooth-Bedienung von LTX-Loggern" width="480">
+
+*Vorschau der Bluetooth-App (BLX Dashboard), mit der LTX-Logger bedient und konfiguriert werden können.*
 
 | Typ | Präfix | Verarbeitung |
 |---|---|---|
