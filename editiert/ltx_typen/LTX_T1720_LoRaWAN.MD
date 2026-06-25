@@ -11,7 +11,7 @@ Datensicherung gefordert sind.
 
 ![Beispiel eines geöffneten 2-Zoll-Rundgehäuses](../img/t1720_2zoll_rundgehaeuse.jpg)
 
-*Beispiel des 2"-Rundgehäusekonzepts; Innenaufbau und Bestückung können je nach
+*Das 2"-Rundgehäusekonzep; Innenaufbau und Bestückung können je nach
 Geräteausführung abweichen.*
 
 ## Wesentliche Merkmale
