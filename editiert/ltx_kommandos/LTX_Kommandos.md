@@ -57,7 +57,7 @@ Diese **Referenz** beschreibt die Kommandos für LTX-Logger der Typen 1500 bis
 | Gruppe | DEVICE_TYP | Modem |
 |---|---:|---|
 | Kein Modem | 2000, 3000 | kein Internet-/LoRa-Modem |
-| Mobilfunk-Modem | 1500, 1700, 1750, 1800, 1850 | Quectel/BG/EG, `DEVICE_HAS_INTERNET` |
+| Mobilfunk-Modem | 1500, 1700, 1750, 1800, 1801, 1850 | Quectel/BG/EG, `DEVICE_HAS_INTERNET` |
 | LoRa-Modem | 1720, 1820, 2100 | LoRaWAN, `DEVICE_HAS_LORA` |
 
 Hinweis: `DEVICE_TYP` 1720 und 1820 erhalten `DEVICE_HAS_LORA` über
@@ -215,7 +215,7 @@ n
 
 ## Gruppe: Mobilfunk-Modem
 
-Betroffene Typen: `DEVICE_TYP` 1500, 1700, 1750, 1800, 1850. Die konkrete
+Betroffene Typen: `DEVICE_TYP` 1500, 1700, 1750, 1800, 1801, 1850. Die konkrete
 Modemfamilie wird über `osx_pins.h` gesetzt, z. B. `QUECTEL_BG600L`,
 `QUECTEL_EG912U` oder `QUECTEL_EG912N`.
 

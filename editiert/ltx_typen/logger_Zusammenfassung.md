@@ -56,7 +56,8 @@ Der Fokus liegt auf einem **modularen Baukastensystem** mit klar definierten Har
 | 1730 | 2-Zoll / Midi | LoRa GLOBAL | max. 20 dBm, nur zur Info |
 | 1750 | 2-Zoll / Midi | LTE-450 Cat1 / 2G | 450 MHz, nur zur Info |
 | 1790 | 2-Zoll / Midi | ohne Funk | Modem optional nachrüstbar |
-| 1800 | BoPla | LTE Cat1 / 2G | — |
+| 1800 | BoPla | LTE Cat1 / 2G | 48 Messkanaele |
+| 1801 | BoPla | LTE Cat1 / 2G | technisch wie Typ1800, aber 90 Messkanaele; eigene Firmware erforderlich |
 | 1810 | BoPla | LTE-M / NB / 2G | — |
 | 1820 | BoPla | LoRa EU868 | — |
 | 1830 | BoPla | LoRa GLOBAL | max. 20 dBm, nur zur Info |
@@ -168,6 +169,8 @@ Dort ist ersichtlich, welche Länder LTE, LTE-M oder LTE-NB unterstützen.
 > Es existiert kein Modem, das gleichzeitig LTE Cat1 und LTE-M/NB in einem einzigen Modul kombiniert.
 
 **LTX-Server (Open-Source):** <https://github.com/joembedded/LTX_server>
+
+**Firmware-Archiv:** siehe [Firmware-Uebersicht](firmware_uebersicht.md). Jeder Logger-Typ benoetigt die passende `.sec`-Firmware fuer seinen `DEVICE_TYP`; eine falsche Firmware wird vom Geraet nicht korrekt betrieben.
 
 ---
 
@@ -292,7 +295,8 @@ Die Platine stellt eine hochgesteppte SDI-12-Spannung von **9,6 V** bereit.
 | Typ | Funk |
 |---|---|
 | Typ1890 | Logger ohne Funk - Modem optional nachrüstbar|
-| Typ1800 | LTE Cat1 / 2G |
+| Typ1800 | LTE Cat1 / 2G, 48 Messkanaele |
+| Typ1801 | LTE Cat1 / 2G, 90 Messkanaele; Hardware wie Typ1800, eigene Firmware |
 | _Typ1850_ | _LTE-450 Cat1 / 2G (450 MHz)_ **nur zur Info**|
 | Typ1810 | LTE-M / NB / 2G |
 | Typ1820 | LoRa EU868 |

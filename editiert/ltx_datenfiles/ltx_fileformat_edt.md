@@ -47,7 +47,7 @@ Wichtige Eigenschaften:
 - Messwerte stehen als Paare `Kanal:Wert`.
 - Zeitstempel sind Unix-UTC-Sekunden.
 - Relative Zeitstempel beginnen mit `+` und sparen Speicherplatz.
-- Kanäle `0` bis `89` sind Messkanäle aus der Parametrierung.
+- Kanäle `0` bis `89` sind Messkanäle aus der Parametrierung. Die tatsaechlich verfuegbare Anzahl ist firmwareabhaengig (`MAX_CHANNELS`), z. B. Typ 1800: 48 Messkanaele, Typ 1801: 90 Messkanaele.
 - Kanäle `90` bis `99` sind interne Housekeeping-Kanäle.
 - Zeilen mit `$` enthalten Base64-codierte binäre Payloads für komprimierte oder zusätzliche Daten.
 
@@ -204,7 +204,7 @@ Beim Export nach CSV empfiehlt sich:
 
 ### 6.1 Messkanäle 0 bis 89
 
-Kanäle `0` bis `89` sind die frei parametrierten Messkanäle. Ihre Bedeutung ergibt sich aus den Kanalblöcken `@0` bis `@89` in `iparam.lxp`.
+Kanäle `0` bis `89` sind die maximal moeglichen frei parametrierten Messkanäle. Ihre Bedeutung ergibt sich aus den Kanalblöcken `@0` bis `@89` in `iparam.lxp`; welche Kanalbloecke gueltig sind, legt `MAX_CHANNELS` der Firmware fest.
 
 Wichtige Parameter für die EDT-Interpretation:
 

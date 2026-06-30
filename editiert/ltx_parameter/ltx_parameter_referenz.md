@@ -64,7 +64,7 @@ Drei wichtige Punkte sollen vorab erläutert werden:
 
 Das **Housekeeping (HK)** sind Verwaltungsdaten, die nicht allzu häufig gemessen werden müssen. Beispielsweise die Batteriekapazität oder Innenfeuchte. Es genügt, diese Werte alle paar Messungen, z.B. einmal täglich zu messen. So benötigen sie weniger Platz oder wertvolle Übertragungsbandbreite. Rein technisch stehen maximal 10 HK-Kanäle zur Verfügung. Je nachdem, was die Hardware kann, ist die Maximalcodierung in den Parametern hinterlegt.
 
-Die LTX-Geräte haben 90 Messkanäle (0-89) und 10 HK-Kanäle (90-99)
+Die meisten LTX-Geraete haben bis zu 90 Messkanaele (0-89) und 10 HK-Kanaele (90-99). Die tatsaechliche Anzahl der Messkanaele wird durch die Firmware festgelegt (`MAX_CHANNELS`): Typ 1800 hat 48 Messkanaele, Typ 1801 ist hardwaregleich zu Typ 1800, hat aber 90 Messkanaele und benoetigt deshalb seine eigene Firmware.
 
 Zur **Linearisierung**: Die LTX-Logger können Sensoren einfach linearisieren. Dies kann z.B. hilfreich sein bei:
 - Umwandlung elektrischer Spannung oder Strom in einen Wasserstand (Stichwort 4-20 mA)
@@ -166,8 +166,8 @@ Der erste Block der Datei `iparam.lxp` enthält alle geräteweiten Einstellungen
 | Idx | MP-Name | Mnemonic | Typ | Wertebereich | Standard | Beschreibung |
 |---|---|---|---|---|---|---|
 | 0 | I | `I` | String, FIX | `@100` | `@100` | **Dateikennung.** Magische Kennung, muss exakt `@100` lauten. Identifiziert den Block als Basis-Parameterblock. *(nicht editierbar)* |
-| 1 | T | `T` | Uint16, FIX | gerätespez. | – | **Gerätetyp.** Numerische Kennung des Firmware-Typs (z. B. `1700` für LTX-Intent, `1500` für LTX-Intent ältere Serie). Muss zur geflashten Firmware passen. *(nicht editierbar)* |
-| 2 | M | `M` | Uint16, FIX | gerätespez. | – | **MAX_CHANNELS.** Maximal unterstützte Anzahl Messkanäle (User-Kanäle 0–89). Wird durch die Firmware festgelegt. *(nicht editierbar)* |
+| 1 | T | `T` | Uint16, FIX | gerätespez. | – | **Gerätetyp.** Numerische Kennung des Firmware-Typs (z. B. `1700` für LTX-Intent, `1500` für LTX-Intent ältere Serie). Muss zur geflashten Firmware passen; z. B. sind Typ 1800 und Typ 1801 trotz gleicher Hardware getrennte Firmware-Typen. *(nicht editierbar)* |
+| 2 | M | `M` | Uint16, FIX | gerätespez. | – | **MAX_CHANNELS.** Maximal unterstützte Anzahl Messkanäle (User-Kanäle 0–89). Wird durch die Firmware festgelegt; Typ 1800 = 48, Typ 1801 = 90. *(nicht editierbar)* |
 | 3 | H | `H` | Uint16, FIX | Bitmaske | – | **HK_FLAGS (Firmware).** Für jeden vorhandenen Housekeeping-Sensor ein gesetztes Bit. Maximal 10 Bits. HK-Sensoren erscheinen intern auf Kanälen 90–99. *(nicht editierbar)* |
 | 4 | C | `C` | Uint32, intern | 10-stellig | – | **Cookie.** 10-stelliger Unix-Timestamp. Muss bei jeder manuellen Parameteränderung durch den aktuellen Zeitpunkt ersetzt werden, damit Parameterdateien eindeutig voneinander unterschieden werden können. |
 | 5 | n | `n` | String | max. 41 Zeichen | – | **Gerätename.** Frei wählbarer Name des Loggers. Die ersten 10 Zeichen werden auch für das BLE-Advertising verwendet und sind daher besonders relevant (max. 11 Zeichen für BLE sichtbar). |

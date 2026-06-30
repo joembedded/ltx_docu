@@ -13,6 +13,7 @@ Technische Dokumentation für die LTX-Datenlogger-Serie (Typen 1500–3000) mit 
 | Dokument | Thema |
 |---|---|
 | [logger_Zusammenfassung.md](./editiert/ltx_typen/logger_Zusammenfassung.md) | Gerätetypen, Hardware, Funkoptionen |
+| [firmware_uebersicht.md](./editiert/ltx_typen/firmware_uebersicht.md) | Firmware-Ablage, Web-Mirror und Typ-1800/1801-Firmware |
 | [LTX_T1720_LoRaWAN.MD](./editiert/ltx_typen/LTX_T1720_LoRaWAN.MD) | Datenblatt LTX Typ 1720 mit LoRaWAN |
 | [blx_commands.md](./editiert/blx_dashboard/blx_commands.md) | BLX Dashboard – SysCommands, BLE-App |
 | [LTX_Kommandos.md](./editiert/ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) |
@@ -23,6 +24,7 @@ Technische Dokumentation für die LTX-Datenlogger-Serie (Typen 1500–3000) mit 
 | [energie_vergleich.md](./editiert/lora/energie_vergleich.md) | LoRa-Modul-Stromvergleich |
 | [jesfs_zusammenfassung.md](./editiert/ltx_filesystem/jesfs_zusammenfassung.md) | JesFS-Dateisystem |
 | [mobileErrors.md](./editiert/ltx_mobile/mobileErrors.md) | Mobilfunk-Fehlercodes |
+| [lte_metriken.md](./editiert/ltx_mobile/lte_metriken.md) | Mobilfunk-Verbindungsdaten und LTE-Metriken |
 
 ---
 
