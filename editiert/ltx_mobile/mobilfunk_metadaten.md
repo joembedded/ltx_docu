@@ -1,6 +1,6 @@
-# Mobilfunk-Verbindungsdaten / LTE-Metriken
+# Mobilfunk-Metadaten
 
-Diese Liste beschreibt die Mobilfunk-Verbindungsdaten, die ein LTX-Logger beim Serverkontakt uebertraegt oder die serverseitig daraus abgeleitet und gespeichert werden.
+Diese Liste beschreibt die Mobilfunk-Metadaten, die ein LTX-Logger beim Serverkontakt uebertraegt oder die serverseitig daraus abgeleitet und gespeichert werden.
 
 ## Direkt vom Logger uebertragene Felder
 
@@ -56,7 +56,7 @@ Wenn automatische Positionsaktualisierung aktiv ist, liest der Trigger den letzt
 | `rad` | Genauigkeit / Radius in Metern |
 | `last_gps` | Zeitpunkt der letzten Positionsaktualisierung; kann aus GNSS oder Zellposition stammen |
 
-Diese Werte sind keine direkt gemessenen LTE-Metriken, sondern aus den Zellinformationen abgeleitete Positionsdaten.
+Diese Werte sind keine direkt gemessenen Mobilfunk-Metadaten, sondern aus den Zellinformationen abgeleitete Positionsdaten.
 
 ## Fundstellen im Server-Code
 

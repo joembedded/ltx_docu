@@ -24,7 +24,7 @@ Technische Dokumentation für die LTX-Datenlogger-Serie (Typen 1500–3000) mit 
 | [energie_vergleich.md](./editiert/lora/energie_vergleich.md) | LoRa-Modul-Stromvergleich |
 | [jesfs_zusammenfassung.md](./editiert/ltx_filesystem/jesfs_zusammenfassung.md) | JesFS-Dateisystem |
 | [mobileErrors.md](./editiert/ltx_mobile/mobileErrors.md) | Mobilfunk-Fehlercodes |
-| [lte_metriken.md](./editiert/ltx_mobile/lte_metriken.md) | Mobilfunk-Verbindungsdaten und LTE-Metriken |
+| [mobilfunk_metadaten.md](./editiert/ltx_mobile/mobilfunk_metadaten.md) | Mobilfunk-Metadaten |
 
 ---
 

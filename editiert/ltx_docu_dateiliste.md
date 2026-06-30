@@ -101,8 +101,8 @@ Beschreibt Funktionsprinzip, Logging-Eignung auf LTX-Datenloggern sowie praktisc
 Strukturierte Fehlercode-Referenz für häufige Mobilfunkprobleme in LTX-Projekten.
 Enthält die Bereiche Modem Basic, UDP, HTTP, Content, GPRS_TRANSFER und LFTP mit typischen Fehlercodes und Kurzbeschreibung.
 
-### [lte_metriken.md](ltx_mobile/lte_metriken.md)
-Liste der vom Logger uebertragenen Mobilfunk-Verbindungsdaten (`mcc`, `net`, `lac`, `cid`, `ta`, `dbm`, `act`) sowie der serverseitigen Speicherorte und abgeleiteten Zellposition.
+### [mobilfunk_metadaten.md](ltx_mobile/mobilfunk_metadaten.md)
+Liste der vom Logger uebertragenen Mobilfunk-Metadaten (`mcc`, `net`, `lac`, `cid`, `ta`, `dbm`, `act`) sowie der serverseitigen Speicherorte und abgeleiteten Zellposition.
 
 ---
 
@@ -122,4 +122,4 @@ Liste der vom Logger uebertragenen Mobilfunk-Verbindungsdaten (`mcc`, `net`, `la
 | [energie_vergleich.md](lora/energie_vergleich.md) | LoRa-Modulvergleich Stromverbrauch | Hardware-Auswahl |
 | [jesfs_zusammenfassung.md](ltx_filesystem/jesfs_zusammenfassung.md) | JesFS-Dateisystem für Logger | Speicher-/Firmware-Konzept |
 | [mobileErrors.md](ltx_mobile/mobileErrors.md) | Häufige Mobilfunk-Fehlercodes | Service, Diagnose |
-| [lte_metriken.md](ltx_mobile/lte_metriken.md) | Mobilfunk-Verbindungsdaten und LTE-Metriken | Handbuch, Service, Diagnose |
+| [mobilfunk_metadaten.md](ltx_mobile/mobilfunk_metadaten.md) | Mobilfunk-Metadaten | Handbuch, Service, Diagnose |
