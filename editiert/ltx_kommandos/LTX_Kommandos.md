@@ -176,6 +176,7 @@ Werte fachlich vorsehen.
 | `xsaiot.1nce.net` | APN setzen |
 | `xssjoembedded.de` | Server setzen |
 | `xsp80` | Port setzen |
+| `xsp12` | Bei LoRaWAN den Uplink-FPort auf `12` setzen; der LTX-Payload-Decoder verwendet damit die Einheitengruppe `Bar`, `°C` |
 | `xso0` | Mobilfunk-/LoRa-Protokollfeld setzen |
 | `xWrite` | Änderungen dauerhaft speichern (wichtig bei lokalen Änderungen, remote wird automatisch gespeichert) |
 
@@ -186,7 +187,7 @@ Werte fachlich vorsehen.
 | `xit...` | `xit3600` | Funk-/Internet-Übertragungsperiode in Sekunden |
 | `xim...` | `xim1` | Netzwerkmodus: 0 aus, 1 normal, 2/3 Testmodi |
 | `xid...` | `xid0` | Mindesttemperatur für Mobilfunkübertragung; negative Werte siehe Hinweis oben |
-| `xsp...` | `xsp80` oder LoRa-FPort | Server-Port bzw. LoRaWAN-FPort |
+| `xsp...` | `xsp80` oder `xsp12` | Server-Port bzw. LoRaWAN-FPort; bei LoRaWAN wählt der FPort die Einheitengruppe im Payload-Decoder |
 | `xso...` | `xso0` | Protokoll-/LoRa-Modus-Bitfeld, siehe Parameterreferenz |
 
 ## Gruppe: Kein Modem

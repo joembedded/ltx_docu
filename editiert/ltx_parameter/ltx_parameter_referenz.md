@@ -228,7 +228,7 @@ Die Datei `sys_param.lxp` enthält Netzwerk-, Batterie- und Speicherparameter, d
 | 7 | u | `u` | String | max. 65 Zeichen | leer | **APN-Benutzername.** Nur bei APN-Authentifizierung erforderlich. In der Regel leer. |
 | 8 | w | `w` | String | max. 65 Zeichen | leer | **APN-Passwort.** Nur bei APN-Authentifizierung erforderlich. In der Regel leer. |
 | 9 | r | `r` | Uint16 | 10 … 255 s | `60` | **Netzsuche-Timeout** (Sekunden). Maximale Zeit für die Netzregistrierung. Bei Fehlern sucht das Gerät ggf. selbständig bis zu 240 Sekunden. |
-| 10 | p | `p` | Uint16 | 1 … 65535 | `80` | **Port.** UDP/TCP-Port für die Serververbindung oder LoRaWAN-FPort. Standard HTTP: `80`, HTTPS: `443`. |
+| 10 | p | `p` | Uint16 | 1 … 65535 | `80` | **Port.** UDP/TCP-Port für die Serververbindung oder LoRaWAN-FPort. Standard HTTP: `80`, HTTPS: `443`. Bei LoRaWAN wählt dieser FPort zugleich die Einheitengruppe im LTX-Payload-Decoder, z. B. `10`=Temperatur, `11`=rH/Temperatur, `12`=Bar/Temperatur; siehe [LoRa-Payload: Typ/FPort am Logger einstellen](../lora/lora_payload.md#typfport-am-logger-einstellen). |
 | 11 | t | `t` | Uint16 | 1000 … 65535 ms | `20000` | **Server-Timeout (Initial)** (Millisekunden). Timeout bis zur ersten Serverantwort beim Verbindungsaufbau. `20000` = 20 Sekunden. |
 | 12 | v | `v` | Uint16 | 1000 … 65535 ms | `10000` | **Server-Timeout (laufend)** (Millisekunden). Timeout während einer laufenden Verbindung. `10000` = 10 Sekunden. |
 | 13 | e | `e` | Uint16 | 60 … 3600 s | `300` | **Modem-Check-Intervall** (Sekunden). Häufigkeit der Modem-Überwachung. Standardmäßig nicht aktiv genutzt; `300` = Prüfung alle 5 Minuten. |

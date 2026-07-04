@@ -124,6 +124,50 @@ Der Uplink-`fPort` beschreibt den LTX-Typ bzw. die Einheitengruppe. Bekannte Ein
 | `14` | Distanz/Radar: `m`, `dBm` |
 | `15` | Leitfähigkeit/Wasser: `°C`, `uS/cm` |
 
+### Typ/FPort am Logger einstellen
+
+Der vom Payload-Decoder verwendete "Typ" ist der LoRaWAN-Uplink-`fPort`. Am Logger wird dieser Wert im Systemparameter `sys_param.lxp`, Block `@200`, Index `10`, Mnemonic `p` gespeichert. Per Einzelparameter-Kommando wird er mit `xsp<port>` gesetzt.
+
+Beispiele:
+
+| Kommando | Wirkung |
+|---|---|
+| `xsp10` | Uplinks auf `fPort 10`; alle Messkanäle werden vom Decoder als Temperaturkanäle (`°C`) interpretiert |
+| `xsp11` | Uplinks auf `fPort 11`; Decoder verwendet `%rH`, `°C` |
+| `xsp12` | Uplinks auf `fPort 12`; Decoder verwendet `Bar`, `°C` |
+| `xsp13` | Uplinks auf `fPort 13`; Decoder verwendet `m`, `°C` |
+| `xsp14` | Uplinks auf `fPort 14`; Decoder verwendet `m`, `dBm` |
+| `xsp15` | Uplinks auf `fPort 15`; Decoder verwendet `°C`, `uS/cm` |
+
+Bei lokaler Eingabe über BLE/UART anschließend `xWrite` ausführen, damit die Änderung dauerhaft gespeichert wird:
+
+```text
+xsp12
+xWrite
+```
+
+Bei einem LoRa-Downlink genügt normalerweise das Parameterkommando, weil Logger Parameteränderungen nach der Downlink-Verarbeitung automatisch speichern:
+
+```text
+xsp12
+```
+
+Wichtig: Dieser Wert ist nicht der Firmware-Gerätetyp `iparam.T` und auch nicht der Einheitenstring eines einzelnen Kanals (`iparam` Kanalparameter `u`). Er ist der LoRaWAN-Applikationsport, über den der Decoder die Einheitengruppe auswählt.
+
+Das entsprechende Schema im LTX-Payload-Decoder (`payload_ltx.js`) ist:
+
+```javascript
+const deftypes = {
+    // 1-9 free or for custom sensors
+    10: ['°C'], // 10: All channels are Temperatures
+    11: ['%rH', '°C'], // 11: rH/T-Sensor
+    12: ['Bar', '°C'], // 12: Pressure/Level Sensor Bar
+    13: ['m', '°C'], // 13: Level Sensor m
+    14: ['m', 'dBm'], // 14: Distance(s) Sensor (Radar)
+    15: ['°C', 'uS/cm'], // 15: Water Conductivity (ES-2)
+};
+```
+
 Housekeeping-Kanäle sind fest zugeordnet:
 
 | Kanal | Bedeutung |
