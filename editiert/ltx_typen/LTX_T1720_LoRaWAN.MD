@@ -107,6 +107,80 @@ Messintervalle, Geräteparameter und Diagnoseinformationen bearbeiten.
 
 *BLX Dashboard: Bluetooth-App zur Bedienung und Konfiguration von LTX-Loggern vor Ort.*
 
+### Beispiel: LoRaWAN-Parametrierung für Radar
+
+Beim Typ 1720 wählt der LoRaWAN-`fPort` zugleich das Einheitenschema des
+LTX-Payload-Decoders. Für ein Radar mit Distanz und Signalstärke wird
+`fPort 14` verwendet. Der Decoder ordnet die Messwerte dann zyklisch den
+Einheiten `m` und `dBm` zu. Werden mehrere Sensoren übertragen, wiederholt sich
+dieses Einheitenschema entsprechend: `m`, `dBm`, `m`, `dBm` usw.
+
+Im BLX Dashboard wird der Wert in `sys_param`, Block `@200`, Feld `p Port`
+eingetragen. Im gleichen Dialog können auch Batteriedaten und die Basisenergie
+pro Messung gesetzt werden:
+
+<img src="../img/lora_sys_param_t1720.png" alt="BLX Dashboard: sys_param fuer LoRaWAN Typ 1720 mit fPort 14, Batterie und Messenergie" width="620">
+
+| Feld | Beispielwert | Bedeutung |
+|---|---:|---|
+| `p Port` | `14` | LoRaWAN-Uplink-`fPort`; Typ 14 = Radar-Einheiten `m`, `dBm` |
+| `y Bat. Capacity` | `10000` | Batteriekapazität in mAh, z. B. Lithium-D-Zelle (vorsichtig gewählt) |
+| `l Bat. Volts 0%` | `3.3` | Spannung für 0 % Batteriestand |
+| `h Bat. Volts 100%` | `3.6` | Spannung für 100 % Batteriestand |
+| `m mAmsec/Measure` | `10000` | Basisenergie pro Messung in mA·ms |
+
+Der Wert `10000 mA·ms` berücksichtigt beim T1720 den Ruhestrom des
+SDI-12-Step-Ups: Für die 9,6-V-Erzeugung im Gerät fallen ungefähr 10 mA
+während einer Messung an.
+
+Die entsprechenden Einzelparameter-Kommandos sind:
+
+```text
+xsp14
+xsy10000
+xsl3.3
+xsh3.6
+xsm10000
+xWrite
+```
+
+Bei lokaler Eingabe über BLE/UART speichert `xWrite` die Änderung dauerhaft.
+Bei LoRaWAN-Downlinks werden Parameteränderungen nach der Verarbeitung
+normalerweise automatisch gespeichert.
+
+### Beispiel: Messwertformat für Radar-Kanäle
+
+Die Genauigkeit pro Messkanal wird im Kanalparameter `f Mem_format`
+festgelegt. Für LoRaWAN ist nicht die Anzahl der Nachkommastellen entscheidend,
+sondern nur das Kurzfloat-Flag `Bit 7` mit dem Wert `128` (das achte Bit):
+
+- `f = 3`: Messwert wird als Float32 übertragen. Das ist für die Distanz
+  sinnvoll, wenn die maximale Genauigkeit erhalten bleiben soll.
+- `f = 130`: `2 + 128`, also Kurzfloat/Float16 aktiv. Das ist für die
+  Signalstärke ausreichend und spart Payload-Bytes.
+
+<img src="../img/lora_iparam_radar_t1720.png" alt="BLX Dashboard: iparam fuer Radar-Kanaele mit Float32 fuer Distanz und Float16 fuer Signalstaerke" width="620">
+
+Im Beispiel ist Kanal `@0` die Distanz in `m` mit `f = 3`; Kanal `@1` ist die
+Signalstärke mit lokalem Einheitenstring `db` und `f = 130`. Über `fPort 14`
+gibt der Payload-Decoder diese zweite Größe als `dBm` aus. Die unteren Bits des
+Zahlenformats werden für LoRaWAN nicht als Nachkommastellen ausgewertet.
+Relevant ist nur, ob das Kurzfloat-Flag gesetzt ist. Ohne gesetztes Flag wird
+Float32 gesendet, mit gesetztem Flag Float16.
+
+Typische Einzelparameter-Kommandos für dieses Beispiel:
+
+```text
+xi0um
+xi0f3
+xi1udb
+xi1f130
+xWrite
+```
+
+Weitere Details zum Einheitenschema stehen in der
+[LoRa-Payload-Dokumentation](../lora/lora_payload.md#typfport-am-logger-einstellen).
+
 Für die Cloud-Anbindung stehen offene Softwarekomponenten zur Verfügung:
 
 - [BLX Dashboard](https://github.com/joembedded/ltx_ble_demo)
