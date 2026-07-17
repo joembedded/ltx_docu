@@ -85,6 +85,8 @@ im Gehäusekonzept:
 - **Typ 1820:** 6 x 1,5 V Batterieversorgung, größeres Gehäuse
 - **Typ 1720:** 1 x 3,6 V Lithium-D-Zelle, schlankes 2"-Rundgehäuse
 
+Passende Logger-Firmware: [Typ 1720 - `firmware_typ1720_ltx_loraeu868_0v4.sec`](https://joembedded.de/x3/ltx_firmware/LTX-Loggers/LTE_Logger_CPU40/Type1720_LTX_INTENT_mit_Shield_LoRaEU868/firmware_typ1720_ltx_loraeu868_0v4.sec). Vor einem Update bitte Gerätetyp und Dateinamen prüfen; Typ 1820 benötigt eine andere Firmware.
+
 Die wichtigsten Modem-Kenndaten (Stromaufnahme, Modulvergleich,
 Sendeverhalten EU868) sind hier zusammengefasst:
 [Energie-Vergleich LoRa-Module EU868](../lora/energie_vergleich.md)
@@ -190,3 +192,5 @@ Für die Cloud-Anbindung stehen offene Softwarekomponenten zur Verfügung:
 ---
 
 *Kurz-Datenblatt · Stand: März 2026 · Technische Änderungen vorbehalten*
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

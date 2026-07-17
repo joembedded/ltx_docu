@@ -284,3 +284,7 @@ cd C:\html\wrk\payloaddecoder
 ## Praxisempfehlung
 
 Für neue Integrationen wird typischerweise `payload_ltx_clean.js` als Uplink-Decoder in ChirpStack verwendet. Für TTN kann `payload_ltx.js` genutzt werden, nachdem der Testbereich entfernt wurde. Downlinks sollten kurz bleiben und vorzugsweise `x...`-Parameterkommandos verwenden, weil sie auf Logger-Seite direkt verarbeitet und automatisch gespeichert werden.
+
+---
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

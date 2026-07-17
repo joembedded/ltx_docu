@@ -116,3 +116,7 @@ Diese Seite fasst haeufige Fehlercodes im Mobilfunk-Kontext zusammen.
 | -2555 | Open File on FTP Server |
 | -2556 | Close File on FTP Server Error |
 | -2557 | Send Filecontent to FTP Server failed |
+
+---
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

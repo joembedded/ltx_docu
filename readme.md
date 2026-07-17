@@ -15,6 +15,7 @@ Technische Dokumentation für die LTX-Datenlogger-Serie (Typen 1500–3000) mit 
 | [logger_Zusammenfassung.md](./editiert/ltx_typen/logger_Zusammenfassung.md) | Gerätetypen, Hardware, Funkoptionen |
 | [firmware_uebersicht.md](./editiert/ltx_typen/firmware_uebersicht.md) | Firmware-Ablage, Web-Mirror und Typ-1800/1801-Firmware |
 | [LTX_T1720_LoRaWAN.MD](./editiert/ltx_typen/LTX_T1720_LoRaWAN.MD) | Datenblatt LTX Typ 1720 mit LoRaWAN |
+| [sdi12_sensors.md](./editiert/sdi12_sensors.md) | Aktuelle Open-SDI12-Blue-Sensoren, Interfaces, Datenblätter und Sensor-Firmware |
 | [blx_commands.md](./editiert/blx_dashboard/blx_commands.md) | BLX Dashboard – SysCommands, BLE-App |
 | [LTX_Kommandos.md](./editiert/ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) |
 | [ltx_parameter_referenz.md](./editiert/ltx_parameter/ltx_parameter_referenz.md) | Parameterdateien, Konfiguration |
@@ -30,12 +31,16 @@ Technische Dokumentation für die LTX-Datenlogger-Serie (Typen 1500–3000) mit 
 
 ## Anschliessbare Sensoren
 
-Eine Übersicht mit Datenblättern zu unseren SDI-12-LowVoltage-Sensoren findet sich hier:
-[Open-SDI12-Blue-Sensors](https://joembedded.de/x3/ltx_firmware/index.php?dir=./Open-SDI12-Blue-Sensors)
+Eine kompakte Beschreibung aller aktuellen Typen mit direkten Datenblatt-Links steht in der
+[Open-SDI12-Blue-Sensorübersicht](./editiert/sdi12_sensors.md). Das vollständige Web-Archiv
+enthält zusätzlich Firmware und Zusatzdateien:
+[Open-SDI12-Blue-Sensors im LTX-Archiv](https://joembedded.de/x3/ltx_firmware/index.php?dir=./Open-SDI12-Blue-Sensors).
 
 Es können zusätzlich alle anderen SDI-12-V1.3-kompatiblen Sensoren angeschlossen werden.
 
 ---
 
-*Stand: Mai 2026 – V0.3*
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)
+
+*Stand: Juli 2026 – V0.4*
 

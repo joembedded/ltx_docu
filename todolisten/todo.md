@@ -34,6 +34,10 @@
 - Terminalkommandos Arten
 - Demos LTX-Systemkommandos: 'i', 'i3', 'i131' ... extrahieren aus Projekt
 
+---
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)
+
 
 
 

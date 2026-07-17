@@ -1,6 +1,6 @@
 # LTX-Logger Dokumentation – Übersicht
 
-Stand: 2026-05-08
+Stand: 2026-07-17
 
 Einstiegsdokument für die LTX-Logger-Dokumentation. Alle inhaltlichen Dokumente liegen im selben Verzeichnis `content/`.
 
@@ -22,6 +22,16 @@ Beschreibt lokale Firmware-Ablage, Web-Mirror-Schema und die getrennten Firmware
 ### [LTX_T1720_LoRaWAN.MD](ltx_typen/LTX_T1720_LoRaWAN.MD)
 Kurz-Datenblatt für den SDI-12-Datenlogger LTX Typ 1720 mit LoRaWAN EU868.
 Enthält Merkmale, technische Daten, lokale Datensicherung, Hinweise zum LoRaWAN-Modem sowie den Vergleich zum LTX Typ 1820 (gleicher Modemkern, unterschiedliche Batterie- und Gehäusekonzepte).
+
+---
+
+## SDI-12-Sensoren und Interfaces
+
+### [sdi12_sensors.md](sdi12_sensors.md)
+Übersicht aller aktuellen Open-SDI12-Blue-Sensortypen außerhalb des Archivs `Obsolete`.
+Beschreibt Messgrößen, Bereiche, Genauigkeiten, Versorgung und Besonderheiten und verlinkt die Datenblätter sowie vorhandene Sensor-Firmware direkt im Web-Archiv.
+
+Web-Einstieg: [Open-SDI12-Blue-Sensors](https://joembedded.de/x3/ltx_firmware/index.php?dir=./Open-SDI12-Blue-Sensors)
 
 ---
 
@@ -113,6 +123,7 @@ Liste der vom Logger uebertragenen Mobilfunk-Metadaten (`mcc`, `net`, `lac`, `ci
 | [logger_Zusammenfassung.md](ltx_typen/logger_Zusammenfassung.md) | Gerätetypen, Hardware, Funkoptionen | Projektplanung, Inbetriebnahme |
 | [firmware_uebersicht.md](ltx_typen/firmware_uebersicht.md) | Firmware-Ablage, Web-Mirror, Typ 1800/1801 | Service, Firmware-Update |
 | [LTX_T1720_LoRaWAN.MD](ltx_typen/LTX_T1720_LoRaWAN.MD) | Typ-1720-Datenblatt, LoRaWAN, Energieversorgung | Geräteauswahl, LoRa-Projekte |
+| [sdi12_sensors.md](sdi12_sensors.md) | Open-SDI12-Blue-Sensoren, Interfaces und Datenblätter | Sensorwahl, Planung, Inbetriebnahme |
 | [blx_commands.md](blx_dashboard/blx_commands.md) | BLX Dashboard SysCommands, Store, Dateioperationen | BLE-App-Nutzung, Inbetriebnahme |
 | [LTX_Kommandos.md](ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) | Integration, Service |
 | [ltx_parameter_referenz.md](ltx_parameter/ltx_parameter_referenz.md) | Parameterdateien, `x...`-Kommandos | Parametrierung, Konfiguration |
@@ -123,3 +134,7 @@ Liste der vom Logger uebertragenen Mobilfunk-Metadaten (`mcc`, `net`, `lac`, `ci
 | [jesfs_zusammenfassung.md](ltx_filesystem/jesfs_zusammenfassung.md) | JesFS-Dateisystem für Logger | Speicher-/Firmware-Konzept |
 | [mobileErrors.md](ltx_mobile/mobileErrors.md) | Häufige Mobilfunk-Fehlercodes | Service, Diagnose |
 | [mobilfunk_metadaten.md](ltx_mobile/mobilfunk_metadaten.md) | Mobilfunk-Metadaten | Handbuch, Service, Diagnose |
+
+---
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

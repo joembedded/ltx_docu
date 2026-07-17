@@ -394,3 +394,7 @@ Firefox und Safari unterstützen Web Bluetooth nicht.
   [github.com/joembedded/ltx_ble_demo](https://github.com/joembedded/ltx_ble_demo)
 
 - **Gerätebefehle (ohne `.`)**: Dokumentiert in [LTX_Kommandos.md](../ltx_kommandos/LTX_Kommandos.md)
+
+---
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

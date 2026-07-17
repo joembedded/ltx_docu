@@ -4,6 +4,8 @@
 
 ---
 
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)
+
 ## Inhaltsverzeichnis
 
 - [1. Übersicht](#1-übersicht)

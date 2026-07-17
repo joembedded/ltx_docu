@@ -69,3 +69,7 @@ Diese Werte sind keine direkt gemessenen Mobilfunk-Metadaten, sondern aus den Ze
 | `C:\html\ltx_server\sw\lxu_trigger.php` | Leitet bei Bedarf Zellpositionen aus `signal` ab |
 | `C:\html\ltx_server\sw\w_php\w_gdraw_db.php` | Nutzt Zellposition als Fallback, wenn keine GPS-Position vorhanden ist |
 | `C:\html\ltx_server\sw\docu\database.sql` | SQL-Felder fuer `devices`, u. a. `lat`, `lng`, `rad`, `last_gps`, `vals` |
+
+---
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

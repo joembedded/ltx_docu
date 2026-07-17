@@ -6,6 +6,8 @@ Dieses Dokument beschreibt das Easy-Data-Textformat (`*.edt`) der LTX-Logger. Zi
 
 ---
 
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)
+
 ## Inhaltsverzeichnis
 
 - [LTX-Logger EDT-Dateiformat](#ltx-logger-edt-dateiformat)

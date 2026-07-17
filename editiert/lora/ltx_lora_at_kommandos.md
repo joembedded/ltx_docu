@@ -6,6 +6,8 @@
 
 Dieses Dokument beschreibt alle AT-Befehle der LoRaWAN-AT-Schnittstelle für die LTX-Gerätereihe. Es umfasst die in [AN5481 v1.4.0 Rev 6 – April 2026](an5481-lorawan-at-commands-for-stm32cubewl-stmicroelectronics.pdf) dokumentierten Standardbefehle des STM32CubeWL-Stacks sowie die projektspezifischen Erweiterungen, die für den Betrieb mit einem externen Host-Mikrocontroller sinnvoll sind.
 
+**Passende Logger-Firmware:** [Typ 1720](https://joembedded.de/x3/ltx_firmware/LTX-Loggers/LTE_Logger_CPU40/Type1720_LTX_INTENT_mit_Shield_LoRaEU868/firmware_typ1720_ltx_loraeu868_0v4.sec) und [Typ 1820](https://joembedded.de/x3/ltx_firmware/LTX-Loggers/LTE_Logger_CPU40/Typ1820_LTX_BOPLA14V_mit_Shield_LoRaEU868/firmware_typ1820_ltx_loraeu868_0v1.sec). Für Typ 1730/1830 ist im öffentlichen Archiv derzeit keine eigene Logger-Firmware abgelegt.
+
 > [!TIP]
 > Entfernt wurde nicht relevante AT-Kommandos (z.B. für Class B und Class C Betrieb). Bei Unklarheiten: AN5481.
 > Im Text gekennzeichnet ist die Herkunft der Kommandos (AN5481 oder *LTX-erweitert, für Collaborators* [LoRaWAN Extended AT Slave 🔒](https://github.com/joembedded/ltx_lora_at_slave) ). 
@@ -1090,3 +1092,5 @@ OK
 
 
 ***
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

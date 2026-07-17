@@ -42,7 +42,7 @@ Für die Übersichtstabelle wurden 2 typische Nutzlängen verwendet:
 
 | STM32WL5MOC Shield | RAK3172(LP)-SIP Shield |
 |:------------------:|:------------------:|
-| ![STM32WL5MOC Shield](img/stm32wl5moc_shield.png) | ![RAK3172LP-SIP Shield](img/rak3172LP_shield.png) |
+| ![STM32WL5MOC Shield](../img/stm32wl5moc_shield.png) | ![RAK3172LP-SIP Shield](../img/rak3172LP_shield.png) |
 
 ## Energieverbrauch @ 3.3V — unconfirmed TX (mC)
 
@@ -117,3 +117,5 @@ Der RAK3172LP benötigt je nach Datenrate 24 % bis 48 % mehr Energie als der STM
 
 
 ***
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

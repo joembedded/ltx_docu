@@ -172,3 +172,7 @@ int16_t  fs_check_disk(void cb_printf(char *fmt, ...), uint8_t *pline, uint32_t 
 - 🌐 **Projektseite:** https://joembedded.de/
 - 📄 **Detailliertes Integrationsbeispiel (LTX Logger):** [Use_JesFs_en.md](https://github.com/joembedded/JesFs/blob/master/Documentation/Use_JesFs_en.md)
 - 📊 **Performance-Messungen:** [PerformanceTests.pdf](https://github.com/joembedded/JesFs/blob/master/Documentation/PerformanceTests.pdf)
+
+---
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

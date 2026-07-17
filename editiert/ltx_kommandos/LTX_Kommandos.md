@@ -451,3 +451,7 @@ Logger relevant. Für geschützte Kommandos muss die PIN-Freigabe erfolgt sein.
 | [ltx_parameter_referenz.md](../ltx_parameter/ltx_parameter_referenz.md) | Detailreferenz für `x...` und Parameterdateien |
 | [ltx_lora_at_kommandos.md](../lora/ltx_lora_at_kommandos.md) | Detailreferenz der LoRaWAN-AT-Kommandos |
 | [logger_Zusammenfassung.md](../ltx_typen/logger_Zusammenfassung.md) | Gerätetypen und Funkvarianten |
+
+---
+
+**Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

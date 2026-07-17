@@ -170,7 +170,7 @@ Dort ist ersichtlich, welche Länder LTE, LTE-M oder LTE-NB unterstützen.
 
 **LTX-Server (Open-Source):** <https://github.com/joembedded/LTX_server>
 
-**Firmware-Archiv:** siehe [Firmware-Uebersicht](firmware_uebersicht.md). Jeder Logger-Typ benoetigt die passende `.sec`-Firmware fuer seinen `DEVICE_TYP`; eine falsche Firmware wird vom Geraet nicht korrekt betrieben.
+**Firmware-Archiv:** siehe [Firmware-Übersicht mit direkten Typ-Downloads](firmware_uebersicht.md) und das [öffentliche LTX-Archiv](https://joembedded.de/x3/ltx_firmware/index.php). Jeder Logger-Typ benötigt die passende `.sec`-Firmware für seinen `DEVICE_TYP`; eine falsche Firmware wird vom Gerät nicht korrekt betrieben.
 
 ---
 
