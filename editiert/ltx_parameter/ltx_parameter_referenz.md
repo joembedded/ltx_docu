@@ -210,7 +210,7 @@ Nach dem `@100`-Block folgen die Kanal-Blöcke. Jeder Kanal beginnt mit `@N` (z.
 | 10 | h | `h` | Float32 | beliebig | 0.0 | **Alarm-Obergrenze.** Wenn `Bit 2` in Action gesetzt: Alarm wird ausgelöst, wenn Messwert > Alarm_hi. Bei `0.0` und nicht aktivem Alarm-Bit ohne Funktion. |
 | 11 | l | `l` | Float32 | beliebig | 0.0 | **Alarm-Untergrenze.** Wenn `Bit 2` in Action gesetzt: Alarm wird ausgelöst, wenn Messwert < Alarm_lo. Bei `0.0` und nicht aktivem Alarm-Bit ohne Funktion. |
 | 12 | b | `b` | Uint16 | 0 … 65535 | 0 | **Messbits.** Mehrzweck-Parameter. Bei SDI-12-Kanälen: Energieverbrauch in mA × s pro Messung (z. B. `60` für einen Piezo-Drucksensor Typ 310). Wird für Energieverbrauchsberechnungen genutzt. Weitere Verwendungen sind gerätespezifisch und separat dokumentiert. |
-| 13 | x | `x` | String | max. 32 Zeichen | leer | **Xbytes.** Zusatzkonfiguration für den Sensor. Bei SDI-12-Sensoren enthält dieser String das Messkommando, z. B. `*1800 1MC` für ältere STS-Pegelsonden. Inhalt und Format sind sensor- bzw. busabhängig und separat dokumentiert. |
+| 13 | x | `x` | String | max. 32 Zeichen | leer | **Xbytes.** Zusatzkonfiguration für den Sensor. Bei SDI-12-Sensoren enthält dieser String das Messkommando, z. B. `*1800 1MC` für ältere STS-Pegelsonden. Der optionale Präfix `*<msec>` gibt die Warm-up-/Vorlaufzeit nach dem Einschalten der Sensorversorgung an (`0` … `10000` ms; ohne Präfix: `250` ms). Inhalt und weiteres Format sind sensor- bzw. busabhängig und separat dokumentiert. |
 
 ---
 

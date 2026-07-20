@@ -112,17 +112,28 @@ Verfügbar bei `DEVICE_HAS_SDI12_0`, also bei den betrachteten SDI-12-Loggern.
 |---|---|
 | `Z<kommando>` | komplettes SDI-12-Messkommando ausführen, z. B. `Z*3000 1M`; das abschließende `!` wird nicht mit eingegeben |
 | `z<kommando>` | direktes SDI-12-Kommando senden und Antwortzeilen ausgeben |
-| `z+` | SDI-12-Versorgung dauerhaft (max. 600 sec) einschalten |
-| `z-` | SDI-12-Versorgung ausschalten |
+| `z+` | SDI-12-Versorgung für Inbetriebnahme und Diagnose manuell einschalten (max. 600 sec) |
+| `z-` | Manuell eingeschaltete SDI-12-Versorgung wieder ausschalten |
 | `zdbg` / `zdbg0` / `zdbg1` | BLE-SDI-Debugstatus anzeigen bzw. setzen |
 
-Bei `z` kann vor dem SDI-Befehl optional `*<msec>` stehen. Beispiel:
+Einem SDI-12-Messkommando kann optional `*<msec>` vorangestellt werden. Beispiel:
 
 ```text
 z*3000 0M
 ```
 
-Dies ist die 'Aufwärmzeit' in msec nach dem Anschalten des SDI-12 Busses, bevor das erste SDI-12-Kommando ausgeführt wird. Der Default sind 500 msec (`*500`).
+`<msec>` ist die **Warm-up- bzw. Vorlaufzeit** des Sensors. Im normalen
+Messbetrieb ist die SDI-12-Stromversorgung ausgeschaltet. Für eine Messung wird
+sie eingeschaltet, die angegebene Vorlaufzeit abgewartet und erst danach das
+SDI-12-Kommando ausgeführt.
+
+Zulässig sind Werte von `0` bis `10000` ms. Fehlt der Präfix `*<msec>`, wird
+eine Vorlaufzeit von `250` ms verwendet. Eine Angabe wie `*12000` verlängert
+den Vorlauf daher nicht über das Maximum von 10 Sekunden hinaus.
+
+Davon zu unterscheiden sind `z+` und `z-`: Diese Kommandos schalten die
+Versorgung bei Inbetriebnahme oder Diagnose manuell ein bzw. aus. Sie sind
+nicht die Vorlaufzeit eines automatisch ausgeführten Messkommandos.
 
 ## Parameter-Kommando `x...`
 
