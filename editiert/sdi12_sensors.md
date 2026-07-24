@@ -1,8 +1,8 @@
-# Open-SDI12-Blue Sensoren und Interfaces
+# Open-SDI12-Blue Sensoren, Interfaces und weitere SDI-12-Geräte
 
-Stand: 2026-07-17
+Stand: 2026-07-24
 
-Diese Übersicht fasst die aktuell im Web-Archiv verfügbaren Open-SDI12-Blue-Typen zusammen. Der Ordner `Obsolete` ist bewusst nicht enthalten. Die Typen 210, 930 und 950 sind keine eigentlichen Messsensoren, sondern Konverter, Funkinterface beziehungsweise ein virtueller Server-Gerätetyp; sie sind am Ende separat aufgeführt.
+Diese Übersicht fasst die aktuell im Web-Archiv verfügbaren Open-SDI12-Blue-Typen zusammen. Der Ordner `Obsolete` ist bewusst nicht enthalten. Die Typen 210, 930 und 950 sind keine eigentlichen Messsensoren, sondern Konverter, Funkinterface beziehungsweise ein virtueller Server-Gerätetyp; sie sind am Ende separat aufgeführt. Zusätzlich enthält die Übersicht besondere Geräte außerhalb der OSX-/Open-SDI12-Blue-Plattform, wenn sie über SDI-12 mit LTX-Loggern eingesetzt werden können.
 
 **Zentrale Einstiegsseiten:**
 
@@ -235,6 +235,24 @@ Typ 950 ist kein physischer Sensor, sondern die serverseitige Kennung für exter
 - fehlende oder ungültige Parameter werden als Fehlerwerte behandelt
 - benötigt einen Webserver mit PHP; für LTX Server zusätzlich eine SQL-Datenbank
 - [Beschreibung deutsch (PDF)](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0950_GetUpload/WUG_get_upload_DE.pdf) und [englisch (PDF)](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0950_GetUpload/WUG_get_upload_EN.pdf)
+
+## Besonderer SDI-12-Gerätetyp außerhalb der OSX-Plattform
+
+### GeoPrecision Wireless 433 MHz zu SDI-12 Konverter
+
+Der Wireless-Konverter ist kein OSX-Sensor und basiert nicht auf der Open-SDI12-Blue-Plattform. Er bildet einen eigenen Gerätetyp, passt aber über seine SDI-12-Schnittstelle zu LTX-Loggern. Das Gerät empfängt die zuletzt per 433 MHz übertragenen Messwerte kompatibler GeoPrecision-Funkdatenlogger und stellt sie als SDI-12-Messkanäle bereit.
+
+<img src="img/sdi12_433mhz_receiver_device.png" alt="GeoPrecision Wireless 433 MHz zu SDI-12 Konverter" width="640">
+
+- geeignet für GeoPrecision-Funkdatenlogger wie Temperatur-, Schnee-/Distanz-, Neigungs-/Winkel-Datenlogger und Thermistorketten
+- bis zu 20 Werte eines einzelnen Funkdatenloggers und insgesamt maximal 48 Werte mehrerer Funkdatenlogger
+- konfigurierbare Zuordnung auf die SDI-12-Kanäle 0 bis 47; optionaler Offset und Faktor je Kanal
+- mehrteilige Messwertausgabe über `M0`, `M1` bis `M9` und die zugehörigen `D`-Befehle
+- Versorgung 3,6 bis 14 V DC; Ruhestrom 2 mA; während der Messung größer als 19 mA
+- mindestens 800 ms Wartezeit nach dem Einschalten
+- Betriebstemperatur -40 bis +85 °C
+- werkseitige SDI-12-Adresse `1`; erweiterte, herstellerspezifische `X`-Befehle zur Konfiguration
+- [Vollständige deutsche Bedienungsanleitung](osx_sdi12_sensors/sdi12_433mhz_receiver/sdi12_433mhz_receiver.md)
 
 ---
 

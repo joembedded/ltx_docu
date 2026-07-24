@@ -42,5 +42,5 @@ Es können zusätzlich alle anderen SDI-12-V1.3-kompatiblen Sensoren angeschloss
 
 **Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)
 
-*Stand: Juli 2026 – V0.4*
+*Stand: Juli 2026 – V0.6*
 
