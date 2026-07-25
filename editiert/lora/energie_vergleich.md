@@ -13,6 +13,7 @@ Für die Übersichtstabelle wurden 2 typische Nutzlängen verwendet:
 ## Inhaltsverzeichnis
 
 - [Testbedingungen](#testbedingungen)
+- [ADR bei stationären und mobilen Geräten](#adr-bei-stationären-und-mobilen-geräten)
 - [Module im Vergleich](#module-im-vergleich)
 - [Energieverbrauch @ 3.3 V — unconfirmed TX (mC)](#energieverbrauch--33v--unconfirmed-tx-mc)
   - [1 Byte Nutzdaten](#1-byte-nutzdaten-aus-messung-in-mc)
@@ -29,6 +30,40 @@ Für die Übersichtstabelle wurden 2 typische Nutzlängen verwendet:
 - ADR und DCS deaktiviert (AT+ADR=0, AT+DCS=0)
 - LoRaWAN-Version 1.0.4, Firmware: V1.4
 - Messung: Sende-Peak bis "+EVT:FINISH" (inkl. RX-Slots), Nordic PPK2
+
+Die Messwerte sind damit Werte für jeweils **fest eingestellte Datenraten**.
+Sie bilden keine vom Network Server während des Betriebs optimierte
+ADR-Verbindung ab.
+
+## ADR bei stationären und mobilen Geräten
+
+Für die Energie- und Funkplanung gelten unterschiedliche Prioritäten:
+
+| Einsatz | ADR | Planungshinweis |
+|---|:---:|---|
+| stationär, stabile Funkstrecke | `1` | Bevorzugte Einstellung: Der Network Server kann Datenrate, Sendeleistung und Wiederholungszahl optimieren. Kürzere Sendezeiten sparen Batterie und Netzkapazität. |
+| mobil oder schnell wechselnde Funkdämpfung | häufig `0` | Verhindert, dass eine am vorherigen Standort optimierte Einstellung vorübergehend ungeeignet ist. Datenrate und Sendeleistung müssen dann vom Gerät bzw. für den Anwendungsfall festgelegt werden. |
+| mobil, aber lange Stillstandsphasen | abhängig von der Gerätefunktion | ADR kann während stabiler Phasen vorteilhaft sein, wenn die Anwendung den Mobilitätszustand erkennt und ADR zuverlässig umschaltet. |
+
+`ADR=0` vergrößert nicht automatisch die Anzahl erreichbarer Gateways. Eine
+niedrige Datenrate wie EU868 `DR0` erhöht jedoch die Link-Budget-Reserve. Damit
+können unter ungünstigen oder veränderten Empfangsbedingungen mehr Gateways
+den Uplink empfangen. Der Preis dafür ist eine längere Sendezeit sowie eine
+höhere Batterie- und Netzbelastung. Deshalb sollte nicht pauschal `DR0`, sondern
+die robusteste **erforderliche** bzw. die höchste noch zuverlässig nutzbare
+Datenrate gewählt werden. Eine geräteseitige Strategie mit mehreren
+Datenraten ist besser als eine unnötig konservative feste Datenrate, sofern die
+Firmware sie unterstützt.
+
+Der Einfluss auf das Energiebudget ist erheblich: Beim STM32MOC benötigt ein
+gemessener Uplink bei `DR0` gegenüber `DR5` etwa das 11-Fache (1 Byte) bzw. das
+14-Fache (51 Bytes) der Energie. Für ein mobiles Gerät mit festem `DR0` muss die
+Laufzeit daher anhand der `DR0`-Zeile geplant werden, nicht anhand einer für
+stationären ADR-Betrieb typischen hohen Datenrate. Zusätzliche Join-Vorgänge,
+Paketverluste und Wiederholungen sind als Reserve einzuplanen.
+
+Technische Grundlage ist die
+[LoRaWAN-Link-Layer-Spezifikation 1.0.4, Abschnitt 4.3.1.1](https://lora-alliance.org/wp-content/uploads/2021/11/LoRaWAN-Link-Layer-Specification-v1.0.4.pdf).
 
 ## Module im Vergleich
 

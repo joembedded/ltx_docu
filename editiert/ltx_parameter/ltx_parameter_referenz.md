@@ -77,7 +77,14 @@ Das System wird im Folgenden erklärt.
 
 Das dritte ist die **Energieberechnung**. Bei vielen Akkus oder Batterien kann man über die Spannung recht gut den Füllstand berechnen, z.B. bei Blei-Gel-Akkus oder bei Alkali-Mangan. Bei anderen Systemen, z.B. Lithium-Batterien ist die Spannung oft bis kurz vor Ende nahezu konstant. Dazu summieren die LTX Geräte die verbrauchte Energie ungefähr auf. Es ist zwar nur ein Richtwert, aber zumindest eine oft wertvolle Hilfe.
 
-Beispielsweise bei LoRaWAN hat die sich automatisch anpassende Datenrate oft gravierenden Einfluss auf die Lebensdauer der Batterien. Dies kann durchaus ein Faktor von über 10 - 20 sein! Und ob eine Batterie schon nach 1 oder erst nach 10 Jahren gewechselt wird, ist schon ein relevanter Punkt.
+Beispielsweise hat die Datenrate bei LoRaWAN oft gravierenden Einfluss auf die
+Lebensdauer der Batterien. Bei stationären Geräten kann ADR die Datenrate und
+Sendeleistung an eine stabile Funkstrecke anpassen und so viel Energie sparen.
+Bei mobilen Geräten kann `ADR=0` wegen der schnell wechselnden Funkbedingungen
+sinnvoll sein; dann muss die Energieplanung jedoch von der manuell gewählten
+Datenrate ausgehen. Eine konservative Einstellung wie EU868 `DR0` verbessert
+die Link-Budget-Reserve, kann gegenüber hohen Datenraten aber durchaus mehr als
+den zehnfachen Energiebedarf pro Uplink verursachen.
 
 
 ### 2.1 Housekeeping-Kanäle (HK, intern Kanäle 90–99)
@@ -149,7 +156,15 @@ In der Summe ergibt sich eine Batterielaufzeit von etwa 4.2 Jahre bei 10-minüti
 > Das Übertragungsintervall hat weit größeren Einfluss auf die Batterielaufzeit als die Messfrequenz. Die Messenergie selbst spielt praktisch keine Rolle.
 
 > [!TIP]
-> **Hinweis zu LoRaWAN:** Bei LoRaWAN variiert die Sendezeit je nach Spreading Factor stark. SF12 kann ein Vielfaches (Faktor 10–20) der Energie von SF7 verbrauchen. Das Übertragungsintervall und der Spreading Factor sind daher die wichtigsten Parameter für die Batterielebensdauer bei LoRaWAN-Geräten.
+> **Hinweis zu LoRaWAN:** Bei LoRaWAN variiert die Sendezeit je nach Spreading
+> Factor stark. SF12 kann ein Vielfaches (Faktor 10–20) der Energie von SF7
+> verbrauchen. Das Übertragungsintervall und der Spreading Factor sind daher
+> zentrale Parameter für die Batterielebensdauer. Für stationäre Geräte ist
+> `ADR=1` bei stabiler Funkstrecke in der Regel sinnvoll. Für mobile Geräte kann
+> `ADR=0` die robustere Wahl sein; dann sind die festgelegte Datenrate,
+> Sendeleistung sowie Reserven für Paketverluste und Wiederholungen ausdrücklich
+> in das Energiebudget aufzunehmen. Siehe
+> [Energie-Vergleich LoRa-Module, Abschnitt „ADR bei stationären und mobilen Geräten“](../lora/energie_vergleich.md#adr-bei-stationären-und-mobilen-geräten).
 
 
 ---

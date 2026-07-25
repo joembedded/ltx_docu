@@ -489,7 +489,43 @@ OK
 ```
 
 > [!TIP]
-> Bei mobilen Geräten empfiehlt sich die ADR auf 0 zu setzen und ggfs. die DR auch auf 0. Dann ist zwar der Energieverbrauch nicht optimal, aber die Reichweite am größten. Das Setzen muss aber vor dem ersten JOIN erfolgen, evtl. dazu den NVM-Speicher löschen. Zum Energieverbrauch siehe separate Dokumentation.
+> **Stationäre Geräte:** `AT+ADR=1` ist bei weitgehend stabiler Funkstrecke die
+> bevorzugte Einstellung. Der Network Server kann Datenrate, Sendeleistung und
+> Wiederholungszahl optimieren. Das verkürzt die Sendezeit, spart Energie und
+> reduziert die Netzbelegung.
+>
+> **Mobile Geräte:** `AT+ADR=0` ist sinnvoll, wenn sich die Funkdämpfung durch
+> Ortswechsel schnell oder fortlaufend ändert. Eine an einem früheren Standort
+> ermittelte hohe Datenrate oder geringe Sendeleistung könnte sonst am neuen
+> Standort vorübergehend unzuverlässig sein. Mit deaktiviertem ADR muss die
+> Anwendung Datenrate und Sendeleistung selbst passend festlegen. Für eine
+> konservative EU868-Einstellung bieten `AT+DR=0` und `AT+TXP=0` die größte
+> Link-Budget-Reserve, verursachen aber auch die längste Sendezeit und den
+> höchsten Energieverbrauch. Wo die Anwendung eine mobilitätsabhängige
+> Steuerung unterstützt, sollten unterschiedliche Datenraten verwendet und die
+> gesamte Sendezeit so klein wie unter den jeweiligen Netzbedingungen möglich
+> gehalten werden.
+>
+> ADR aus erhöht nicht unmittelbar die Anzahl der Gateways: Jeder Uplink kann
+> grundsätzlich von allen Gateways in Funkreichweite empfangen werden. Eine
+> robustere, niedrigere Datenrate kann jedoch die Empfangsreserve und damit die
+> Wahrscheinlichkeit erhöhen, dass auch weiter entfernte oder am neuen Standort
+> schwächer erreichbare Gateways das Paket empfangen.
+>
+> Die Einstellung sollte vor dem Join gesetzt und mit `AT+SAVECFG` gespeichert
+> werden. Falls ein alter NVM-Kontext die gewünschte Startkonfiguration
+> überlagert, kann zuvor ein gezielter Factory-Reset erforderlich sein. Die
+> Auswirkungen auf die Laufzeit sind im
+> [Energie-Vergleich](energie_vergleich.md#adr-bei-stationären-und-mobilen-geräten)
+> beschrieben.
+
+Diese Einordnung folgt der
+[LoRaWAN-Link-Layer-Spezifikation 1.0.4, Abschnitt 4.3.1.1](https://lora-alliance.org/wp-content/uploads/2021/11/LoRaWAN-Link-Layer-Specification-v1.0.4.pdf):
+ADR ist für stabile Funkbedingungen vorgesehen; bei schnell veränderlicher
+Funkdämpfung soll die Anwendung die Funkparameter selbst steuern. Auch mobile
+Geräte können ADR während längerer Stillstandsphasen nutzen, sofern die
+Anwendung den Mobilitätszustand zuverlässig erkennt und ADR entsprechend
+umschaltet.
 
 
 ---

@@ -60,7 +60,18 @@ Die tatsächlich erreichbare Batterielaufzeit hängt insbesondere vom
 Messintervall, dem angeschlossenen Sensor, der LoRaWAN-Datenrate, der
 Empfangssituation und der Anzahl der Übertragungen ab. Bei stationären
 Messstellen kann **Adaptive Data Rate (ADR)** den Energieverbrauch deutlich
-reduzieren.
+reduzieren. Bei mobilen Geräten oder schnell wechselnden Funkbedingungen kann
+dagegen `ADR=0` sinnvoll sein, damit keine am vorherigen Standort optimierte
+Datenrate oder Sendeleistung verwendet wird. In diesem Fall müssen Datenrate
+und Sendeleistung passend zur Anwendung festgelegt werden. `DR0` bietet in
+EU868 die größte Link-Budget-Reserve, benötigt aber wesentlich mehr Energie und
+Sendezeit als eine höhere Datenrate; es ist daher keine pauschale
+Standardeinstellung für jedes mobile Gerät.
+
+Die Entscheidung zwischen stationärem ADR-Betrieb und einer mobilen,
+manuellen Funkkonfiguration muss in die Laufzeitplanung einfließen. Details und
+Messwerte stehen im
+[Energie-Vergleich, Abschnitt „ADR bei stationären und mobilen Geräten“](../lora/energie_vergleich.md#adr-bei-stationären-und-mobilen-geräten).
 Als kleine Orientierung zum Energieverbrauch siehe die Projekt-Messwerte in
 [logger_Zusammenfassung.md, Abschnitt "4. Energiebetrachtung"](logger_Zusammenfassung.md#4-energiebetrachtung--beispiel-tensiomark-3-sensoren)
 und [Abschnitt "5. Jahresbetrieb"](logger_Zusammenfassung.md#5-jahresbetrieb--beispielberechnung).
