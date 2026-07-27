@@ -1,6 +1,6 @@
 # Open-SDI12-Blue Sensoren, Interfaces und weitere SDI-12-Geräte
 
-Stand: 2026-07-24
+Stand: 2026-07-27
 
 Diese Übersicht fasst die aktuell im Web-Archiv verfügbaren Open-SDI12-Blue-Typen zusammen. Der Ordner `Obsolete` ist bewusst nicht enthalten. Die Typen 210, 930 und 950 sind keine eigentlichen Messsensoren, sondern Konverter, Funkinterface beziehungsweise ein virtueller Server-Gerätetyp; sie sind am Ende separat aufgeführt. Zusätzlich enthält die Übersicht besondere Geräte außerhalb der OSX-/Open-SDI12-Blue-Plattform, wenn sie über SDI-12 mit LTX-Loggern eingesetzt werden können.
 
@@ -249,6 +249,7 @@ Der Wireless-Konverter ist kein OSX-Sensor und basiert nicht auf der Open-SDI12-
 - konfigurierbare Zuordnung auf die SDI-12-Kanäle 0 bis 47; optionaler Offset und Faktor je Kanal
 - mehrteilige Messwertausgabe über `M0`, `M1` bis `M9` und die zugehörigen `D`-Befehle
 - Versorgung 3,6 bis 14 V DC; Ruhestrom 2 mA; während der Messung größer als 19 mA
+- LTX-Energieansatz: etwa 160 mA·s je vollständiger Messung bei 20 mA für 8 s; `Messbits = 160` nur beim Kanal, der `M0` auslöst, Cache-Kanäle mit `Messbits = 0`
 - mindestens 800 ms Wartezeit nach dem Einschalten
 - Betriebstemperatur -40 bis +85 °C
 - werkseitige SDI-12-Adresse `1`; erweiterte, herstellerspezifische `X`-Befehle zur Konfiguration

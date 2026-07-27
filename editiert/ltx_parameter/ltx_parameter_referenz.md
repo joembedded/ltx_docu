@@ -1,6 +1,6 @@
 # LTX-Logger – Parameter-Referenz
 
-**Stand:** V0.11 / 24.04.2026 / (C) JoEmbedded.de
+**Stand:** V0.11 / 27.07.2026 / (C) JoEmbedded.de
 
 ---
 
@@ -126,6 +126,10 @@ Der Logger berechnet den Energieverbrauch pro Messzyklus aus folgenden Werten:
 - **`Messbits`** (iparam Kanal Index 12): Kanalspezifischer Zusatzverbrauch in mA·sec
 
 $$E_{\text{Gesamt}} = E_{\text{Basis}} + \sum_{\text{Kanäle}} E_{\text{Kanal}}$$
+
+**Beispiel Wireless 433 MHz zu SDI-12 Konverter:** Bei etwa 20 mA während einer etwa 8 s langen Messung beträgt der kanalspezifische Energiebedarf `20 mA × 8 s = 160 mA·s`. Deshalb wird beim LTX-Kanal, der `M0` auslöst, `Messbits = 160` bzw. `b = 160` eingetragen. Kanäle, die weitere Werte derselben Messung nur aus dem Cache lesen, erhalten `b = 0`, damit die Energie nicht mehrfach gezählt wird.
+
+Am lokalen Terminal wird Kanal 0 beispielsweise mit `xi0b160` gesetzt und anschließend mit `xWrite` dauerhaft gespeichert. `Messbits` ist ausschließlich ein Wert für die Energieabschätzung. Die vom Sensor mit `ttt` gemeldete SDI-12-Messwartezeit wird dadurch nicht verändert. Eine gesonderte Einschaltvorlaufzeit gehört in `Xbytes`, zum Beispiel `*800 1M`, und darf nicht mit der anschließenden Messwartezeit verwechselt werden.
 
 **Beispiel Gerät `LTXAB284B80` (weiter unten beschrieben):**
 - Basis: 1000 mA·ms

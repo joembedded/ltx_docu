@@ -1,6 +1,6 @@
 # LTX-Logger Kommando-Referenz
 
-**Stand:** 2026-05-04
+**Stand:** 2026-07-27
 
 
 ## Inhaltsverzeichnis
@@ -182,6 +182,7 @@ Werte fachlich vorsehen.
 | `xis0` | Internet-/Funk-Übertragungs-Offset auf 0 s setzen |
 | `xi0a1` | Kanal 0 Action auf 1 setzen |
 | `xi0p768` | Kanal 0 physikalischen Kanal auf 768 setzen, typisch SDI-12 Bus 0 |
+| `xi0b160` | Kanal 0 `Messbits` auf 160 mA·s setzen, z. B. für 20 mA Sensorstrom während 8 s Messzeit; dient der Energieabschätzung |
 | `xi3um` | Kanal 3 Einheit auf `m` setzen; Strings beginnen direkt nach dem Mnemonic |
 | `xi0x*1800 0MC` | Kanal 0 Xbytes/SDI-12-Messkommando setzen |
 | `xsaiot.1nce.net` | APN setzen |

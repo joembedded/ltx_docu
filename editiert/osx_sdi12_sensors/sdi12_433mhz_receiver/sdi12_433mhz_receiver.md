@@ -1,6 +1,6 @@
 # Bedienungsanleitung: Wireless 433 MHz zu SDI-12 Konverter
 
-Dokumentstand: 2026-07-24  
+Dokumentstand: 2026-07-27  
 Grundlage: GeoPrecision GmbH, *Wireless 433 MHz to SDI12 Converter - Manual*, Erstfassung vom 2023-05-05
 
 > [!IMPORTANT]
@@ -52,6 +52,8 @@ Der Konverter kann bis zu 20 Werte eines einzelnen Funkdatenloggers und insgesam
 | Empfohlene Auslegung der Versorgung | größer als 20 mA dauerhaft |
 | Stromaufnahme im Ruhezustand | 2 mA |
 | Wartezeit nach dem Einschalten | mindestens 800 ms |
+| Typische Dauer des ersten Messblocks | etwa 8 s; im Beispiel meldet `M0` die Wartezeit `008` |
+| LTX-Planungswert je vollständiger Messung | etwa 160 mA·s bei angesetzten 20 mA für 8 s |
 | Überspannungsschutz | TVS-Überspannungsableiter, 400 W |
 | Werte je Funkdatenlogger | bis zu 20 |
 | Werte insgesamt | bis zu 48 |
@@ -451,6 +453,52 @@ Fehlerwerte nicht als gültige physikalische Messwerte speichern. Der Datenlogge
 
 ## 10. Beispiel für die Datenlogger-Konfiguration
 
+### 10.1 Energiebedarf im LTX-Logger hinterlegen
+
+Für die Verbrauchs- und Batterielaufzeitberechnung der LTX-Logger wird der kanalspezifische Parameter **`Messbits`** verwendet. Bei SDI-12-Kanälen enthält er den Energiebedarf einer Messung in mA·s.
+
+Für diesen Konverter gilt als sinnvoller Planungswert:
+
+```text
+20 mA × 8 s = 160 mA·s = 0,0444 mAh
+```
+
+Der Wert `160` wird nur beim LTX-Kanal eingetragen, der mit `M0` die vollständige Messung auslöst. Kanäle, die weitere Werte nur aus dem Sensorcache übernehmen, erhalten `Messbits = 0`. Andernfalls würde die LTX-Verbrauchsberechnung dieselbe Messenergie mehrfach addieren.
+
+Beispiel für den messungsauslösenden LTX-Kanal `0`:
+
+```text
+xi0b160
+xWrite
+```
+
+- `xi0b160` setzt für Kanal 0 das `Messbits`-Feld `b` auf `160` mA·s.
+- `xWrite` speichert die lokale Änderung dauerhaft.
+- Bei einer anderen LTX-Kanalnummer ist die `0` entsprechend zu ersetzen.
+
+Für einen nachfolgenden Cache-Kanal, beispielsweise Kanal 1, wird dagegen gesetzt:
+
+```text
+xi1b0
+xWrite
+```
+
+> [!IMPORTANT]
+> `Messbits = 160` steuert nicht die Messdauer und schaltet keine zusätzliche Wartezeit ein. Der Konverter meldet nach `M0` im SDI-12-Antwortfeld `ttt` selbst eine Wartezeit von typischerweise `008` Sekunden; der LTX-SDI-12-Ablauf wartet diese Zeit bzw. den früheren Service-Request automatisch ab.
+
+Davon getrennt ist die mindestens 800 ms lange Einschaltvorlaufzeit. Falls der LTX-Logger die SDI-12-Versorgung zwischen den Messzyklen abschaltet, kann sie im Feld `Xbytes` als Präfix des Messkommandos hinterlegt werden:
+
+```text
+xi0x*800 1M
+xWrite
+```
+
+Dabei ist `1` die werkseitige SDI-12-Adresse. Nach einer Adressänderung muss das Kommando angepasst werden. Die acht Sekunden Messzeit dürfen **nicht** als `*8000` eingetragen werden: Der Stern-Präfix ist ausschließlich die Vorlaufzeit **vor** dem `M`-Befehl; die eigentliche Messwartezeit folgt aus dessen SDI-12-Antwort.
+
+Bei einer Konfiguration mit zusätzlichen `M1`-/`M2`-Blöcken wird der gesamte Energiebedarf der zusammengehörigen Messsequenz nur einmal angesetzt. Falls eine reale Strommessung für die komplette Sequenz einschließlich weiterer Blöcke einen höheren Wert ergibt, ist `160` durch `Strom in mA × gemessene Gesamtdauer in s` zu ersetzen.
+
+### 10.2 Kanäle in FG2-Shell konfigurieren
+
 Bei einem GeoPrecision-SDI-12-Datenlogger mit FG2-Shell kann eine Abfrage von sechs Werten sinngemäß so eingerichtet werden:
 
 - Kanäle 1 bis 4 verwenden den ersten Messblock `M0`.
@@ -614,3 +662,4 @@ Weiterführende Informationen zum SDI-12-Standard: [www.sdi-12.org](https://www.
 |---|---|
 | 2023-05-05 | Erstfassung der englischen Herstellerunterlage |
 | 2026-07-24 | Vollständige deutsche Markdown-Fassung, Syntax normalisiert und Inbetriebnahme-/Prüfablauf ergänzt |
+| 2026-07-27 | LTX-Energieparameter `Messbits = 160`, Einschaltvorlauf und Abgrenzung zur SDI-12-Messwartezeit ergänzt |
