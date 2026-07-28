@@ -4,6 +4,9 @@
 
 Diese Anleitung führt einen LTX-Datenlogger vollständig über einen von zwei LoRaWAN-Stacks bis optional zur LTX Microcloud (oder einer anderen Datenbank).
 
+> [!NOTE]
+> Der Schwerpunkt dieses Dokuments liegt auf Software, LoRaWAN-Netzwerk und Cloud-Anbindung. Produktspezifische Angaben zu Gehäuse, Energieversorgung, Speicher und Einbau stehen in den Hardwareanleitungen für [LTX Typ 1720](../ltx_typen/LTX_T1720_LoRaWAN.MD) und [LTX Typ 1820](../ltx_typen/LTX_T1820_LoRaWAN.MD).
+
 ```text
 LTX-Datenlogger → LoRaWAN-Gateway → TTN oder ChirpStack → HTTP/JSON → LTX Microcloud
 ```
@@ -27,25 +30,33 @@ Das Ziel ist ein erfolgreicher OTAA-Join, eine dekodierte Uplink-Payload und die
 
 ## 1. Welcher Stack passt zur Anwendung?
 
-| Kriterium | The Things Network / The Things Stack | ChirpStack V4 |
+> [!TIP]
+> **Kurzentscheidung:** TTN eignet sich besonders für einen schnellen Einstieg und wenige Geräte, wenn am Einsatzort bereits Community-Abdeckung vorhanden ist. ChirpStack ist meist die bessere Wahl, wenn eigene Gateways, volle Kontrolle, kommerzieller Betrieb, viele Geräte oder kürzere Übertragungsintervalle gefordert sind.
+
+| Kriterium | The Things Network / The Things Stack (TTN) | ChirpStack V4 |
 |---|---|---|
-| Infrastruktur | Öffentliches Community-Netz kann vorhandene Gateways nutzen | Eigener ChirpStack-Server und mindestens ein erreichbares Gateway erforderlich |
-| Einstieg | Sehr schnell für Tests und kleine, nichtkommerzielle Projekte | Mehr Vorarbeit für Server, Gateway und Region-Konfiguration |
-| Betrieb | Sandbox ist kostenlos, eingeschränkt und ohne SLA | Open-Source-Software; Server-, Gateway- und Betriebskosten bleiben |
-| Funkverkehr | Community-Fair-Use | Keine zusätzliche Community-Fair-Use-Grenze |
-| Kontrolle | Plattform und Community-Abdeckung werden mitbenutzt | Volle Kontrolle über Server, Gateways, Mandanten und Daten |
-| Typischer Einsatz | Prototyp, Versuch, kleine nichtkommerzielle Installation | Eigene oder kommerzielle Infrastruktur, größere Flotten, definierte Abdeckung |
+| Infrastruktur | Global organisiertes Community-Netz; vorhandene Gateways können mitgenutzt werden. Die lokale Abdeckung vorher im [TTN Mapper](https://ttnmapper.org/heatmap/) prüfen. | Eigener ChirpStack-Server und mindestens ein erreichbares eigenes Gateway sind erforderlich. |
+| Kosten | Die Sandbox ist für kleine, nichtkommerzielle Tests kostenlos. Der kostenlose kommerzielle Discovery-Tarif umfasst derzeit bis zu 10 Geräte und 10 Gateways; darüber hinaus gelten kostenpflichtige Tarife. | Die Open-Source-Software ist auch kommerziell kostenlos. Kosten entstehen für Server, Gateways, Wartung und Betrieb; für kleine Installationen genügt meist ein günstiger VServer. |
+| Funkverkehr | Die Community-Fair-Use-Policy begrenzt pro Gerät und 24 Stunden die Uplink-Airtime auf 30 Sekunden sowie die Zahl der Downlinks auf 10. | Keine zusätzliche ChirpStack-Kontingentgrenze; maßgeblich bleiben die gesetzlichen Funkvorgaben, insbesondere Duty Cycle und Sendeleistung. |
+| Kontrolle und Skalierung | Plattformbetrieb, Community-Abdeckung und Nutzungsregeln werden übernommen; gut für Versuche und kleine Installationen. | Volle Kontrolle über Server, Gateways, Mandanten und Daten. Je nach Serverauslegung lassen sich auch Flotten mit vielen Tausend Geräten verwalten. |
+| Einrichtungsaufwand | Schnell eingerichtet; bei ausreichender lokaler Abdeckung ist häufig kein eigenes Gateway nötig. | Server, Gateway-Anbindung, Updates, Datensicherung und Betrieb liegen in eigener Verantwortung. Die Installation ist mit den bereitgestellten Paketen beziehungsweise Containern gut automatisierbar. |
 
-Für die The Things Stack Sandbox gelten nach der veröffentlichten Community-Fair-Use-Regel pro Gerät höchstens 30 Sekunden Uplink-Sendezeit und 10 Downlink-Nachrichten innerhalb von 24 Stunden. Die Sandbox ist für kleine, nichtkommerzielle Tests ohne SLA vorgesehen. Kommerzielle Tarife und deren Gerätegrenzen können sich ändern; maßgeblich sind die [aktuelle Sandbox-Beschreibung](https://www.thethingsindustries.com/docs/concepts/ttn/), die [Tarifübersicht](https://www.thethingsindustries.com/stack/plans/) und die [Fair-Use-Policy](https://www.thethingsnetwork.org/forum/t/the-things-network-fair-use-policy/47689).
+**Praktische Folgen für die Geräteparametrierung:**
 
-> [!IMPORTANT]
-> Ein Messintervall von 10 Minuten ist ein Konfigurationsbeispiel und nicht automatisch TTN-tauglich. Bei ungünstiger Datenrate kann bereits diese Einstellung die Fair-Use-Grenze überschreiten. Für TTN sind oft 30 Minuten oder mehr sinnvoll. Berechnen beziehungsweise beobachten Sie die tatsächliche Airtime.
+- Bei TTN können lange Pakete und ungünstige Datenraten die zulässige Airtime schnell ausschöpfen. Für schlechte Funkbedingungen sollte deshalb eher mit Übertragungsintervallen von 30 Minuten oder länger kalkuliert werden. Ein Messintervall von 10 Minuten ist nur ein Konfigurationsbeispiel und nicht automatisch TTN-tauglich.
+- Bei ChirpStack sind – sofern Airtime, Duty Cycle und Netzkapazität es zulassen – deutlich kürzere Intervalle möglich. Bei einer guten Verbindung und beispielsweise `DR:5` kann auch eine Übertragung pro Minute praktikabel sein.
+- `ADR:1` ist für stationäre Geräte mit hinreichend stabiler Funkstrecke in der Regel sinnvoll, weil der Netzwerkserver Datenrate und Sendeparameter optimieren kann. Bei mobilen Geräten oder stark wechselnden Funkbedingungen muss ADR gesondert bewertet werden; solche Anwendungen eignen sich daher weniger für eine starre TTN-Auslegung.
+
+> [!NOTE]
+> Die Registrierung erfolgt über [thethingsnetwork.org](https://www.thethingsnetwork.org/). Ob eine Zahlungsmethode verlangt wird, kann vom gewählten Tarif und vom Kontotyp abhängen. Bei privaten E-Mail-Adressen ist für die Sandbox üblicherweise keine Zahlungsmethode erforderlich; der Registrierungsablauf kann sich jedoch ändern.
+
+Tarife und Gerätegrenzen können sich ändern. Maßgeblich sind die [aktuelle Sandbox-Beschreibung](https://www.thethingsindustries.com/docs/concepts/ttn/), die [Tarifübersicht](https://www.thethingsindustries.com/stack/plans/) und die [Fair-Use-Policy](https://www.thethingsnetwork.org/forum/t/the-things-network-fair-use-policy/47689).
 
 ## 2. Voraussetzungen
 
 Vor Beginn benötigen Sie:
 
-- einen LoRaWAN-fähigen LTX-Datenlogger, hier beispielhaft Typ 1820;
+- einen LoRaWAN-fähigen LTX-Datenlogger, beispielsweise [Typ 1720](../ltx_typen/LTX_T1720_LoRaWAN.MD) oder den in den Screenshots verwendeten [Typ 1820](../ltx_typen/LTX_T1820_LoRaWAN.MD);
 - die passende und aktuelle Logger- sowie LoRa-Modem-Firmware;
 - die PWA [BLX Dashboard](https://github.com/joembedded/ltx_ble_demo) oder einen gleichwertigen BLE-Terminalzugang;
 - ein EU868-LoRaWAN-Gateway in Funkreichweite (ein eigenes für ChirpStack beziehungsweise lokale TTN-Abdeckung für The Things Network);
@@ -666,7 +677,8 @@ Für ChirpStack empfiehlt die offizielle [Troubleshooting-Anleitung](https://www
 ### LTX
 
 - [LTX-Dokumentation – Gesamtprojekt](../../readme.md)
-- [LTX Typ 1720/1820 und LoRaWAN-Grundlagen](../ltx_typen/LTX_T1720_LoRaWAN.MD)
+- [LTX Typ 1720 – kompakter SDI-12-Datenlogger mit LoRaWAN](../ltx_typen/LTX_T1720_LoRaWAN.MD)
+- [LTX Typ 1820 – SDI-12-Datenlogger mit flexibler Energieversorgung](../ltx_typen/LTX_T1820_LoRaWAN.MD)
 - [LTX LoRa-Payload, fPort, Einheiten und Downlinks](../lora/lora_payload.md)
 - [LTX-LoRaWAN-AT-Kommandos](../lora/ltx_lora_at_kommandos.md)
 - [LTX-Logger-Kommando-Referenz](../ltx_kommandos/LTX_Kommandos.md)

@@ -1,36 +1,40 @@
 # LTX Typ 1720 – SDI-12-Datenlogger mit LoRaWAN
 
-Der **LTX Typ 1720** ist ein kompakter, batteriebetriebener Datenlogger für
-SDI-12-Sensoren. Er kombiniert die energieeffiziente Datenübertragung über
-**LoRaWAN EU868** mit einem lokalen Messwertspeicher und einem
-**Bluetooth-Low-Energy-Zugang** für Service und Konfiguration vor Ort.
+[← Zur LTX-Dokumentationsübersicht](../ltx_docu_dateiliste.md)
 
-Das schlanke 2"-Rundgehäuse eignet sich besonders für Messstellen, an denen
-lange Batterielaufzeiten, kleine Gehäuseabmessungen und eine unabhängige lokale
-Datensicherung gefordert sind.
+> [!NOTE]
+> Dieses Dokument beschreibt hauptsächlich die Hardware und die gerätespezifischen Einstellungen des LTX Typ 1720. Die gemeinsame Software-Inbetriebnahme mit BLX Dashboard, The Things Network (TTN) oder ChirpStack, Payload-Decoder und LTX Microcloud steht in der [LoRaWAN-Inbetriebnahmeanleitung](../ltx_lorawan_howto/ltx_lorawan_howto.md).
 
-![Beispiel eines geöffneten 2-Zoll-Rundgehäuses](../img/t1720_2zoll_rundgehaeuse.jpg)
+Der **LTX Typ 1720** ist ein kompakter, batteriebetriebener Datenlogger für SDI-12-Sensoren. Er kombiniert LoRaWAN EU868 mit lokalem Messwertspeicher und Bluetooth Low Energy (BLE) für Service und Konfiguration vor Ort. Das schlanke 2-Zoll-Rundgehäuse eignet sich besonders für Messstellen, an denen lange Batterielaufzeit, kleine Gehäuseabmessungen und eine unabhängige lokale Datensicherung benötigt werden.
 
-*Das 2"-Rundgehäusekonzep; Innenaufbau und Bestückung können je nach
-Geräteausführung abweichen.*
+![Geöffneter LTX Typ 1720 im 2-Zoll-Rundgehäuse](../img/t1720_2zoll_rundgehaeuse.jpg)
+
+*Beispiel des 2-Zoll-Rundgehäusekonzepts. Innenaufbau und Bestückung können je nach Geräteausführung abweichen.*
+
+## Abgrenzung zu Typ 1820
+
+Typ 1720 und [Typ 1820](LTX_T1820_LoRaWAN.MD) verwenden denselben LoRaWAN-Modemkern und dieselbe Software-Inbetriebnahme. Die wesentlichen Unterschiede liegen in Mechanik und Energieversorgung:
+
+| Merkmal | Typ 1720 | Typ 1820 |
+|---|---|---|
+| Gehäuse | Schlankes 2-Zoll-Rundgehäuse | Größeres Polycarbonatgehäuse |
+| Interne Versorgung | 1 × Lithium-D-Zelle | 6 × AA oder optional 2 × Lithium-D-Zelle |
+| Externe Versorgung | Nicht als Standardversorgung vorgesehen | 5–14 V, interne Batterien können als Backup dienen |
+| Typischer Einsatz | Besonders kompakte, energieoptimierte Messstelle | Flexible Versorgung, mehr Einbauraum |
 
 ## Wesentliche Merkmale
 
 - LoRaWAN **Version 1.0.4**, Geräteklasse A
 - Funkbereich **EU868**, maximale Sendeleistung 14 dBm
-- Bidirektionale Kommunikation über LoRaWAN
+- bidirektionale Kommunikation über LoRaWAN
 - SDI-12-Schnittstelle nach Version 1.3, auch für Low-Voltage-Sensoren
-- Bis zu **20 Messkanäle** als Fließkommawerte (passen inkl. HK-Werte in die 51 Bytes Uplink)
-- Lokaler Messwertspeicher, standardmäßig **8 MB**
-- Ringspeicher- oder Linearspeicherbetrieb
-- Bluetooth Low Energy (BLE) für Konfiguration, Diagnose und Datenzugriff vor Ort
-- Bedienung mit der PWA **BLX Dashboard** auf Android- und Windows-Geräten
-- Energieoptimierter Batteriebetrieb mit einer Lithium-D-Zelle
-- Übertragung von HK-Werten (Housekeeping-Werten), also internen
-    Geräte-Zustandswerten für Diagnose, Betriebssicherheit und Auswertung:
-    Batteriespannung, bereits verbrauchtes Energiebudget, interne Temperatur,
-    interne Feuchte (wichtig für Dichte-Überwachung) und barometrischer
-    Luftdruck (zur Kompensation bei Drucksonden für Wasserpegel)
+- bis zu **20 Messkanäle** als Fließkommawerte; abhängig vom Zahlenformat passen Mess- und Housekeeping-Werte in einen Uplink mit 51 Byte Nutzdaten
+- lokaler Messwertspeicher, standardmäßig **8 MB**
+- Ring- oder Linearspeicherbetrieb
+- BLE für Konfiguration, Diagnose und lokalen Datenzugriff
+- Bedienung mit der PWA [BLX Dashboard](https://github.com/joembedded/ltx_ble_demo) auf Android- und Windows-Geräten
+- energieoptimierter Betrieb mit einer Lithium-D-Zelle
+- Übertragung von Housekeeping-Werten wie Batteriespannung, verbrauchtem Energiebudget, interner Temperatur, interner Feuchte und barometrischem Luftdruck
 
 ## Technische Daten
 
@@ -49,107 +53,45 @@ Geräteausführung abweichen.*
 | Lokale Kommunikation | Bluetooth Low Energy, ab BLE 4.2 |
 | Lokaler Speicher | 8 MB Standard, bis zu 16 MB bestückbar |
 | Speicherbetrieb | Ringspeicher oder linear |
-| Speicherkapazität | typisch ca. 400.000 historische Messwerte im Ringspeicherbetrieb bei 8 MB |
-| Versorgung | 3,4 bis 3,6 V |
+| Speicherkapazität | typisch etwa 400.000 historische Messwerte bei 8 MB; abhängig von Kanalzahl und Datensatzgröße |
+| Versorgung | 3,4–3,6 V |
 | Batterie | 1 × Lithium-D-Zelle, typisch 12 Ah |
-| Sensorversorgung | intern geschaltet, ca. 9 V; optional 5V bis 12 V |
+| Sensorversorgung | intern geschaltet, etwa 9 V; optional 12 V |
 | Leiterplattenformat | ca. 35 mm × 115 mm |
-| Gehäuse | schlankes 2"-Rundgehäuse |
+| Gehäuse | schlankes 2-Zoll-Rundgehäuse |
 
-Die tatsächlich erreichbare Batterielaufzeit hängt insbesondere vom
-Messintervall, dem angeschlossenen Sensor, der LoRaWAN-Datenrate, der
-Empfangssituation und der Anzahl der Übertragungen ab. Bei stationären
-Messstellen kann **Adaptive Data Rate (ADR)** den Energieverbrauch deutlich
-reduzieren. Bei mobilen Geräten oder schnell wechselnden Funkbedingungen kann
-dagegen `ADR=0` sinnvoll sein, damit keine am vorherigen Standort optimierte
-Datenrate oder Sendeleistung verwendet wird. In diesem Fall müssen Datenrate
-und Sendeleistung passend zur Anwendung festgelegt werden. `DR0` bietet in
-EU868 die größte Link-Budget-Reserve, benötigt aber wesentlich mehr Energie und
-Sendezeit als eine höhere Datenrate; es ist daher keine pauschale
-Standardeinstellung für jedes mobile Gerät.
+## Energieversorgung und Laufzeit
 
-Die Entscheidung zwischen stationärem ADR-Betrieb und einer mobilen,
-manuellen Funkkonfiguration muss in die Laufzeitplanung einfließen. Details und
-Messwerte stehen im
-[Energie-Vergleich, Abschnitt „ADR bei stationären und mobilen Geräten“](../lora/energie_vergleich.md#adr-bei-stationären-und-mobilen-geräten).
-Als kleine Orientierung zum Energieverbrauch siehe die Projekt-Messwerte in
-[logger_Zusammenfassung.md, Abschnitt "4. Energiebetrachtung"](logger_Zusammenfassung.md#4-energiebetrachtung--beispiel-tensiomark-3-sensoren)
-und [Abschnitt "5. Jahresbetrieb"](logger_Zusammenfassung.md#5-jahresbetrieb--beispielberechnung).
+Typ 1720 ist für den energieoptimierten Betrieb mit einer 3,6-V-Lithium-D-Zelle ausgelegt. Die tatsächlich erreichbare Laufzeit hängt vor allem vom Sensor, Mess- und Übertragungsintervall, LoRaWAN-Datenrate, Empfangspegel, Batteriechemie und Temperaturbereich ab.
+
+Für stationäre Messstellen ist `ADR=1` meist sinnvoll. Bei mobilen Geräten oder stark wechselnden Funkbedingungen kann `ADR=0` geeigneter sein; Datenrate und Sendeleistung müssen dann an die Anwendung angepasst werden. `DR0` bietet in EU868 eine hohe Link-Budget-Reserve, benötigt aber deutlich mehr Airtime und Energie als höhere Datenraten. Details enthält der [Energie-Vergleich, Abschnitt „ADR bei stationären und mobilen Geräten“](../lora/energie_vergleich.md#adr-bei-stationären-und-mobilen-geräten).
+
+Projektbezogene Laufzeitbeispiele stehen in der [Logger-Hardwareübersicht, Abschnitt „Energiebetrachtung“](logger_Zusammenfassung.md#4-energiebetrachtung--beispiel-tensiomark-3-sensoren).
 
 ## Lokale Datensicherung
 
-Im Gegensatz zu einem reinen Funkinterface zeichnet Typ 1720 die Messdaten
-zusätzlich lokal auf. Im standardmäßigen Ringspeicherbetrieb werden bei vollem
-Speicher automatisch die ältesten Datensätze überschrieben. Alternativ stoppt
-der Linearspeicherbetrieb die Aufzeichnung, sobald der Speicher vollständig
-belegt ist. Gespeicherte Daten und Diagnoseinformationen können vor Ort über
-Bluetooth mit dem BLX Dashboard abgerufen werden.
+Typ 1720 zeichnet Messwerte unabhängig von der Funkübertragung lokal auf. Im Ringspeicherbetrieb werden bei vollem Speicher die ältesten Datensätze überschrieben. Im Linearspeicherbetrieb endet die Aufzeichnung, wenn der Speicher vollständig belegt ist. Messdaten und Diagnoseinformationen lassen sich vor Ort per BLE mit dem BLX Dashboard abrufen.
 
-## LoRaWAN-Funkmodul
+## LoRaWAN-Funkmodul und Firmware
 
-LoRa-EU868-Shield für die Logger Typ 1720 und Typ 1820.
+Das LoRa-EU868-Shield wird auch im Typ 1820 eingesetzt. Die kompakten LTX-Payloads reduzieren Funkzeit und Energiebedarf. Typ 1720 kann mit ChirpStack, The Things Stack/TTN und kompatiblen LoRaWAN-Netzbetreibern verwendet werden.
 
-Der **LTX Typ 1720** verwendet denselben LoRaWAN-Modemkern wie der
-**LTX Typ 1820**. Unterschiede liegen vor allem in der Energieversorgung und
-im Gehäusekonzept:
+Passende Logger-Firmware: [Typ 1720 – `firmware_typ1720_ltx_loraeu868_0v4.sec`](https://joembedded.de/x3/ltx_firmware/LTX-Loggers/LTE_Logger_CPU40/Type1720_LTX_INTENT_mit_Shield_LoRaEU868/firmware_typ1720_ltx_loraeu868_0v4.sec). Vor einem Update müssen Gerätetyp und Dateiname geprüft werden; Typ 1820 benötigt eine andere Firmware. Eine typenübergreifende Liste steht in der [Firmware-Übersicht](firmware_uebersicht.md).
 
-- **Typ 1820:** 6 x 1,5 V Batterieversorgung, größeres Gehäuse
-- **Typ 1720:** 1 x 3,6 V Lithium-D-Zelle, schlankes 2"-Rundgehäuse
+## Gerätespezifische Basisparameter
 
-Passende Logger-Firmware: [Typ 1720 - `firmware_typ1720_ltx_loraeu868_0v4.sec`](https://joembedded.de/x3/ltx_firmware/LTX-Loggers/LTE_Logger_CPU40/Type1720_LTX_INTENT_mit_Shield_LoRaEU868/firmware_typ1720_ltx_loraeu868_0v4.sec). Vor einem Update bitte Gerätetyp und Dateinamen prüfen; Typ 1820 benötigt eine andere Firmware.
+Die vollständige Logger-, Modem- und Serverkonfiguration ist in der [LoRaWAN-Inbetriebnahmeanleitung](../ltx_lorawan_howto/ltx_lorawan_howto.md) beschrieben. Für eine typische Lithium-D-Zelle können folgende Werte als Ausgangspunkt dienen:
 
-Die wichtigsten Modem-Kenndaten (Stromaufnahme, Modulvergleich,
-Sendeverhalten EU868) sind hier zusammengefasst:
-[Energie-Vergleich LoRa-Module EU868](../lora/energie_vergleich.md)
-
-| Typ 1720 (PCB-Vorschau) | Typ 1820 (Gehäusevorschau) |
-|:--:|:--:|
-| <img src="../img/t15xx_17xx_pcb_preview.png" alt="LTX 1720 PCB-Vorschau" width="240"> | <img src="../img/T18xx_enc_preview.jpg" alt="LTX 1820 Gehaeusevorschau" width="240"> |
-
-Der Typ 1720 kann mit LoRaWAN-Netzen wie **ChirpStack**, **The Things Stack**
-und kompatiblen Netzbetreiber-Plattformen eingesetzt werden. Die kompakten
-Payloads minimieren die Funkzeit und damit den Energiebedarf.
-
-## Konfiguration und Software
-
-Die Inbetriebnahme und Wartung erfolgen lokal per Bluetooth mit dem
-**BLX Dashboard**. Darüber lassen sich unter anderem Sensorabfragen,
-Messintervalle, Geräteparameter und Diagnoseinformationen bearbeiten.
-
-<img src="../img/blxDashboard_preview640x480.png" alt="BLX Dashboard zur Bluetooth-Bedienung von LTX-Loggern" width="420">
-
-*BLX Dashboard: Bluetooth-App zur Bedienung und Konfiguration von LTX-Loggern vor Ort.*
-
-### Beispiel: LoRaWAN-Parametrierung für Radar
-
-Beim Typ 1720 wählt der LoRaWAN-`fPort` zugleich das Einheitenschema des
-LTX-Payload-Decoders. Für ein Radar mit Distanz und Signalstärke wird
-`fPort 14` verwendet. Der Decoder ordnet die Messwerte dann zyklisch den
-Einheiten `m` und `dBm` zu. Werden mehrere Sensoren übertragen, wiederholt sich
-dieses Einheitenschema entsprechend: `m`, `dBm`, `m`, `dBm` usw.
-
-Im BLX Dashboard wird der Wert in `sys_param`, Block `@200`, Feld `p Port`
-eingetragen. Im gleichen Dialog können auch Batteriedaten und die Basisenergie
-pro Messung gesetzt werden:
-
-<img src="../img/lora_sys_param_t1720.png" alt="BLX Dashboard: sys_param fuer LoRaWAN Typ 1720 mit fPort 14, Batterie und Messenergie" width="620">
-
-| Feld | Beispielwert | Bedeutung |
+| Feld in `sys_param` | Beispielwert | Bedeutung |
 |---|---:|---|
-| `p Port` | `14` | LoRaWAN-Uplink-`fPort`; Typ 14 = Radar-Einheiten `m`, `dBm` |
-| `y Bat. Capacity` | `10000` | Batteriekapazität in mAh, z. B. Lithium-D-Zelle (vorsichtig gewählt) |
+| `y Bat. Capacity` | `10000` | vorsichtig angesetzte Batteriekapazität in mAh |
 | `l Bat. Volts 0%` | `3.3` | Spannung für 0 % Batteriestand |
 | `h Bat. Volts 100%` | `3.6` | Spannung für 100 % Batteriestand |
-| `m mAmsec/Measure` | `10000` | Basisenergie pro Messung in mA·ms |
+| `m mAmsec/Measure` | `10000` | Ausgangswert für die Basisenergie einer Messung in mA·ms |
 
-Der Wert `10000 mA·ms` berücksichtigt beim T1720 den Ruhestrom des
-SDI-12-Step-Ups: Für die 9,6-V-Erzeugung im Gerät fallen ungefähr 10 mA
-während einer Messung an.
-
-Die entsprechenden Einzelparameter-Kommandos sind:
+Die entsprechenden Einzelparameter-Kommandos lauten:
 
 ```text
-xsp14
 xsy10000
 xsl3.3
 xsh3.6
@@ -157,51 +99,22 @@ xsm10000
 xWrite
 ```
 
-Bei lokaler Eingabe über BLE/UART speichert `xWrite` die Änderung dauerhaft.
-Bei LoRaWAN-Downlinks werden Parameteränderungen nach der Verarbeitung
-normalerweise automatisch gespeichert.
+> [!IMPORTANT]
+> Kapazität, Spannungsschwellen und Messenergie müssen zur tatsächlich eingesetzten Batterie und zum angeschlossenen Sensor passen. Die Tabellenwerte sind vorsichtige Ausgangswerte und keine garantierte Laufzeitberechnung.
 
-### Beispiel: Messwertformat für Radar-Kanäle
+`fPort`, Messkanäle, Float16/Float32-Format, OTAA-Schlüssel und LoRaWAN-Stack werden nicht produktspezifisch eingerichtet. Dafür gelten die gemeinsame [LoRaWAN-Inbetriebnahmeanleitung](../ltx_lorawan_howto/ltx_lorawan_howto.md) und die [LoRa-Payload-Dokumentation](../lora/lora_payload.md).
 
-Die Genauigkeit pro Messkanal wird im Kanalparameter `f Mem_format`
-festgelegt. Für LoRaWAN ist nicht die Anzahl der Nachkommastellen entscheidend,
-sondern nur das Kurzfloat-Flag `Bit 7` mit dem Wert `128` (das achte Bit):
+## Weiterführende Dokumentation
 
-- `f = 3`: Messwert wird als Float32 übertragen. Das ist für die Distanz
-  sinnvoll, wenn die maximale Genauigkeit erhalten bleiben soll.
-- `f = 130`: `2 + 128`, also Kurzfloat/Float16 aktiv. Das ist für die
-  Signalstärke ausreichend und spart Payload-Bytes.
-
-<img src="../img/lora_iparam_radar_t1720.png" alt="BLX Dashboard: iparam fuer Radar-Kanaele mit Float32 fuer Distanz und Float16 fuer Signalstaerke" width="620">
-
-Im Beispiel ist Kanal `@0` die Distanz in `m` mit `f = 3`; Kanal `@1` ist die
-Signalstärke mit lokalem Einheitenstring `db` und `f = 130`. Über `fPort 14`
-gibt der Payload-Decoder diese zweite Größe als `dBm` aus. Die unteren Bits des
-Zahlenformats werden für LoRaWAN nicht als Nachkommastellen ausgewertet.
-Relevant ist nur, ob das Kurzfloat-Flag gesetzt ist. Ohne gesetztes Flag wird
-Float32 gesendet, mit gesetztem Flag Float16.
-
-Typische Einzelparameter-Kommandos für dieses Beispiel:
-
-```text
-xi0um
-xi0f3
-xi1udb
-xi1f130
-xWrite
-```
-
-Weitere Details zum Einheitenschema stehen in der
-[LoRa-Payload-Dokumentation](../lora/lora_payload.md#typfport-am-logger-einstellen).
-
-Für die Cloud-Anbindung stehen offene Softwarekomponenten zur Verfügung:
-
-- [BLX Dashboard](https://github.com/joembedded/ltx_ble_demo)
-- [LTX Payload Decoder](https://github.com/joembedded/payload-decoder)
-- [LTX Microcloud](https://github.com/joembedded/LTX_Server)
+- [LTX Typ 1820 – Hardwarevariante mit flexibler Versorgung](LTX_T1820_LoRaWAN.MD)
+- [LoRaWAN-Inbetriebnahme mit TTN oder ChirpStack](../ltx_lorawan_howto/ltx_lorawan_howto.md)
+- [LoRa-Payload, fPort, Einheiten und Downlinks](../lora/lora_payload.md)
+- [LoRaWAN-AT-Kommandos](../lora/ltx_lora_at_kommandos.md)
+- [Energie-Vergleich LoRa-Module EU868](../lora/energie_vergleich.md)
+- [Logger-Hardwareübersicht](logger_Zusammenfassung.md)
 
 ---
 
-*Kurz-Datenblatt · Stand: März 2026 · Technische Änderungen vorbehalten*
+*Kurz-Datenblatt · Stand: Juli 2026 · Technische Änderungen vorbehalten*
 
 **Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)

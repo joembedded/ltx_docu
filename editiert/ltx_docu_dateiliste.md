@@ -21,7 +21,11 @@ Beschreibt lokale Firmware-Ablage, Web-Mirror-Schema und die getrennten Firmware
 
 ### [LTX_T1720_LoRaWAN.MD](ltx_typen/LTX_T1720_LoRaWAN.MD)
 Kurz-Datenblatt für den SDI-12-Datenlogger LTX Typ 1720 mit LoRaWAN EU868.
-Enthält Merkmale, technische Daten, lokale Datensicherung, Hinweise zum LoRaWAN-Modem sowie den Vergleich zum LTX Typ 1820 (gleicher Modemkern, unterschiedliche Batterie- und Gehäusekonzepte).
+Beschreibt vor allem das kompakte 2-Zoll-Rundgehäuse, die Versorgung mit einer Lithium-D-Zelle, Speicher, Laufzeitplanung und die gerätespezifischen Basisparameter. Für die gemeinsame Software-Inbetriebnahme verweist das Dokument auf das LoRaWAN-How-to.
+
+### [LTX_T1820_LoRaWAN.MD](ltx_typen/LTX_T1820_LoRaWAN.MD)
+Kurz-Datenblatt für den SDI-12-Datenlogger LTX Typ 1820 mit LoRaWAN EU868.
+Beschreibt vor allem das größere Polycarbonatgehäuse, AA-/D-Zellen- und externe Versorgung mit Backup-Möglichkeit, Speicher, Laufzeitplanung und die gerätespezifischen Basisparameter. Enthält außerdem eine kompakte Abgrenzung zum Typ 1720 und verweist für die Software-Inbetriebnahme auf das LoRaWAN-How-to.
 
 ---
 
@@ -127,6 +131,7 @@ Liste der vom Logger uebertragenen Mobilfunk-Metadaten (`mcc`, `net`, `lac`, `ci
 | [logger_Zusammenfassung.md](ltx_typen/logger_Zusammenfassung.md) | Gerätetypen, Hardware, Funkoptionen | Projektplanung, Inbetriebnahme |
 | [firmware_uebersicht.md](ltx_typen/firmware_uebersicht.md) | Firmware-Ablage, Web-Mirror, Typ 1800/1801 | Service, Firmware-Update |
 | [LTX_T1720_LoRaWAN.MD](ltx_typen/LTX_T1720_LoRaWAN.MD) | Typ-1720-Datenblatt, LoRaWAN, Energieversorgung | Geräteauswahl, LoRa-Projekte |
+| [LTX_T1820_LoRaWAN.MD](ltx_typen/LTX_T1820_LoRaWAN.MD) | Typ-1820-Datenblatt, flexible Energieversorgung, Gehäuse | Geräteauswahl, LoRa-Projekte |
 | [sdi12_sensors.md](sdi12_sensors.md) | Open-SDI12-Blue-Sensoren, Interfaces und Datenblätter | Sensorwahl, Planung, Inbetriebnahme |
 | [blx_commands.md](blx_dashboard/blx_commands.md) | BLX Dashboard SysCommands, Store, Dateioperationen | BLE-App-Nutzung, Inbetriebnahme |
 | [LTX_Kommandos.md](ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) | Integration, Service |
