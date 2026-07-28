@@ -35,6 +35,17 @@ try {
         $targetFile = Join-Path $outputRoot ($sourceFile.BaseName + ".pdf")
         $resourcePath = "$repoRoot;$($sourceFile.DirectoryName);$assetRoot"
         $sourceText = Get-Content -Raw -Encoding UTF8 $sourceFile.FullName
+        $localLinkMatches = [regex]::Matches(
+            $sourceText,
+            '(?<!!)\[[^\]]+\]\((?!https?://|mailto:|tel:|#)([^)\s]+)(?:\s+"[^"]*")?\)',
+            [System.Text.RegularExpressions.RegexOptions]::IgnoreCase
+        )
+        if ($localLinkMatches.Count -gt 0) {
+            $localTargets = $localLinkMatches |
+                ForEach-Object { $_.Groups[1].Value } |
+                Sort-Object -Unique
+            throw "In '$($sourceFile.Name)' wurden lokale anklickbare Links gefunden: $($localTargets -join ', '). Verwende fuer eigenstaendige PDFs Web-URLs oder interne #Anker."
+        }
         $coverMatch = [regex]::Match($sourceText, '(?m)^cover-image:\s*["'']?([^\r\n"'']+)["'']?\s*$')
         if (-not $coverMatch.Success) {
             throw "In '$($sourceFile.Name)' fehlt das Metadatenfeld 'cover-image'."

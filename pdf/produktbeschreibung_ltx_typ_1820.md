@@ -14,6 +14,9 @@ version: "1.0"
 
 Der **LTX Typ 1820** ist ein batteriebetriebener Datenlogger für SDI-12-Sensoren. Er kombiniert LoRaWAN EU868, lokalen Messwertspeicher und Bluetooth Low Energy (BLE). Das größere Polycarbonatgehäuse bietet Raum für verschiedene Batterieoptionen und unterstützt zusätzlich eine externe Versorgung. Damit eignet sich der Logger für Messstellen mit flexiblem Energie- und Backup-Konzept.
 
+![LTX Typ 1820 mit LoRaWAN-Antenne](../editiert/img/LTX_Typ1820_antenna.png){height=105mm}
+
+
 # Vorteile auf einen Blick
 
 - Bis zu **20 SDI-12-Messkanäle** nach SDI-12 Version 1.3
@@ -66,4 +69,4 @@ Der Logger speichert Messwerte unabhängig von der Funkübertragung lokal im Rin
 
 # Hinweise zur Projektierung
 
-Schutzart, Antenne, Batterie, Sensorlast, Funkabdeckung und Gehäusekonfiguration sind projektspezifisch abzustimmen. Details zu LoRaWAN-Inbetriebnahme, Payload, Firmware und Parametrierung stehen in der technischen LTX-Dokumentation dieses Repos.
+Schutzart, Antenne, Batterie, Sensorlast, Funkabdeckung und Gehäuse sind projektspezifisch abzustimmen. Details zu LoRaWAN-Inbetriebnahme, Payload, Firmware und Parametrierung: [joembedded/ltx_docu](https://github.com/joembedded/ltx_docu).

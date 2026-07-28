@@ -67,4 +67,4 @@ Die lokale Einrichtung erfolgt per BLE mit dem **BLX Dashboard**. LoRaWAN ermög
 
 # Hinweise zur Projektierung
 
-Batterieparameter, Sensorlast, Funkabdeckung, Antennenposition und Messintervall müssen projektspezifisch geprüft werden. Details zu Inbetriebnahme, Payload, Firmware und Geräteparametern stehen in der technischen LTX-Dokumentation dieses Repos.
+Batterieparameter, Sensorlast, Funkabdeckung, Antennenposition und Messintervall müssen projektspezifisch geprüft werden. Details zu Inbetriebnahme, Payload, Firmware und Geräteparametern stehen in der technischen LTX-Dokumentation unter [joembedded/ltx_docu](https://github.com/joembedded/ltx_docu).

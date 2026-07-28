@@ -13,7 +13,7 @@ toc-depth: 1
 
 Diese Anleitung führt einen LTX-Datenlogger vollständig über einen von zwei LoRaWAN-Stacks bis optional zur LTX Microcloud (oder einer anderen Datenbank).
 
-> **Hinweis:** Der Schwerpunkt dieses Dokuments liegt auf Software, LoRaWAN-Netzwerk und Cloud-Anbindung. Produktspezifische Angaben zu Gehäuse, Energieversorgung, Speicher und Einbau stehen in den Hardwareanleitungen für [LTX Typ 1720](editiert/ltx_typen/LTX_T1720_LoRaWAN.MD) und [LTX Typ 1820](editiert/ltx_typen/LTX_T1820_LoRaWAN.MD).
+> **Hinweis:** Der Schwerpunkt dieses Dokuments liegt auf Software, LoRaWAN-Netzwerk und Cloud-Anbindung. Produktspezifische Angaben zu Gehäuse, Energieversorgung, Speicher und Einbau stehen in den Hardwareanleitungen für [LTX Typ 1720](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_typen/LTX_T1720_LoRaWAN.MD) und [LTX Typ 1820](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_typen/LTX_T1820_LoRaWAN.MD).
 
 ```text
 LTX-Datenlogger → LoRaWAN-Gateway → TTN oder ChirpStack → HTTP/JSON → LTX Microcloud
@@ -60,7 +60,7 @@ Tarife und Gerätegrenzen können sich ändern. Maßgeblich sind die [aktuelle S
 
 Vor Beginn benötigen Sie:
 
-- einen LoRaWAN-fähigen LTX-Datenlogger, beispielsweise [Typ 1720](editiert/ltx_typen/LTX_T1720_LoRaWAN.MD) oder den in den Screenshots verwendeten [Typ 1820](editiert/ltx_typen/LTX_T1820_LoRaWAN.MD);
+- einen LoRaWAN-fähigen LTX-Datenlogger, beispielsweise [Typ 1720](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_typen/LTX_T1720_LoRaWAN.MD) oder den in den Screenshots verwendeten [Typ 1820](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_typen/LTX_T1820_LoRaWAN.MD);
 - die passende und aktuelle Logger- sowie LoRa-Modem-Firmware;
 - die PWA [BLX Dashboard](https://github.com/joembedded/ltx_ble_demo) oder einen gleichwertigen BLE-Terminalzugang;
 - ein EU868-LoRaWAN-Gateway in Funkreichweite (ein eigenes für ChirpStack beziehungsweise lokale TTN-Abdeckung für The Things Network);
@@ -91,7 +91,7 @@ Das Beispiel liest über einen '433-MHz-zu-SDI-12-Sammler' eine Temperatur und d
 | `Messbits` | `160`, siehe Datenblatt des 433-MHz-zu-SDI-12-Konverters | wie vom Sammelkanal vorgegeben |
 | `Xbytes` | `0M` | leer beziehungsweise gerätespezifisch |
 
-Für LoRaWAN entscheidet bei `Mem_format` das Bit mit dem Wert `128` über Float16. Ohne dieses Bit wird Float32 übertragen. Details stehen in der [LTX LoRa-Payload-Dokumentation](editiert/lora/lora_payload.md) und in der [LTX-Parameter-Referenz](editiert/ltx_parameter/ltx_parameter_referenz.md).
+Für LoRaWAN entscheidet bei `Mem_format` das Bit mit dem Wert `128` über Float16. Ohne dieses Bit wird Float32 übertragen. Details stehen in der [LTX LoRa-Payload-Dokumentation](https://github.com/joembedded/ltx_docu/blob/master/editiert/lora/lora_payload.md) und in der [LTX-Parameter-Referenz](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_parameter/ltx_parameter_referenz.md).
 
 ### Allgemeine Parameter
 
@@ -122,7 +122,7 @@ xsp14
 xWrite
 ```
 
-Bei lokaler Eingabe speichert `xWrite` die Änderung dauerhaft. Ausführliche Beispiele enthält der Abschnitt [Typ/FPort am Logger einstellen](editiert/lora/lora_payload.md#typfport-am-logger-einstellen).
+Bei lokaler Eingabe speichert `xWrite` die Änderung dauerhaft. Ausführliche Beispiele enthält der Abschnitt [Typ/FPort am Logger einstellen](https://github.com/joembedded/ltx_docu/blob/master/editiert/lora/lora_payload.md#typfport-am-logger-einstellen).
 
 
 > **Hinweis:** Im JavaScript-Code des Payload-Codecs können auch eigene Einheitensysteme hinterlegt werden.
@@ -187,7 +187,7 @@ Alternativ kann es genügen, das Gerät für einige Minuten vollständig stromlo
 @AT+SAVECFG
 ```
 
-Die vollständigen Befehle und Nebenwirkungen sind in der [LTX-LoRaWAN-AT-Referenz](editiert/lora/ltx_lora_at_kommandos.md) sowie in der [LTX-Logger-Kommando-Referenz](editiert/ltx_kommandos/LTX_Kommandos.md) beschrieben.
+Die vollständigen Befehle und Nebenwirkungen sind in der [LTX-LoRaWAN-AT-Referenz](https://github.com/joembedded/ltx_docu/blob/master/editiert/lora/ltx_lora_at_kommandos.md) sowie in der [LTX-Logger-Kommando-Referenz](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_kommandos/LTX_Kommandos.md) beschrieben.
 
 ## 3.3 ADR und Datenrate festlegen
 
@@ -203,7 +203,7 @@ Beispiel für eine bewusst feste Datenrate:
 @AT+SAVECFG
 ```
 
-Hintergründe und Messwerte finden Sie im [Energie-Vergleich LoRa-Module EU868](editiert/lora/energie_vergleich.md). Für TTN sollte bei stationären Geräten bevorzugt ADR aktiv sein.
+Hintergründe und Messwerte finden Sie im [Energie-Vergleich LoRa-Module EU868](https://github.com/joembedded/ltx_docu/blob/master/editiert/lora/energie_vergleich.md). Für TTN sollte bei stationären Geräten bevorzugt ADR aktiv sein.
 
 \clearpage
 
@@ -690,14 +690,14 @@ Für ChirpStack empfiehlt die offizielle [Troubleshooting-Anleitung](https://www
 
 ## LTX
 
-- [LTX-Dokumentation - Gesamtprojekt](readme.md)
-- [LTX Typ 1720 - kompakter SDI-12-Datenlogger mit LoRaWAN](editiert/ltx_typen/LTX_T1720_LoRaWAN.MD)
-- [LTX Typ 1820 - SDI-12-Datenlogger mit flexibler Energieversorgung](editiert/ltx_typen/LTX_T1820_LoRaWAN.MD)
-- [LTX LoRa-Payload, fPort, Einheiten und Downlinks](editiert/lora/lora_payload.md)
-- [LTX-LoRaWAN-AT-Kommandos](editiert/lora/ltx_lora_at_kommandos.md)
-- [LTX-Logger-Kommando-Referenz](editiert/ltx_kommandos/LTX_Kommandos.md)
-- [LTX-Parameter-Referenz](editiert/ltx_parameter/ltx_parameter_referenz.md)
-- [Energie-Vergleich LoRa-Module EU868](editiert/lora/energie_vergleich.md)
+- [joembedded/ltx_docu - Gesamtprojekt](https://github.com/joembedded/ltx_docu)
+- [LTX Typ 1720 - kompakter SDI-12-Datenlogger mit LoRaWAN](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_typen/LTX_T1720_LoRaWAN.MD)
+- [LTX Typ 1820 - SDI-12-Datenlogger mit flexibler Energieversorgung](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_typen/LTX_T1820_LoRaWAN.MD)
+- [LTX LoRa-Payload, fPort, Einheiten und Downlinks](https://github.com/joembedded/ltx_docu/blob/master/editiert/lora/lora_payload.md)
+- [LTX-LoRaWAN-AT-Kommandos](https://github.com/joembedded/ltx_docu/blob/master/editiert/lora/ltx_lora_at_kommandos.md)
+- [LTX-Logger-Kommando-Referenz](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_kommandos/LTX_Kommandos.md)
+- [LTX-Parameter-Referenz](https://github.com/joembedded/ltx_docu/blob/master/editiert/ltx_parameter/ltx_parameter_referenz.md)
+- [Energie-Vergleich LoRa-Module EU868](https://github.com/joembedded/ltx_docu/blob/master/editiert/lora/energie_vergleich.md)
 - [LTX Payload Decoder](https://github.com/joembedded/payload-decoder)
 - [LTX Microcloud / LTX Server](https://github.com/joembedded/LTX_server)
 
