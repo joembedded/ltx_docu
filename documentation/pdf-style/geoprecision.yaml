@@ -1,0 +1,7 @@
+from: markdown+yaml_metadata_block+pipe_tables+fenced_code_blocks+definition_lists+link_attributes+implicit_figures
+standalone: true
+pdf-engine: xelatex
+top-level-division: section
+number-sections: false
+metadata:
+  lang: de-DE
