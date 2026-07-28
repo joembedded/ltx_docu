@@ -15,6 +15,7 @@ Technische Dokumentation für die LTX-Datenlogger-Serie (Typen 1500–3000) mit 
 | [logger_Zusammenfassung.md](./editiert/ltx_typen/logger_Zusammenfassung.md) | Gerätetypen, Hardware, Funkoptionen |
 | [firmware_uebersicht.md](./editiert/ltx_typen/firmware_uebersicht.md) | Firmware-Ablage, Web-Mirror und Typ-1800/1801-Firmware |
 | [LTX_T1720_LoRaWAN.MD](./editiert/ltx_typen/LTX_T1720_LoRaWAN.MD) | Datenblatt LTX Typ 1720 mit LoRaWAN |
+| [ltx_lorawan_howto.md](./editiert/ltx_lorawan_howto/ltx_lorawan_howto.md) | LoRaWAN-Inbetriebnahme mit TTN oder ChirpStack und LTX Microcloud |
 | [sdi12_sensors.md](./editiert/sdi12_sensors.md) | Aktuelle Open-SDI12-Blue-Sensoren, Interfaces, Datenblätter und Sensor-Firmware |
 | [blx_commands.md](./editiert/blx_dashboard/blx_commands.md) | BLX Dashboard – SysCommands, BLE-App |
 | [LTX_Kommandos.md](./editiert/ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) |
@@ -42,5 +43,5 @@ Es können zusätzlich alle anderen SDI-12-V1.3-kompatiblen Sensoren angeschloss
 
 **Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)
 
-*Stand: Juli 2026 – V0.6*
+*Stand: Juli 2026 – V0.7*
 

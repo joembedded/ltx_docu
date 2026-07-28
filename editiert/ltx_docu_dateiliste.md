@@ -1,8 +1,8 @@
 # LTX-Logger Dokumentation – Übersicht
 
-Stand: 2026-07-17
+Stand: 2026-07-28
 
-Einstiegsdokument für die LTX-Logger-Dokumentation. Alle inhaltlichen Dokumente liegen im selben Verzeichnis `content/`.
+Einstiegsdokument für die LTX-Logger-Dokumentation. Alle inhaltlichen Dokumente liegen unter `editiert/` beziehungsweise in den dortigen thematischen Unterverzeichnissen.
 
 ---
 
@@ -82,6 +82,10 @@ Beschreibt Dateirotation und BLE-Synchronisation, Info-Tags (`<...>`), Tabellenk
 
 ## LoRa
 
+### [ltx_lorawan_howto.md](ltx_lorawan_howto/ltx_lorawan_howto.md)
+Praxisanleitung zur vollständigen LoRaWAN-Inbetriebnahme eines LTX-Datenloggers mit The Things Network/The Things Stack oder ChirpStack V4.
+Behandelt Logger- und Modemkonfiguration, OTAA, Payload-Codecs, Webhook beziehungsweise HTTP-Integration, die Anbindung an die LTX Microcloud, Funktionstests, Fehlersuche und den energieoptimierten Dauerbetrieb.
+
 ### [ltx_lora_at_kommandos.md](lora/ltx_lora_at_kommandos.md)
 Referenz aller LoRaWAN-AT-Kommandos für LTX-Geräte der Typen 1720/1730 und 1820/1830.
 Basis ist der STM32CubeWL-Stack (AN5481 v1.0.4) mit LTX-projektspezifischen Erweiterungen. Dokumentiert Schlüssel/EUIs (`AT+DEUI`, `AT+NWKKEY`, …), Join- und Sendebefehle (`AT+JOIN`, `AT+SEND`), Netzwerkverwaltung (ADR, DR, Frequenzband, TX-Power) sowie LTX-Erweiterungen wie `AT+XSTATE`, `AT+RECV` und `AT+SAVECFG`.
@@ -128,6 +132,7 @@ Liste der vom Logger uebertragenen Mobilfunk-Metadaten (`mcc`, `net`, `lac`, `ci
 | [LTX_Kommandos.md](ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) | Integration, Service |
 | [ltx_parameter_referenz.md](ltx_parameter/ltx_parameter_referenz.md) | Parameterdateien, `x...`-Kommandos | Parametrierung, Konfiguration |
 | [ltx_fileformat_edt.md](ltx_datenfiles/ltx_fileformat_edt.md) | EDT-Messdatenformat, CSV-Expansion, Payload-Decoding | Datenanalyse, Import, Service |
+| [ltx_lorawan_howto.md](ltx_lorawan_howto/ltx_lorawan_howto.md) | LoRaWAN-Inbetriebnahme mit TTN oder ChirpStack und LTX Microcloud | Inbetriebnahme, Integration, Service |
 | [ltx_lora_at_kommandos.md](lora/ltx_lora_at_kommandos.md) | LoRaWAN-AT-Kommandos (vollständig) | LoRa-Inbetriebnahme |
 | [lora_payload.md](lora/lora_payload.md) | LoRa-Payload, Uplink-Decoder, Downlink-Kommandos | Plattform-Integration |
 | [energie_vergleich.md](lora/energie_vergleich.md) | LoRa-Modulvergleich Stromverbrauch | Hardware-Auswahl |
