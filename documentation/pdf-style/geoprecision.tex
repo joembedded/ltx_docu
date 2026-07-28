@@ -111,7 +111,11 @@
 \vspace{16mm}
 {\sffamily\fontsize{9}{11}\selectfont\bfseries\color{GPIceDeep}\MakeUppercase{$if(document-type)$$document-type$$else$Produktbeschreibung$endif$}\par}
 \vspace{4mm}
+ $if(cover-title-font-size)$
+{\headingfont\fontsize{$cover-title-font-size$}{$cover-title-line-height$}\selectfont\bfseries $title$\par}
+$else$
 {\headingfont\fontsize{35}{38}\selectfont\bfseries $title$\par}
+$endif$
 $if(subtitle)$
 \vspace{4mm}
 {\sffamily\fontsize{16}{20}\selectfont\color{GPIceDeep}$subtitle$\par}

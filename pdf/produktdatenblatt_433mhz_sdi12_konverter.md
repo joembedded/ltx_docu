@@ -1,7 +1,7 @@
 ---
 title: 433 MHz zu SDI-12 Konverter
 subtitle: Funkmesswerte einfach in SDI-12-Systeme integrieren
-document-type: Produktbeschreibung
+document-type: Produktdatenblatt
 product-code: WIRELESS 433 / SDI-12
 lead: Der Konverter empfängt Messwerte kompatibler GeoPrecision-Funkdatenlogger und stellt sie über einen standardisierten SDI-12-Bus bereit.
 cover-image: editiert/img/sdi12_433mhz_receiver_device.png

@@ -2,6 +2,10 @@
 
 Diese Notiz enthält einen wiederverwendbaren Auftragstext für Codex, um aus den aufbereiteten Daten im Verzeichnis `/editiert/` ansprechend gestaltete PDF-Dokumente zu erzeugen.
 
+## Verwendete Modellkonfiguration
+
+Die vorhandenen Produktdatenblätter wurden mit **GitHub Copilot** und dem Modell **GPT-5.6 Terra High** erstellt. Für vergleichbare PDF-Erstellungen kann diese Kombination verwendet werden, damit nicht für jeden Export das große Codex-Modell gestartet werden muss und Token gespart werden.
+
 ## Kurzer Auftrag
 
 Den folgenden Text kann ich später direkt an Codex senden:
@@ -136,3 +140,17 @@ Je genauer der Auftrag ist, desto passender werden die Dokumente. Bei Bedarf kan
 ## Empfohlener vollständiger Auftrag
 
 > Erstelle aus den von mir genannten Daten unter `/editiert/` für jedes Produkt eine professionelle deutschsprachige Produktbeschreibung als PDF. Verwende konsequent den vorhandenen GeoPrecision-Stil unter `/documentation/pdf-style/`. Lege die bearbeitbaren Markdown-Fassungen unter `/pdf/` und die fertigen PDFs unter `/output/pdf/` ab. Gliedere die Dokumente in Kurzbeschreibung, Vorteile, Einsatzbereiche, Funktionen und technische Daten, soweit diese Informationen in den Quellen vorhanden sind. Verwende vorhandene Produktbilder, ohne deren Seitenverhältnis zu verzerren. Zeige das kleine Titelbild auf der ersten Inhaltsseite nach dem Produktprofil noch einmal groß: bei Querformat üblicherweise etwa 125 mm breit, bei hohem Hochformat etwa 105 mm hoch. Erfinde keine technischen Werte. Da die PDFs eigenständig weitergegeben werden, müssen alle anklickbaren Verweise auf Repository-Dateien vollständige GitHub-URLs unter `https://github.com/joembedded/ltx_docu/blob/master/` verwenden; relative lokale Links und `file:///`-Ziele sind unzulässig. Allgemeine Hinweise auf die technische Dokumentation oder „dieses Repo“ müssen direkt auf `[joembedded/ltx_docu](https://github.com/joembedded/ltx_docu)` verlinken. Lokale Bildpfade sind erlaubt, wenn die Bilder in die PDF eingebettet werden. Baue die PDFs, rendere alle Seiten zur Kontrolle und korrigiere Überläufe, abgeschnittene Inhalte, schlecht umbrechende Tabellen und unleserliche Abbildungen. Nenne mir anschließend die erzeugten Dateien und alle getroffenen Annahmen.
+
+
+## interne Notitz fuer Juergen: 
+Ich formuliere das immer so: z.B. mit GH Copilot, Terra, High:
+
+Kannst Du im Stil der Doku auch ein Produkt-Datenblatt für den 
+
+Typ 410 - 2-Draht Konverter für unsere Präzissions-Temperaturmessketten (Strings) mit Bluetooth.
+erstellen als PDF. Schreibe das Produkt-Datenblatt etwas ausführlicher, da der Sensor sehr wichtig ist.
+
+Die Original-ODT-Dateien, die auch die Bilder enthalten sind in: 
+"C:\html\jfile\ltx_factory\Docu_LibreOffice_Originals\osx_2wire.odt"
+
+ Weitere Infos und Links auch in C:\html\ltx_docu\editiert\sdi12_sensors.md
