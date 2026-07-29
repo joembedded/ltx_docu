@@ -1,6 +1,6 @@
 # Energie-Vergleich LoRa-Module EU868
 
-**Stand:** 14.03.2026 / JW
+**Stand:** 29.07.2026 / JW
 
 > Es wurden 3 Module (LTX-Shields) verglichen. Ein LTX-Shield enthält im wesentlichen nur das LoRa-Funkmodul und einen 50Ω-UFL-Anschluss. Als Firmware auf dem LoRa-Modul wurde die AT-Firmware von STM (Basis ‘AN5481’) in einer angepassten Version implementiert (zusätzliche Events, Watchdog, etc.).
 
@@ -14,6 +14,7 @@ Für die Übersichtstabelle wurden 2 typische Nutzlängen verwendet:
 
 - [Testbedingungen](#testbedingungen)
 - [ADR bei stationären und mobilen Geräten](#adr-bei-stationären-und-mobilen-geräten)
+  - [Einfluss von `NbTrans`](#einfluss-von-nbtrans)
 - [Module im Vergleich](#module-im-vergleich)
 - [Energieverbrauch @ 3.3 V — unconfirmed TX (mC)](#energieverbrauch--33v--unconfirmed-tx-mc)
   - [1 Byte Nutzdaten](#1-byte-nutzdaten-aus-messung-in-mc)
@@ -28,6 +29,7 @@ Für die Übersichtstabelle wurden 2 typische Nutzlängen verwendet:
 - Versorgungsspannung: 3.3V, Funkband: EU868
 - Sendeleistung: ~12 dBm (Spektrumanalyzer @ 868.5 MHz)
 - ADR und DCS deaktiviert (AT+ADR=0, AT+DCS=0)
+- Eine Uplink-Übertragung pro Frame (`AT+NBTRANS=1`)
 - LoRaWAN-Version 1.0.4, Firmware: V1.4
 - Messung: Sende-Peak bis "+EVT:FINISH" (inkl. RX-Slots), Nordic PPK2
 
@@ -41,9 +43,18 @@ Für die Energie- und Funkplanung gelten unterschiedliche Prioritäten:
 
 | Einsatz | ADR | Planungshinweis |
 |---|:---:|---|
-| stationär, stabile Funkstrecke | `1` | Bevorzugte Einstellung: Der Network Server kann Datenrate, Sendeleistung und Wiederholungszahl optimieren. Kürzere Sendezeiten sparen Batterie und Netzkapazität. |
-| mobil oder schnell wechselnde Funkdämpfung | häufig `0` | Verhindert, dass eine am vorherigen Standort optimierte Einstellung vorübergehend ungeeignet ist. Datenrate und Sendeleistung müssen dann vom Gerät bzw. für den Anwendungsfall festgelegt werden. |
+| stationär, stabile Funkstrecke | `1` | Bevorzugte Einstellung: Der Network Server kann Datenrate, Sendeleistung und `NbTrans` optimieren. Eine höhere Datenrate und geringere Sendeleistung können Batterie und Netzkapazität sparen. `NbTrans` sollte trotzdem überwacht werden. |
+| stationär, schwache aber stabile Funkstrecke | meist `1`, alternativ `0` | ADR kann weiterhin die bestmöglichen Parameter finden, bei Paketverlusten aber `NbTrans` erhöhen. Wenn ein vorhersehbares Energiebudget wichtiger ist, kann nach praktischen Funkmessungen stattdessen `ADR=0`, die höchste noch zuverlässige feste Datenrate und `NbTrans=1` gewählt werden. |
+| mobil oder schnell wechselnde Funkdämpfung | häufig `0` | Verhindert, dass eine am vorherigen Standort optimierte Einstellung vorübergehend ungeeignet ist. Datenrate, Sendeleistung und `NbTrans` müssen dann vom Gerät bzw. für den Anwendungsfall festgelegt werden. |
 | mobil, aber lange Stillstandsphasen | abhängig von der Gerätefunktion | ADR kann während stabiler Phasen vorteilhaft sein, wenn die Anwendung den Mobilitätszustand erkennt und ADR zuverlässig umschaltet. |
+
+Die LoRaWAN-Spezifikation empfiehlt, ADR wann immer möglich zu aktivieren, um
+Batterielaufzeit und Netzkapazität zu verbessern. Ein schlechtes Link-Budget
+allein ist daher noch kein zwingender Grund für `ADR=0`. Bei schnell oder
+fortlaufend wechselnder Funkdämpfung soll dagegen die Anwendung die Parameter
+steuern. Für eine feste EU868-Konfiguration kommen je nach vor Ort geprüftem
+Link-Budget beispielsweise `DR0`, `DR1` oder `DR2` infrage. Gewählt werden sollte
+die höchste Datenrate, die noch ausreichend zuverlässig funktioniert.
 
 `ADR=0` vergrößert nicht automatisch die Anzahl erreichbarer Gateways. Eine
 niedrige Datenrate wie EU868 `DR0` erhöht jedoch die Link-Budget-Reserve. Damit
@@ -62,8 +73,30 @@ Laufzeit daher anhand der `DR0`-Zeile geplant werden, nicht anhand einer für
 stationären ADR-Betrieb typischen hohen Datenrate. Zusätzliche Join-Vorgänge,
 Paketverluste und Wiederholungen sind als Reserve einzuplanen.
 
+### Einfluss von `NbTrans`
+
+`NbTrans` legt die Gesamtzahl der Übertragungen je Uplink-Frame fest. Die
+Tabellen in diesem Dokument basieren auf `NbTrans=1`. Bei gleicher Datenrate
+kann `NbTrans=3` die Funk-Airtime und die Energie des Sende-/Empfangszyklus
+annähernd verdreifachen, wenn alle drei Übertragungen ausgeführt werden. Dadurch
+kann selbst bei `DR0` oder `DR1` ein erheblicher zusätzlicher Verbrauch
+entstehen. Der genaue Faktor ist nicht immer exakt drei, da ein Downlink in RX1
+oder RX2 weitere Wiederholungen beendet und die RX-/Verarbeitungsanteile den
+Messwert beeinflussen.
+
+Bei `ADR=1` darf der Network Server `NbTrans` verändern. Der aktuelle
+Standard-ADR-Algorithmus von ChirpStack erhöht den Wert abhängig von erkannten
+Paketverlusten schrittweise bis `3` und senkt ihn bei besserer Erfolgsrate wieder.
+Der technisch zulässige LoRaWAN-Bereich ist `1...15`, Default ist `1`. Wer ein
+deterministischeres Energiebudget benötigt, kann `ADR=0`, eine praktisch
+erprobte feste Datenrate und `AT+NBTRANS=1` verwenden; die dadurch entfallende
+Redundanz kann allerdings die Zustellwahrscheinlichkeit verringern.
+
 Technische Grundlage ist die
-[LoRaWAN-Link-Layer-Spezifikation 1.0.4, Abschnitt 4.3.1.1](https://lora-alliance.org/wp-content/uploads/2021/11/LoRaWAN-Link-Layer-Specification-v1.0.4.pdf).
+[LoRaWAN-Link-Layer-Spezifikation 1.0.4, Abschnitte 4.3.1.1 und 5.2](https://lora-alliance.org/wp-content/uploads/2021/11/LoRaWAN-Link-Layer-Specification-v1.0.4.pdf).
+Die adaptive Begrenzung auf `3` ist eine Implementierungsentscheidung des
+[ChirpStack-Standard-ADR-Algorithmus](https://github.com/chirpstack/chirpstack/blob/master/chirpstack/src/adr/default.rs),
+nicht die Obergrenze der LoRaWAN-Spezifikation.
 
 ## Module im Vergleich
 

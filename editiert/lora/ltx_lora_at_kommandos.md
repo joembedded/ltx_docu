@@ -1,6 +1,6 @@
 # Projekt LTX Typ 1720/1730 1820/1830 – LoRaWAN AT-Kommandos
 
-**Stand:** 23.04.2026 / JW  
+**Stand:** 29.07.2026 / JW<br>
 **Basis:** STMicroelectronics Application Note AN5481 „LoRaWAN AT commands for STM32CubeWL"  
 **Erweiterungen:** LTX-projektspezifische Befehle (implementiert von JW)
 
@@ -75,6 +75,7 @@ Dieses Dokument beschreibt alle AT-Befehle der LoRaWAN-AT-Schnittstelle für die
   - [LTX-Erweiterungen](#ltx-erweiterungen)
     - [`AT+TIMEREQ` – Netzzeit-Anforderung](#attimereq--netzzeit-anforderung)
     - [`AT+NVMJS=?` – NVM Join-Status abfragen](#atnvmjs--nvm-join-status-abfragen)
+    - [`AT+NBTRANS` – Anzahl der Uplink-Übertragungen](#atnbtrans--anzahl-der-uplink-übertragungen)
     - [`AT+XSTATE=?` – Laufzeitzustand abfragen](#atxstate--laufzeitzustand-abfragen)
     - [`AT+RECV` – Empfangspuffer lesen](#atrecv--empfangspuffer-lesen)
     - [`AT+SAVECFG` – Konfiguration speichern](#atsavecfg--konfiguration-speichern)
@@ -491,8 +492,11 @@ OK
 > [!TIP]
 > **Stationäre Geräte:** `AT+ADR=1` ist bei weitgehend stabiler Funkstrecke die
 > bevorzugte Einstellung. Der Network Server kann Datenrate, Sendeleistung und
-> Wiederholungszahl optimieren. Das verkürzt die Sendezeit, spart Energie und
-> reduziert die Netzbelegung.
+> Wiederholungszahl (`NbTrans`) optimieren. Eine höhere Datenrate und eine
+> geringere Sendeleistung können die Sendezeit verkürzen, Energie sparen und die
+> Netzbelegung reduzieren. Bei erkannten Paketverlusten kann der Server jedoch
+> `NbTrans` erhöhen; deshalb sollte der aktuelle Wert mit `AT+NBTRANS=?` oder im
+> Feld `N:` von `AT+XSTATE=?` kontrolliert werden.
 >
 > **Mobile Geräte:** `AT+ADR=0` ist sinnvoll, wenn sich die Funkdämpfung durch
 > Ortswechsel schnell oder fortlaufend ändert. Eine an einem früheren Standort
@@ -505,6 +509,15 @@ OK
 > Steuerung unterstützt, sollten unterschiedliche Datenraten verwendet und die
 > gesamte Sendezeit so klein wie unter den jeweiligen Netzbedingungen möglich
 > gehalten werden.
+>
+> **Schwaches, aber stabiles Netz:** Hier kann `AT+ADR=1` weiterhin sinnvoll
+> sein. Der Network Server kann dabei beispielsweise eine robuste Datenrate
+> wählen, aber auch `NbTrans=2` oder `3` anfordern. Falls ein vorhersehbares
+> Energiebudget wichtiger ist und die serverseitige Einstellung dauerhaft zu
+> viele Wiederholungen verursacht, kann stattdessen `AT+ADR=0` mit einer vor Ort
+> geprüften festen Datenrate (typisch `AT+DR=0`, `1` oder `2`) und
+> `AT+NBTRANS=1` verwendet werden. Das begrenzt die Wiederholungsenergie, nimmt
+> aber bewusst eine möglicherweise geringere Zustellwahrscheinlichkeit in Kauf.
 >
 > ADR aus erhöht nicht unmittelbar die Anzahl der Gateways: Jeder Uplink kann
 > grundsätzlich von allen Gateways in Funkreichweite empfangen werden. Eine
@@ -525,7 +538,8 @@ ADR ist für stabile Funkbedingungen vorgesehen; bei schnell veränderlicher
 Funkdämpfung soll die Anwendung die Funkparameter selbst steuern. Auch mobile
 Geräte können ADR während längerer Stillstandsphasen nutzen, sofern die
 Anwendung den Mobilitätszustand zuverlässig erkennt und ADR entsprechend
-umschaltet.
+umschaltet. Die Spezifikation empfiehlt, ADR wann immer möglich zu aktivieren,
+um Batterielaufzeit und Netzkapazität zu verbessern.
 
 
 ---
@@ -855,12 +869,64 @@ OK
 
 ---
 
+### `AT+NBTRANS` – Anzahl der Uplink-Übertragungen
+
+Liest oder setzt den aktuellen LoRaWAN-Parameter `NbTrans`. Der Wert bezeichnet
+die **Gesamtzahl der Übertragungen je Uplink-Frame**: `1` bedeutet eine einzige
+Übertragung, `3` bedeutet die erste Übertragung plus bis zu zwei
+Wiederholungen. Die Wiederholungen erhöhen bei unveränderter Datenrate die
+Chance, dass mindestens eine Übertragung ankommt, benötigen aber zusätzliche
+Airtime und Energie.
+
+| Syntax | Funktion |
+|---|---|
+| `AT+NBTRANS=?` | Aktuellen Wert lesen |
+| `AT+NBTRANS=<1...15>` | Wert setzen |
+
+```
+AT+NBTRANS=?
+NBTRANS: 3
+
+OK
+AT+NBTRANS=1
+
+OK
+```
+
+> [!IMPORTANT]
+> Bei `AT+ADR=1` darf der Network Server `NbTrans` zusammen mit Datenrate und
+> Sendeleistung über `LinkADRReq` ändern. Ein manuell gesetzter Wert kann daher
+> später überschrieben werden. Der aktuelle Standard-ADR-Algorithmus von
+> ChirpStack wertet Paketverluste aus und regelt `NbTrans` schrittweise bis auf
+> `3` hoch bzw. bei sinkender Verlustrate wieder herunter. `3` ist somit eine
+> ChirpStack-Implementierungsentscheidung und nicht die Obergrenze der
+> LoRaWAN-Spezifikation.
+
+> [!CAUTION]
+> Werden alle Übertragungen ausgeführt, steigen Funk-Airtime und die Energie des
+> Sende-/Empfangszyklus bei gleicher Datenrate näherungsweise mit `NbTrans`.
+> `NbTrans=3` kann daher annähernd die dreifache Funkenergie von `NbTrans=1`
+> benötigen. Der genaue Faktor hängt unter anderem von den RX-Fenstern und einem
+> möglichen Downlink ab; nach einem Downlink in RX1 oder RX2 werden ausstehende
+> Wiederholungen beendet.
+
+Nach der
+[LoRaWAN-Link-Layer-Spezifikation 1.0.4, Abschnitt 5.2](https://lora-alliance.org/wp-content/uploads/2021/11/LoRaWAN-Link-Layer-Specification-v1.0.4.pdf)
+gilt `NbTrans` für **bestätigte und unbestätigte** Uplink-Frames. Default ist
+`1`, der gültige Bereich ist `1...15`; ein per `LinkADRReq` empfangener Wert `0`
+wird bei LoRaWAN 1.0.4 als Default `1` behandelt. Die beschriebene adaptive
+Begrenzung auf `3` ist im
+[Quellcode des ChirpStack-Standard-ADR-Algorithmus](https://github.com/chirpstack/chirpstack/blob/master/chirpstack/src/adr/default.rs)
+nachvollziehbar.
+
+---
+
 ### `AT+XSTATE=?` – Laufzeitzustand abfragen
 
 Gibt den aktuellen detaillierten Betriebszustand des Modems aus. Ermöglicht dem Host, ohne Event-Auswertung den Zustand zu pollen.
 Das ist einer der wichtigsten Befehle der Erweiterung!
 
-**Ausgabeformat:** `XS: J:<join_age> C:<cmd_age> LS:<last_srv_age> LT:<last_time_age> R:<rx_bytes> E:<result> D:<datarate>`
+**Ausgabeformat:** `XS: J:<join_age> C:<cmd_age> LS:<last_srv_age> LT:<last_time_age> R:<rx_bytes> E:<result> D:<datarate> N:<nbtrans>`
 
 | Feld | Bedeutung |
 |---|---|
@@ -871,6 +937,7 @@ Das ist einer der wichtigsten Befehle der Erweiterung!
 | `R` | Größe der ungelesenen Empfangsdaten in Bytes (`0` = keine) |
 | `E` | Letztes Ergebnis (siehe Tabelle unten) |
 | `D` | Aktuelle Sende-Datenrate |
+| `N` | Aktueller Wert von `NbTrans` (Anzahl der Uplink-Übertragungen) |
 
 **Werte für `E`:**
 
@@ -885,7 +952,7 @@ Das ist einer der wichtigsten Befehle der Erweiterung!
 
 ```
 AT+XSTATE=?
-XS: J:378 C:250 LS:249 LT:249 R:0 E:-2 D:3
+XS: J:1169 C:65 LS:849 LT:-1 R:0 E:-1 D:0 N:3
 OK
 ```
 
@@ -1017,7 +1084,7 @@ AT+LTIME=?
 LTIME: 13:32:48 13.12.2025 T:1765632768
 OK
 AT+XSTATE=?
-XS: J:378 C:250 LS:249 LT:249 R:0 E:-2 D:3
+XS: J:378 C:250 LS:249 LT:249 R:0 E:-2 D:3 N:1
 OK
 ```
 
@@ -1039,7 +1106,7 @@ Zustand pollen und Puffer auslesen:
 
 ```
 AT+XSTATE=?
-XS: J:1340 C:21 LS:20 LT:1211 R:12 E:-1 D:3
+XS: J:1340 C:21 LS:20 LT:1211 R:12 E:-1 D:3 N:1
 OK
 AT+RECV=?
 REC: P:8:0C:703D3336303020686B723D30
@@ -1120,6 +1187,7 @@ OK
 | `AT+BAT` | R | AN5481 | Batteriestand |
 | `AT+TIMEREQ` | – | **LTX** | Netzzeit-Anforderung (nächster Uplink) |
 | `AT+NVMJS=?` | R | **LTX** | NVM Join-Status lesen |
+| `AT+NBTRANS` | R/W | **LTX** | Anzahl Uplink-Übertragungen `[1:15]` |
 | `AT+XSTATE=?` | R | **LTX** | Laufzeitzustand abfragen |
 | `AT+RECV` | R/W | **LTX** | Downlink-Puffer lesen / quittieren |
 | `AT+SAVECFG` | – | **LTX** | Konfiguration im Flash speichern |
