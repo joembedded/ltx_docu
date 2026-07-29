@@ -45,7 +45,7 @@ Das Ziel ist ein erfolgreicher OTAA-Join, eine dekodierte Uplink-Payload und die
 
 - Bei TTN können lange Pakete und ungünstige Datenraten die zulässige Airtime schnell ausschöpfen. Für schlechte Funkbedingungen sollte deshalb eher mit Übertragungsintervallen von 30 Minuten oder länger kalkuliert werden. Ein Messintervall von 10 Minuten ist nur ein Konfigurationsbeispiel und nicht automatisch TTN-tauglich.
 - Bei ChirpStack sind – sofern Airtime, Duty Cycle und Netzkapazität es zulassen – deutlich kürzere Intervalle möglich. Bei einer guten Verbindung und beispielsweise `DR:5` kann auch eine Übertragung pro Minute praktikabel sein.
-- `ADR:1` ist für stationäre Geräte mit hinreichend stabiler Funkstrecke in der Regel sinnvoll, weil der Netzwerkserver Datenrate und Sendeparameter optimieren kann. Bei mobilen Geräten oder stark wechselnden Funkbedingungen muss ADR gesondert bewertet werden; solche Anwendungen eignen sich daher weniger für eine starre TTN-Auslegung.
+- `ADR=1` ist für stationäre Geräte mit hinreichend stabiler Funkstrecke in der Regel sinnvoll, weil jeder LoRaWAN-Network-Server Datenrate, Sendeleistung und `NbTrans` optimieren kann. Wertebereich und Regelstrategie für `NbTrans` hängen vom Stack ab; beim aktuellen ChirpStack-Standardalgorithmus liegt der mögliche Bereich bei `1...3`. Diese ADR-/`NbTrans`-Strategie ist eine Design-Entscheidung beim Server-Setup und muss zum Energie- und Zuverlässigkeitsziel der Anwendung passen.
 
 > [!NOTE]
 > Die Registrierung erfolgt über [thethingsnetwork.org](https://www.thethingsnetwork.org/). Ob eine Zahlungsmethode verlangt wird, kann vom gewählten Tarif und vom Kontotyp abhängen. Bei privaten E-Mail-Adressen ist für die Sandbox üblicherweise keine Zahlungsmethode erforderlich; der Registrierungsablauf kann sich jedoch ändern.
@@ -186,13 +186,23 @@ Alternativ kann es genügen, das Gerät für einige Minuten vollständig stromlo
 
 Die vollständigen Befehle und Nebenwirkungen sind in der [LTX-LoRaWAN-AT-Referenz](../lora/ltx_lora_at_kommandos.md) sowie in der [LTX-Logger-Kommando-Referenz](../ltx_kommandos/LTX_Kommandos.md) beschrieben.
 
-### 3.3 ADR und Datenrate festlegen
+### 3.3 ADR, `NbTrans` und Datenrate festlegen
 
-- Für einen stationären Logger ist `ADR=1` meist sinnvoll. Der Server kann Datenrate und Sendeparameter an die Funkstrecke anpassen.
-- Für mobile Geräte oder stark wechselnde Funkbedingungen kann `ADR=0` sinnvoll sein. Dann müssen Datenrate und Sendeleistung passend zur Anwendung festgelegt werden; `ADR=0` bedeutet nicht automatisch, dass jede sonstige Einstellung optimal ist.
-- `DR0` bietet in EU868 eine große Link-Budget-Reserve, benötigt aber deutlich mehr Airtime und Energie als höhere Datenraten.
+Die ADR-/`NbTrans`-Strategie ist nicht nur eine Geräteeinstellung, sondern eine Design-Entscheidung beim Setup und Betrieb des Network Servers. Legen Sie sie je Anwendung beziehungsweise Geräteprofil fest und dokumentieren Sie das gewünschte Verhältnis zwischen automatischer Funkoptimierung, Zustellwahrscheinlichkeit und vorhersehbarem Energiebedarf.
 
-Beispiel für eine bewusst feste Datenrate:
+| Betriebsziel | Geräteeinstellung | Folge für Server und Betrieb |
+|---|---|---|
+| automatische Optimierung bei stationärer, stabiler Funkstrecke | `ADR=1` | Jeder LoRaWAN-Network-Server darf Datenrate, Sendeleistung und `NbTrans` über `LinkADRReq` ändern. Wertebereich und Regelstrategie sind stackabhängig; beim aktuellen ChirpStack-Standardalgorithmus gilt `1...3`. |
+| vorhersehbares Energiebudget | `ADR=0`, erprobte feste Datenrate | Die Firmware verwendet für `NbTrans` immer den Default `1`; der Server optimiert die Funkparameter nicht mehr automatisch. Die fehlende Wiederholung spart Energie, kann aber die Zustellwahrscheinlichkeit verringern. |
+| mobile oder schnell wechselnde Funkbedingungen | häufig `ADR=0`, anwendungsgerecht gewählte Datenrate und Sendeleistung | Eine am vorherigen Standort optimierte Einstellung wird vermieden. Die Anwendung trägt die Verantwortung für robuste Funkparameter. |
+
+`NbTrans` bezeichnet die Gesamtzahl der Übertragungen je Uplink-Frame. Werden alle Übertragungen ausgeführt, können `NbTrans=3` gegenüber `NbTrans=1` die Funk-Airtime und die Energie des Sende-/Empfangszyklus bei gleicher Datenrate näherungsweise verdreifachen. Bei `ADR=1` kann jeder LoRaWAN-Stack den Wert zugunsten der Zustellwahrscheinlichkeit verändern. Der konkrete Wertebereich ist eine Implementierungsentscheidung des Stacks; der aktuelle ChirpStack-Standard-ADR-Algorithmus regelt `NbTrans` anhand erkannter Paketverluste im Bereich `1...3`.
+
+Bei `ADR=0` verwendet die Firmware für `NbTrans` immer den Default `1`. Das Kommando `AT+NBTRANS=X` mit `X=1...15` ist nur für Tests implementiert. Der damit gesetzte Wert wird nicht gespeichert und steht nach einem Reset wieder auf `1`; auch `AT+SAVECFG` macht diese Testeinstellung nicht persistent.
+
+`DR0` bietet in EU868 eine große Link-Budget-Reserve, benötigt aber deutlich mehr Airtime und Energie als höhere Datenraten. Wählen Sie bei einer festen Konfiguration die höchste Datenrate, die am Einsatzort noch ausreichend zuverlässig funktioniert.
+
+Beispiel für eine bewusst feste Konfiguration; `NbTrans=1` ergibt sich bei `ADR=0` automatisch:
 
 ```text
 @AT+ADR=0
@@ -200,7 +210,7 @@ Beispiel für eine bewusst feste Datenrate:
 @AT+SAVECFG
 ```
 
-Hintergründe und Messwerte finden Sie im [Energie-Vergleich LoRa-Module EU868](../lora/energie_vergleich.md). Für TTN sollte bei stationären Geräten bevorzugt ADR aktiv sein.
+Kontrollieren Sie den aktuell wirksamen Wert mit `AT+NBTRANS=?` oder im Feld `N:` von `AT+XSTATE=?`. Für TTN sollte bei stationären Geräten bevorzugt ADR aktiv sein; bei einem eigenen ChirpStack-Server ist die Auswahl des ADR-Algorithmus Teil des Geräteprofil-Designs. Hintergründe, Messwerte und Befehlsdetails finden Sie im [Energie-Vergleich LoRa-Module EU868](../lora/energie_vergleich.md) und in der [LTX-LoRaWAN-AT-Referenz](../lora/ltx_lora_at_kommandos.md#atnbtrans--anzahl-der-uplink-übertragungen).
 
 ## Weg A: The Things Network / The Things Stack
 
@@ -421,6 +431,9 @@ Die folgenden Schritte bilden dieselbe Kette für ChirpStack ab: Anwendung, Ger�
 
 Der Screenshot zeigt bei `Expected uplink interval` noch `3600`. Übernehmen Sie dort die reale Konfiguration und nicht blind den Bildwert.
 
+> [!IMPORTANT]
+> Die Auswahl des ADR-Algorithmus ist eine bewusste Server-Designentscheidung. Grundsätzlich kann jeder LoRaWAN-Stack bei `ADR=1` neben Datenrate und Sendeleistung auch `NbTrans` anpassen. Der aktuelle ChirpStack-Standardalgorithmus `Default ADR algorithm (LoRa only)` regelt `NbTrans` bei Paketverlusten im Bereich `1...3`. Überwachen Sie daher bei `ADR=1` den wirksamen Wert. Wird für das Energiebudget zwingend `NbTrans=1` benötigt, ist nach Funkmessungen eine feste Gerätekonfiguration mit `ADR=0` und einer ausreichend zuverlässigen Datenrate die passende Alternative; `NbTrans` steht dann immer auf dem Default `1`, die fehlende Wiederholung kann aber die Zustellwahrscheinlichkeit reduzieren. `AT+NBTRANS=X` ist lediglich ein flüchtiger Testbefehl und nach einem Reset wieder auf `1` gesetzt.
+
 ![ChirpStack: EU868-Geräteprofil mit LoRaWAN 1.0.4](lora_images/21_chirpstack_profil.png)
 
 *Region, MAC-Version und Regional Parameters müssen zur Gerätefirmware und zur Server-Region passen.*
@@ -566,12 +579,13 @@ Nach einem erfolgreichen Weg A oder B sind dieselben Abschlussarbeiten erforderl
 
 ### 4.1 Erfolgskriterien
 
-Die Inbetriebnahme ist erst vollständig, wenn alle fünf Ebenen funktionieren:
+Die Inbetriebnahme ist erst vollständig, wenn alle sechs Ebenen funktionieren:
 
 | Ebene | Prüfung | Erwartetes Ergebnis |
 |---|---|---|
 | Logger | Terminal nach `i` | `LoRa-Transfer OK` oder `LoRa-Transfer (verified) OK` |
 | LoRaWAN | Live Data / LoRaWAN frames | Join und Uplink mit steigendem `FCnt` |
+| Funkparameter | `AT+NBTRANS=?` oder Feld `N:` von `AT+XSTATE=?` | wirksames `NbTrans` entspricht der dokumentierten ADR-/Energiestrategie |
 | Codec | `decoded_payload` / `object` | Kanäle, Werte, Einheiten und gegebenenfalls HK-Daten |
 | HTTP | Webhook-/Integration-Event | HTTP-Erfolg, keine wiederholten Fehlerereignisse |
 | Datenbank | LTX Microcloud | neues Gerät und aktuelle Messwerte sichtbar |
@@ -619,7 +633,9 @@ Bestätigte Nachrichten und Downlinks verbrauchen zusätzliche Gateway-Airtime. 
 | HTTP 400 `Invalid Payload` | notwendige JSON-Felder fehlen oder falscher Eventtyp | Filter entfernen; echten Uplink senden; vollständigen Request am Server protokollieren |
 | HTTP 400 `API Key` | falscher `KEY`-Queryparameter | `D_API_KEY` beziehungsweise individuelle Gerätefreigabe in der Microcloud prüfen |
 | `FCnt` bleibt gleich oder wird abgelehnt | wiederholter Frame oder nicht passender Session-Zustand | Aktivierung und Gerätezustand prüfen; Frame-Counter-Validierung nicht als schnelle Lösung deaktivieren |
-| Batterie wird während des Tests stark belastet | Debugmodus, DR0, häufige Joins oder viele Confirmed Uplinks | `@$dbg 0`, ADR/Datenrate und Intervalle optimieren, Join-Ursache beheben |
+| `NbTrans` weicht bei `ADR=1` von einer manuellen Testvorgabe ab | der Network Server hat den Wert über `LinkADRReq` geändert | stackabhängige ADR-Strategie und Paketverluste prüfen; `NbTrans` überwachen; für ChirpStack gilt mit dem aktuellen Standardalgorithmus `1...3` |
+| `NbTrans` steht nach einem Reset wieder auf `1` | `AT+NBTRANS=X` ist nur für Tests implementiert und wird nicht gespeichert | erwartetes Verhalten; bei `ADR=0` den Default `1` verwenden, bei `ADR=1` die serverseitige Regelstrategie prüfen |
+| Batterie wird während des Tests stark belastet | Debugmodus, DR0, häufige Joins, `NbTrans>1` oder viele Confirmed Uplinks | `@$dbg 0`, ADR, `NbTrans`, Datenrate und Intervalle optimieren, Join-Ursache beheben |
 
 Für ChirpStack empfiehlt die offizielle [Troubleshooting-Anleitung](https://www.chirpstack.io/docs/guides/connect-device.html#troubleshooting), Gateway-Frames, Geräte-Frames und Events in dieser Reihenfolge zu prüfen. Bei TTN liefern [Live data](https://www.thethingsindustries.com/docs/hardware/devices/troubleshooting/) und die [Webhook-Fehlersuche](https://www.thethingsindustries.com/docs/integrations/webhooks/troubleshooting/) die entsprechenden Informationen.
 
@@ -631,8 +647,8 @@ Für ChirpStack empfiehlt die offizielle [Troubleshooting-Anleitung](https://www
 - Veröffentlichen Sie keine Console-Screenshots mit vollständigen Keys oder persönlichen Anmeldedaten.
 - Speichern Sie Konfigurationsänderungen bewusst und dokumentieren Sie `DEUI`, `APPEUI`, Stack, Anwendung, Profil, fPort und Installationsort.
 - Prüfen Sie bei TTN regelmäßig Fair Use und Tarifbedingungen.
-- Überwachen Sie in ChirpStack Gateway-Verfügbarkeit, Join-Fehler und HTTP-Integration.
-- Dimensionieren Sie Mess- und Sendeintervalle nach Batterielaufzeit, Funkqualität, Payload-Länge, Datenrate und gesetzlichen Vorgaben.
+- Überwachen Sie bei `ADR=1` im jeweiligen Network Server die tatsächlich gesetzten Funkparameter einschließlich `NbTrans`; für ChirpStack gilt mit dem aktuellen Standardalgorithmus der Bereich `1...3`.
+- Dimensionieren Sie Mess- und Sendeintervalle nach Batterielaufzeit, Funkqualität, Payload-Länge, Datenrate, `NbTrans` und gesetzlichen Vorgaben.
 
 ## 7. Kompakte Checkliste
 
@@ -642,7 +658,7 @@ Für ChirpStack empfiehlt die offizielle [Troubleshooting-Anleitung](https://www
 - [ ] sinnvoller Uplink-`fPort` gewählt
 - [ ] `@$initeu868` bei uninitialisiertem Modem ausgeführt
 - [ ] `DEUI`, `APPEUI` und `NWKKEY` sicher notiert
-- [ ] ADR und Datenrate zur Anwendung passend gesetzt
+- [ ] ADR-, `NbTrans`- und Datenratenstrategie passend zu Funkstrecke, Zustellziel und Energiebudget festgelegt
 - [ ] erreichbares EU868-Gateway vorhanden
 
 ### TTN
@@ -659,6 +675,7 @@ Für ChirpStack empfiehlt die offizielle [Troubleshooting-Anleitung](https://www
 
 - [ ] Anwendung angelegt
 - [ ] EU868-/LoRaWAN-1.0.4-Geräteprofil mit OTAA angelegt
+- [ ] ADR-Algorithmus als Server-Designentscheidung gewählt, ChirpStack-Bereich `NbTrans=1...3` berücksichtigt und Überwachung vorgesehen
 - [ ] gemeinsamer Codec aus `payload_ltx_clean.js` und `paydown_ltx.js` gespeichert
 - [ ] Device EUI, Join EUI und Application key eingetragen
 - [ ] JSON-HTTP-Integration zur Microcloud gespeichert
