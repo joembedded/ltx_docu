@@ -99,14 +99,20 @@ Dieses Dokument beschreibt alle AT-Befehle der LoRaWAN-AT-Schnittstelle für die
 
 **Fehlerkodes:**
 
-| Code | Bedeutung |
-|---|---|
-| `AT_ERROR` | Allgemeiner Fehler |
-| `AT_PARAM_ERROR` | Ungültiger Parameter |
-| `AT_BUSY_ERROR` | Modem beschäftigt (Kommando läuft bereits) |
-| `AT_TEST_PARAM_OVERFLOW` | Test-Parameter-Überlauf |
-| `AT_NO_NETWORK_JOINED` | Kein Netzwerk beigetreten |
-| `AT_RX_ERROR` | Empfangsfehler (Integritätsprüfung fehlgeschlagen) |
+| Code | C-Symbol | Bedeutung |
+|---|---|---|
+| `3` | `LORA_ERROR_X` | Undefinierter Fehler; wird bereits sehr früh in der AT-Verarbeitung abgefangen |
+| `10` | `LORA_PARAM_ERROR` | Parameterfehler, z. B. `AT+BAND=5` nach einem Join |
+| `11` | `LORA_NO_NETWORK_JOINED` | Keinem Netzwerk beigetreten |
+| `12` | `LORA_RECV_ERROR` | Empfangsfehler |
+| `13` | `LORA_DUTYCYCLE_RESTRICTED` | Duty-Cycle-Grenze verletzt |
+| `14` | `LORA_NEVER_NETWORK_JOINED_AND_BACKOFF` | Noch keinem Netzwerk beigetreten; Join-Backoff aktiv |
+| `AT_ERROR` | - | Allgemeiner Fehler |
+| `AT_PARAM_ERROR` | - | Ungültiger Parameter |
+| `AT_BUSY_ERROR` | - | Modem beschäftigt (Kommando läuft bereits) |
+| `AT_TEST_PARAM_OVERFLOW` | - | Test-Parameter-Überlauf |
+| `AT_NO_NETWORK_JOINED` | - | Kein Netzwerk beigetreten |
+| `AT_RX_ERROR` | - | Empfangsfehler (Integritätsprüfung fehlgeschlagen) |
 
 ---
 
@@ -131,6 +137,19 @@ Asynchrone Ereignisse werden mit dem Präfix `+EVT:` gemeldet und können unabh�
 | `+EVT:LINK_CHECK` | AN5481 | Antwort auf Link-Check-Anfrage |
 
 > **Hinweis zum `+EVT:FINISH`:** Dieses Event wird ausgegeben, sobald ein kompletter Class-A-Zyklus (Join oder Send inkl. aller RX-Fenster) abgeschlossen ist oder der zugehörige Timeout ausläuft. Es signalisiert dem Host, dass Folgekommandos ausgeführt werden können.
+
+**Interne LTX-Ereigniscodes:**
+
+Diese Codes dienen der Diagnose und Zuordnung zur Modem-Firmware. Die nach außen ausgegebene Meldung ist in der Event-Tabelle oben beschrieben und kann je nach Vorgang abweichen.
+
+| Code | C-Symbol | Bedeutung |
+|---|---|---|
+| `40` | `LORA_EVT_FINISH` | Class-A-Zyklus abgeschlossen; siehe `+EVT:FINISH` |
+| `41` | `LORA_EVT_JOINED_OK` | Join erfolgreich |
+| `42` | `LORA_EVT_SERVER_REPLY` | Antwort des LoRaWAN-Servers empfangen |
+| `50` | `LORA_EVT_JOIN_FAILED` | Join fehlgeschlagen; Keys prüfen oder Netz nicht erreichbar. Bei ChirpStack v4 kann der erste Join eines neuen Geräts fehlschlagen, während der zweite gelingt. |
+| `51` | `LORA_EVT_FINISH_TIMEOUT` | Zugehöriger Vorgang per Timeout abgeschlossen |
+| `99` | `LORA_EVT_UNKNOWN` | Unbekanntes Ereignis |
 
 ---
 
@@ -619,7 +638,7 @@ OK
 
 ### `AT+DCS` – Duty-Cycle-Einstellung
 
-Aktiviert oder deaktiviert die gesetzliche Sendezeitbegrenzung (Duty Cycle, relevant für EU868).
+Aktiviert oder deaktiviert die gesetzliche Sendezeitbegrenzung (Duty Cycle, relevant für EU868). Das Modem summiert die Airtime der Übertragungen. Ist das zulässige Sendezeitbudget ausgeschöpft, wird eine weitere Übertragung mit Fehlercode `13` (`LORA_DUTYCYCLE_RESTRICTED`) abgewiesen.
 
 | Wert | Bedeutung |
 |---|---|
@@ -632,7 +651,7 @@ OK
 ```
 
 > [!CAUTION]
-> Deaktivieren des Duty Cycles wird nicht im NVM gespeichert und ist nur für Test-Zwecke vorgesehen.
+> Mit `AT+DCS=0` lässt sich die Prüfung testweise umgehen. Die Einstellung wird nicht dauerhaft gespeichert, ist nicht CE-konform und ausschließlich für Tests vorgesehen.
 
 
 ---
@@ -878,10 +897,11 @@ Wiederholungen. Die Wiederholungen erhöhen bei unveränderter Datenrate die
 Chance, dass mindestens eine Übertragung ankommt, benötigen aber zusätzliche
 Airtime und Energie.
 
+
 | Syntax | Funktion |
 |---|---|
 | `AT+NBTRANS=?` | Aktuellen Wert lesen |
-| `AT+NBTRANS=<1...15>` | Wert setzen |
+| `AT+NBTRANS=<1...15>` | Wert setzen (Wert wird nicht dauerhaft gespeichert, das Kommandi ist hauptsächlich für Tests vorgesehen)|
 
 ```
 AT+NBTRANS=?

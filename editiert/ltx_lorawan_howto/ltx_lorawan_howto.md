@@ -97,7 +97,6 @@ Für LoRaWAN entscheidet bei `Mem_format` das Bit mit dem Wert `128` über Float
 | `Period_Internet_sec` | `0` | jeden neuen Messwert übertragen |
 | `HK_reload` | `6` | bei jeder sechsten Messung Housekeeping-Werte ergänzen |
 | `MinTemp_oC` | `-40` | minimale Betriebstemperatur für die Konfiguration |
-| `Config0_U31` | vorübergehend `0` | ausführlichere LoRaWAN-Ausgabe während der Inbetriebnahme |
 | `Service Parameter → Sysparam → p Port` | `1` | LoRaWAN-Uplink-`fPort` des Beispiels |
 
 Der Uplink-`fPort` steuert zugleich das Einheitenschema des Payload-Decoders. `1` bis `9` sind frei beziehungsweise kundenspezifisch; bekannte Standards sind beispielsweise:
@@ -515,10 +514,18 @@ i
 
 Für eine ausführliche, vorübergehende Diagnose:
 
+Einfach:
 ```text
 @$dbg 1
 i
 ```
+
+Ausführlich:
+```text
+@$dbg 2
+i
+```
+
 
 Im dokumentierten Test meldete der Logger beim ersten Versuch `JOIN_FAILED`, obwohl ChirpStack bereits `JoinRequest` und `JoinAccept` zeigte:
 
@@ -594,18 +601,15 @@ Die Serverzeit wird beim Join beziehungsweise über die LTX-Zeitanforderung sync
 
 ### 4.2 Diagnoseeinstellungen wieder zurücknehmen
 
-Während der Einrichtung darf `Config0_U31` testweise `0` sein. Für den CE-konformen Dauerbetrieb muss die Bitmaske `16` wieder gesetzt werden, damit Bluetooth und LoRaWAN nicht gleichzeitig aktiv sind. Die BLE-Verbindung wird während eines Transfers dann kurz getrennt und anschließend wieder aufgebaut.
-
-Schalten Sie außerdem den Modem-Debugmodus aus:
-
-```text
-@$dbg 0
-```
-
-Der Debugmodus erzeugt zusätzliche Modemkommunikation, erhöht den Energieverbrauch und ignoriert die normale `Config0_U31`-Unterdrückung. Er darf nicht versehentlich im Batteriebetrieb aktiv bleiben.
+Während der Einrichtung kann man testweise `@$dbg 1` (einfache Ausgaben) oder `@$dbg 2` (inkl. AT-Kommandos) setzen. Dann erfolgen wähend des Transfers AUsgaben am Terminal der APP. Das Kommando deaktiviert sich automatisch nach 2 Stunden oder manuell mittels `@$dbg 0`.
 
 > [!IMPORTANT]
-> Auch technisch ist es sinnvoll, Bluetooth während einer LoRaWAN-Übertragung auszuschalten: Das maximiert die Reichweite und minimiert den Energieverbrauch, insbesondere bei schwachen Funksignalen. Setzen Sie daher im produktiven Betrieb `Config0_U31` auf `16` und verwenden Sie `@$dbg 0`.
+> Für den CE-konformen Dauerbetrieb dürfen aber Bluetooth und LoRaWAN nicht gleichzeitig aktiv sind. Die BLE-Verbindung wird im regulären Modus während eines Transfers dann kurz getrennt und anschließend wieder aufgebaut. 
+> Der CE-konforme Modus ist, wenn der Parameter `Config0_U31` auf `16` (Bit 4) gesetzt ist und `@$dbg 0`.
+
+
+> [!IMPORTANT]
+> Auch technisch ist es sinnvoll, Bluetooth während einer LoRaWAN-Übertragung auszuschalten: Das maximiert die Reichweite und minimiert den Energieverbrauch, insbesondere bei sehr schwachen Funksignalen.
 
 
 ### 4.3 LED- und Bestätigungsverhalten

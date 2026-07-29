@@ -1,6 +1,6 @@
 # LTX-Logger Kommando-Referenz
 
-**Stand:** 2026-07-27
+**Stand:** 2026-07-30
 
 
 ## Inhaltsverzeichnis
@@ -116,7 +116,9 @@ Verfügbar bei `DEVICE_HAS_SDI12_0`, also bei den betrachteten SDI-12-Loggern.
 | `z-` | Manuell eingeschaltete SDI-12-Versorgung wieder ausschalten |
 | `zdbg` / `zdbg0` / `zdbg1` | BLE-SDI-Debugstatus anzeigen bzw. setzen |
 
-Einem SDI-12-Messkommando kann optional `*<msec>` vorangestellt werden. Beispiel:
+Einem SDI-12-Messkommando kann optional `*<msec>` (oder `+<msec>`) vorangestellt werden. Das Präfix `*` ist die reguläre Variante (`+` wird die SDI-12 Stromversorgung nach dem Messkommando nicht abgeschaltet, sondern angelassen, wird nur in Sonderfällen benötigt).
+
+Beispiel:
 
 ```text
 z*3000 0M
@@ -127,9 +129,9 @@ Messbetrieb ist die SDI-12-Stromversorgung ausgeschaltet. Für eine Messung wird
 sie eingeschaltet, die angegebene Vorlaufzeit abgewartet und erst danach das
 SDI-12-Kommando ausgeführt.
 
-Zulässig sind Werte von `0` bis `10000` ms. Fehlt der Präfix `*<msec>`, wird
-eine Vorlaufzeit von `250` ms verwendet. Eine Angabe wie `*12000` verlängert
-den Vorlauf daher nicht über das Maximum von 10 Sekunden hinaus.
+Zulässig sind Werte von `0` bis `30000` ms. Fehlt der Präfix `*<msec>`, wird
+eine Vorlaufzeit von `250` ms verwendet. Eine Angabe wie `*42000` verlängert
+den Vorlauf daher nicht über das Maximum von 30 Sekunden hinaus.
 
 Davon zu unterscheiden sind `z+` und `z-`: Diese Kommandos schalten die
 Versorgung bei Inbetriebnahme oder Diagnose manuell ein bzw. aus. Sie sind
@@ -139,7 +141,7 @@ nicht die Vorlaufzeit eines automatisch ausgeführten Messkommandos.
 
 `x...` ist das wichtigste Kommando zum Setzen einzelner Parameter. Die
 Die Detailbedeutung der Parameter steht in der
-[Parameter-Referenz](../ltx_parameter/ltx_parameter_referenz.md)—dort besonders:
+[Parameter-Referenz](../ltx_parameter/ltx_parameter_referenz.md) - dort besonders:
 - Abschnitt 5 „Einzelzugriff auf Parameter“
 - Abschnitt 3 „iparam.lxp“
 - Abschnitt 4 „sys_param.lxp“
@@ -148,6 +150,7 @@ Die Detailbedeutung der Parameter steht in der
 
 ```text
 x<Datei><Parameter><Wert>
+x<Datei><Parameter>
 xWrite
 ```
 
@@ -156,14 +159,21 @@ xWrite
 | `x` | Präfix für Single-Line-Parameterkommando |
 | `<Datei>` | `i` = `iparam.lxp`, `s` = `sys_param.lxp` |
 | `<Parameter>` | Mnemonic des Parameters, bei Kanalparametern zuerst Kanalnummer |
-| `<Wert>` | neuer Wert; bei numerischen Werten ohne Leerzeichen direkt nach dem Mnemonic |
+| `<Wert>` | optionaler neuer Wert; bei numerischen Werten ohne Leerzeichen direkt nach dem Mnemonic |
+| `x<Datei><Parameter>` | aktuellen Wert eines setzbaren Parameters abfragen |
 | `xWrite` | geänderte `iparam.lxp`/`sys_param.lxp` dauerhaft schreiben |
 
 Wichtig: Der Code in `slparam_set_full()` / `slparam_set_iparam()` /
-`slparam_set_sys_param()` verarbeitet in dieser Version Set- und
-Validierungskommandos. Numerische Werte dürfen kein Leerzeichen vor dem Wert haben.
+`slparam_set_sys_param()` verarbeitet in dieser Version Set-, Abfrage- und
+Validierungskommandos. Eine Abfrage ohne Wert gibt den aktuellen Wert im Format
+`[<Datei><Parameter>] <Wert>` aus. Stringwerte stehen dabei immer in
+Hochkommas. Numerische Werte dürfen kein Leerzeichen vor dem Wert haben.
 Die externe Parameterreferenz beschreibt zusätzlich den Einzelzugriff als
 allgemeines Konzept.
+
+Bei Stringwerten wird ein Leerzeichen zwischen Mnemonic und Wert als Teil des
+Werts übernommen. Für `xin Testlog` ist der gespeicherte Name daher
+` Testlog` einschließlich des führenden Leerzeichens.
 
 Achtung bei negativen Zahlen: `sl_get_num_i32()` prüft aktuell, ob das erste
 Zeichen eine Ziffer ist. Negative Werte wie `xid-10` oder `xiu-3600` sind
@@ -187,6 +197,8 @@ Werte fachlich vorsehen.
 | `xi0x*1800 0MC` | Kanal 0 Xbytes/SDI-12-Messkommando setzen |
 | `xsaiot.1nce.net` | APN setzen |
 | `xssjoembedded.de` | Server setzen |
+| `xin` | Gerätenamen abfragen, z. B. Ausgabe `[in] 'LTXA288F783'` |
+| `xin Testlog` | Gerätenamen setzen; eine anschließende Abfrage mit `xin` gibt `[in] ' Testlog'` aus |
 | `xsp80` | Port setzen |
 | `xsp12` | Bei LoRaWAN den Uplink-FPort auf `12` setzen; der LTX-Payload-Decoder verwendet damit die Einheitengruppe `Bar`, `°C` |
 | `xso0` | Mobilfunk-/LoRa-Protokollfeld setzen |
