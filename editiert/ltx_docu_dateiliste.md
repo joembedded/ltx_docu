@@ -1,6 +1,6 @@
 # LTX-Logger Dokumentation – Übersicht
 
-Stand: 2026-07-28
+Stand: 2026-07-31
 
 Einstiegsdokument für die LTX-Logger-Dokumentation. Alle inhaltlichen Dokumente liegen unter `editiert/` beziehungsweise in den dortigen thematischen Unterverzeichnissen.
 
@@ -61,6 +61,17 @@ Verbindungsverwaltung, Dateioperationen (`.get`, `.put`, `.fput`, `.del`, `.firm
 ### [LTX_Kommandos.md](ltx_kommandos/LTX_Kommandos.md)
 Vollständige Kommando-Referenz für alle LTX-Logger der Typen 1500–3000.
 Behandelt alle Kommunikationswege (BLE, UART, Mobilfunk-Downlink, LoRa-Downlink), allgemeine BLE-Kommandos, Datei- und Speicherkommandos, das Parameterkommando `x...`/`xWrite`, SDI-12-Kommandos sowie die modemspezifischen Kommandos für Mobilfunk- und LoRa-Geräte.
+
+---
+
+## Diagnose und Fehlerbehebung
+
+### [diagnose_fehlerbehebung_howto.md](diagnose_fehlerbehebung/diagnose_fehlerbehebung_howto.md)
+Praxisanleitung für Hardware-Entwicklung, Inbetriebnahme und technischen Service.
+Beschreibt den sicheren Anschluss und die Bedienung der lokalen 3,3-V-Debug-UART,
+wichtige Diagnosekommandos sowie die direkte Untersuchung des SDI-12-Busses mit
+einem RS-232-Adapter und SDI12Term. Enthält Anschlussbilder, minimale
+SDI-12-Messabläufe, Hinweise zum parallelen Mitschneiden und eine Diagnosematrix.
 
 ---
 
@@ -135,6 +146,7 @@ Liste der vom Logger uebertragenen Mobilfunk-Metadaten (`mcc`, `net`, `lac`, `ci
 | [sdi12_sensors.md](sdi12_sensors.md) | Open-SDI12-Blue-Sensoren, Interfaces und Datenblätter | Sensorwahl, Planung, Inbetriebnahme |
 | [blx_commands.md](blx_dashboard/blx_commands.md) | BLX Dashboard SysCommands, Store, Dateioperationen | BLE-App-Nutzung, Inbetriebnahme |
 | [LTX_Kommandos.md](ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) | Integration, Service |
+| [diagnose_fehlerbehebung_howto.md](diagnose_fehlerbehebung/diagnose_fehlerbehebung_howto.md) | Debug-UART, SDI-12-Terminal und systematische Fehlersuche | Hardware-Entwicklung, Inbetriebnahme, Service |
 | [ltx_parameter_referenz.md](ltx_parameter/ltx_parameter_referenz.md) | Parameterdateien, `x...`-Kommandos | Parametrierung, Konfiguration |
 | [ltx_fileformat_edt.md](ltx_datenfiles/ltx_fileformat_edt.md) | EDT-Messdatenformat, CSV-Expansion, Payload-Decoding | Datenanalyse, Import, Service |
 | [ltx_lorawan_howto.md](ltx_lorawan_howto/ltx_lorawan_howto.md) | LoRaWAN-Inbetriebnahme mit TTN oder ChirpStack und LTX Microcloud | Inbetriebnahme, Integration, Service |

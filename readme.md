@@ -19,6 +19,7 @@ Technische Dokumentation für die LTX-Datenlogger-Serie (Typen 1500–3000) mit 
 | [sdi12_sensors.md](./editiert/sdi12_sensors.md) | Aktuelle Open-SDI12-Blue-Sensoren, Interfaces, Datenblätter und Sensor-Firmware |
 | [blx_commands.md](./editiert/blx_dashboard/blx_commands.md) | BLX Dashboard – SysCommands, BLE-App |
 | [LTX_Kommandos.md](./editiert/ltx_kommandos/LTX_Kommandos.md) | Alle Kommandos (BLE, UART, LoRa, Mobilfunk) |
+| [diagnose_fehlerbehebung_howto.md](./editiert/diagnose_fehlerbehebung/diagnose_fehlerbehebung_howto.md) | Diagnose und Fehlerbehebung mit Debug-UART und SDI-12-Terminal |
 | [ltx_parameter_referenz.md](./editiert/ltx_parameter/ltx_parameter_referenz.md) | Parameterdateien, Konfiguration |
 | [ltx_fileformat_edt.md](./editiert/ltx_datenfiles/ltx_fileformat_edt.md) | EDT-Messdatenformat, Payload-Decoding |
 | [ltx_lora_at_kommandos.md](./editiert/lora/ltx_lora_at_kommandos.md) | LoRaWAN-AT-Kommandos |
