@@ -336,7 +336,8 @@ das LoRa-Modemkommando in `device_cmdline()` einleitet.
 | `@$res` | `$res` | LoRa-Modem per Hardware-/Typ-Init resetten |
 | `@$dbg` | `$dbg` | Debugstatus anzeigen |
 | `@$dbg0` | `$dbg 0` | Debug ausschalten |
-| `@$dbg1` | `$dbg 1` | Debug einschalten |
+| `@$dbg1` | `$dbg 1` | Debug (einfach) einschalten (bleibt max 2h aktiv)|
+| `@$dbg2` | `$dbg 2` | Debug (mit AT-Kommandos) einschalten (bleibt max 2h aktiv)|
 | `@$initeu868` | `$initeu868` | EU868-Keys initialisieren, SoC-MAC als Device EUI setzen |
 | `@$beefcode` | `$beefcode` | feste Factory-Test-Keys setzen |
 | `@$info` | `$info` | Status, DEUI, APPEUI, NWKKEY, ADR, DR, Join- und Fehlerstatus ausgeben |

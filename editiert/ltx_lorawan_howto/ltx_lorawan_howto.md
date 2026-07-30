@@ -2,7 +2,7 @@
 
 [← Zur LTX-Dokumentationsübersicht](../ltx_docu_dateiliste.md)
 
-Diese Anleitung führt einen LTX-Datenlogger vollständig über einen von zwei LoRaWAN-Stacks bis optional zur LTX Microcloud (oder einer anderen Datenbank).
+Diese Anleitung beschreibt die vollständige Inbetriebnahme eines LTX-Datenloggers mit einem von zwei LoRaWAN-Stacks, optional bis zur LTX Microcloud oder einer anderen Datenbank.
 
 > [!NOTE]
 > Der Schwerpunkt dieses Dokuments liegt auf Software, LoRaWAN-Netzwerk und Cloud-Anbindung. Produktspezifische Angaben zu Gehäuse, Energieversorgung, Speicher und Einbau stehen in den Hardwareanleitungen für [LTX Typ 1720](../ltx_typen/LTX_T1720_LoRaWAN.MD) und [LTX Typ 1820](../ltx_typen/LTX_T1820_LoRaWAN.MD).
@@ -35,7 +35,7 @@ Das Ziel ist ein erfolgreicher OTAA-Join, eine dekodierte Uplink-Payload und die
 
 | Kriterium | The Things Network / The Things Stack (TTN) | ChirpStack V4 |
 |---|---|---|
-| Infrastruktur | Global organisiertes Community-Netz; vorhandene Gateways können mitgenutzt werden. Die lokale Abdeckung vorher im [TTN Mapper](https://ttnmapper.org/heatmap/) prüfen. | Eigener ChirpStack-Server und mindestens ein erreichbares eigenes Gateway sind erforderlich. |
+| Infrastruktur | Global organisiertes Community-Netz; vorhandene Gateways können mitgenutzt werden. Die lokale Abdeckung vorher im [TTN Mapper](https://ttnmapper.org/heatmap/) prüfen. | Eine ChirpStack-Instanz und mindestens ein daran angebundenes Gateway in Funkreichweite sind erforderlich. |
 | Kosten | Die Sandbox ist für kleine, nichtkommerzielle Tests kostenlos. Der kostenlose kommerzielle Discovery-Tarif umfasst derzeit bis zu 10 Geräte und 10 Gateways; darüber hinaus gelten kostenpflichtige Tarife. | Die Open-Source-Software ist auch kommerziell kostenlos. Kosten entstehen für Server, Gateways, Wartung und Betrieb; für kleine Installationen genügt meist ein günstiger VServer. |
 | Funkverkehr | Die Community-Fair-Use-Policy begrenzt pro Gerät und 24 Stunden die Uplink-Airtime auf 30 Sekunden sowie die Zahl der Downlinks auf 10. | Keine zusätzliche ChirpStack-Kontingentgrenze; maßgeblich bleiben die gesetzlichen Funkvorgaben, insbesondere Duty Cycle und Sendeleistung. |
 | Kontrolle und Skalierung | Plattformbetrieb, Community-Abdeckung und Nutzungsregeln werden übernommen; gut für Versuche und kleine Installationen. | Volle Kontrolle über Server, Gateways, Mandanten und Daten. Je nach Serverauslegung lassen sich auch Flotten mit vielen Tausend Geräten verwalten. |
@@ -45,7 +45,7 @@ Das Ziel ist ein erfolgreicher OTAA-Join, eine dekodierte Uplink-Payload und die
 
 - Bei TTN können lange Pakete und ungünstige Datenraten die zulässige Airtime schnell ausschöpfen. Für schlechte Funkbedingungen sollte deshalb eher mit Übertragungsintervallen von 30 Minuten oder länger kalkuliert werden. Ein Messintervall von 10 Minuten ist nur ein Konfigurationsbeispiel und nicht automatisch TTN-tauglich.
 - Bei ChirpStack sind – sofern Airtime, Duty Cycle und Netzkapazität es zulassen – deutlich kürzere Intervalle möglich. Bei einer guten Verbindung und beispielsweise `DR:5` kann auch eine Übertragung pro Minute praktikabel sein.
-- `ADR=1` ist für stationäre Geräte mit hinreichend stabiler Funkstrecke in der Regel sinnvoll, weil jeder LoRaWAN-Network-Server Datenrate, Sendeleistung und `NbTrans` optimieren kann. Wertebereich und Regelstrategie für `NbTrans` hängen vom Stack ab; beim aktuellen ChirpStack-Standardalgorithmus liegt der mögliche Bereich bei `1...3`. Diese ADR-/`NbTrans`-Strategie ist eine Design-Entscheidung beim Server-Setup und muss zum Energie- und Zuverlässigkeitsziel der Anwendung passen.
+- `ADR=1` ist für stationäre Geräte mit hinreichend stabiler Funkstrecke in der Regel sinnvoll, weil der LoRaWAN-Network-Server Datenrate, Sendeleistung und `NbTrans` optimieren kann. Wertebereich und Regelstrategie für `NbTrans` hängen vom Stack ab; beim aktuellen ChirpStack-Standardalgorithmus liegt der mögliche Bereich bei `1...3`. Diese ADR-/`NbTrans`-Strategie ist eine Design-Entscheidung beim Server-Setup und muss zum Energie- und Zuverlässigkeitsziel der Anwendung passen.
 
 > [!NOTE]
 > Die Registrierung erfolgt über [thethingsnetwork.org](https://www.thethingsnetwork.org/). Ob eine Zahlungsmethode verlangt wird, kann vom gewählten Tarif und vom Kontotyp abhängen. Bei privaten E-Mail-Adressen ist für die Sandbox üblicherweise keine Zahlungsmethode erforderlich; der Registrierungsablauf kann sich jedoch ändern.
@@ -59,7 +59,7 @@ Vor Beginn benötigen Sie:
 - einen LoRaWAN-fähigen LTX-Datenlogger, beispielsweise [Typ 1720](../ltx_typen/LTX_T1720_LoRaWAN.MD) oder den in den Screenshots verwendeten [Typ 1820](../ltx_typen/LTX_T1820_LoRaWAN.MD);
 - die passende und aktuelle Logger- sowie LoRa-Modem-Firmware;
 - die PWA [BLX Dashboard](https://github.com/joembedded/ltx_ble_demo) oder einen gleichwertigen BLE-Terminalzugang;
-- ein EU868-LoRaWAN-Gateway in Funkreichweite (ein eigenes für ChirpStack beziehungsweise lokale TTN-Abdeckung für The Things Network);
+- ein EU868-LoRaWAN-Gateway in Funkreichweite (für ChirpStack an die eigene Instanz angebunden beziehungsweise lokale TTN-Abdeckung für The Things Network);
 - einen TTN-/The-Things-Stack-Zugang **oder** eine betriebsbereite ChirpStack-V4-Installation;
 - den [LTX Payload Decoder](https://github.com/joembedded/payload-decoder);
 - optional eine erreichbare LTX-Microcloud-Installation und deren Geräte-API-Key;
@@ -97,7 +97,7 @@ Für LoRaWAN entscheidet bei `Mem_format` das Bit mit dem Wert `128` über Float
 | `Period_Internet_sec` | `0` | jeden neuen Messwert übertragen |
 | `HK_reload` | `6` | bei jeder sechsten Messung Housekeeping-Werte ergänzen |
 | `MinTemp_oC` | `-40` | minimale Betriebstemperatur für die Konfiguration |
-| `Service Parameter → Sysparam → p Port` | `1` | LoRaWAN-Uplink-`fPort` des Beispiels |
+| `Service Parameter → Sysparam → p Port` | `1` (nur als Beispiel) | LoRaWAN-Uplink-`fPort` |
 
 Der Uplink-`fPort` steuert zugleich das Einheitenschema des Payload-Decoders. `1` bis `9` sind frei beziehungsweise kundenspezifisch; bekannte Standards sind beispielsweise:
 
@@ -110,7 +110,7 @@ Der Uplink-`fPort` steuert zugleich das Einheitenschema des Payload-Decoders. `1
 | `14` | Radar, `m`, `dBm` |
 | `15` | Leitfähigkeit, `°C`, `uS/cm` |
 
-Setzen Sie also nicht blind `1` (da ohne Einheiten), sondern einen zur Messaufgabe passenden Typ. Per Terminal (oder später remote) lautet das Kommando beispielsweise:
+Übernehmen Sie den Beispielwert `1` nicht blind, da er keine Einheiten überträgt. Wählen Sie stattdessen einen zur Messaufgabe passenden Typ. Per Terminal (oder später remote) lautet das Kommando beispielsweise:
 
 ```text
 xsp14
@@ -124,13 +124,13 @@ Bei lokaler Eingabe speichert `xWrite` die Änderung dauerhaft. Ausführliche Be
 
 ### 3.2 LoRa-Modem prüfen und für EU868 initialisieren
 
-Öffnen Sie das Terminal im BLX Dashboard und setzen Sie das Modem zurück:
+Öffnen Sie das Terminal im BLX Dashboard und setzen Sie das Modem zurück (optionaler Schritt, nur um Infos zum LoRaWAN-Modem angezeigt zu bekommen):
 
 ```text
 @$res
 ```
 
-Die Ausgabe zeigt Modemtyp, Firmware, Device EUI und die gespeicherten Werte für ADR und Datenrate. Fehlen Presets oder stimmt die Device EUI nicht mit der MAC des Loggers überein, initialisieren Sie das Modem für EU868:
+Die Ausgabe zeigt Modemtyp, Firmware, Device EUI und die gespeicherten Werte für ADR und Datenrate. Fehlen Presets oder stimmt die Device EUI nicht mit der MAC des Loggers überein, initialisieren Sie das Modem für EU868 (im Regelfall sind die Geräte bereits bei Auslieferung sinnvoll eingerichtet und OTAA-Daten liegen separat bei):
 
 ```text
 @$initeu868
@@ -177,7 +177,7 @@ Wenn Keys wegen eines gespeicherten Join-Kontexts nicht geändert werden können
 @$info
 ```
 
-Alternativ kann es genügen, das Gerät für einige Minuten vollständig stromlos zu machen. Manuell geänderte Modemparameter werden mit folgendem Befehl gespeichert:
+Alternativ kann es genügen, das Gerät für einige Minuten vollständig stromlos zu machen. Manuell geänderte Modemparameter (nur Keys, DR, ADR) werden mit folgendem Befehl gespeichert:
 
 ```text
 @AT+SAVECFG
@@ -201,7 +201,7 @@ Bei `ADR=0` verwendet die Firmware für `NbTrans` immer den Default `1`. Das Kom
 
 `DR0` bietet in EU868 eine große Link-Budget-Reserve, benötigt aber deutlich mehr Airtime und Energie als höhere Datenraten. Wählen Sie bei einer festen Konfiguration die höchste Datenrate, die am Einsatzort noch ausreichend zuverlässig funktioniert.
 
-Beispiel für eine bewusst feste Konfiguration; `NbTrans=1` ergibt sich bei `ADR=0` automatisch:
+Beispiel für eine **bewusst feste Konfiguration**; `NbTrans=1` ergibt sich bei `ADR=0` automatisch:
 
 ```text
 @AT+ADR=0
@@ -209,7 +209,7 @@ Beispiel für eine bewusst feste Konfiguration; `NbTrans=1` ergibt sich bei `ADR
 @AT+SAVECFG
 ```
 
-Kontrollieren Sie den aktuell wirksamen Wert mit `AT+NBTRANS=?` oder im Feld `N:` von `AT+XSTATE=?`. Für TTN sollte bei stationären Geräten bevorzugt ADR aktiv sein; bei einem eigenen ChirpStack-Server ist die Auswahl des ADR-Algorithmus Teil des Geräteprofil-Designs. Hintergründe, Messwerte und Befehlsdetails finden Sie im [Energie-Vergleich LoRa-Module EU868](../lora/energie_vergleich.md) und in der [LTX-LoRaWAN-AT-Referenz](../lora/ltx_lora_at_kommandos.md#atnbtrans--anzahl-der-uplink-übertragungen).
+Kontrollieren Sie den aktuell wirksamen Wert mit `AT+NBTRANS=?` oder im Feld `N:` von `AT+XSTATE=?`. Für TTN sollte bei stationären Geräten bevorzugt ADR aktiv sein (wird in deren 'Fair-Use-Policy' gewünscht); bei einem eigenen ChirpStack-Server ist die Auswahl des ADR-Algorithmus Teil des Geräteprofil-Designs. Hintergründe, Messwerte und Befehlsdetails finden Sie im [Energie-Vergleich LoRa-Module EU868](../lora/energie_vergleich.md) und in der [LTX-LoRaWAN-AT-Referenz](../lora/ltx_lora_at_kommandos.md#atnbtrans--anzahl-der-uplink-übertragungen).
 
 ## Weg A: The Things Network / The Things Stack
 
@@ -315,10 +315,10 @@ Downlinks sind für die reine Messdatenübertragung nicht erforderlich, ermögli
 Testobjekt:
 
 ```json
-{ "cmd": "p 300" }
+{ "cmd": "xip 300" }
 ```
 
-Verwenden Sie für LTX-Kommandos `fPort 10`. Der Teststring ist nur ein Encoder-Beispiel; produktive Downlinks sind normalerweise kurze `x...`-Parameterkommandos aus der LTX-Kommando-Referenz.
+Verwenden Sie für LTX-Kommandos `fPort 10`. Der Teststring ist nur ein Encoder-Beispiel, das die Periode auf 300 Sekunden setzt; produktive Downlinks sind normalerweise kurze `x...`-Parameterkommandos aus der LTX-Kommando-Referenz.
 
 ![TTN: Downlink-Encoder mit einem Beispielkommando testen](lora_images/10_ttn_downlink_test.png)
 
@@ -360,6 +360,16 @@ Filtern Sie beim ersten Test keine JSON-Felder heraus. Der Endpunkt benötigt un
 
 ### A7. Übertragung auslösen und in TTN prüfen
 
+> [!TIP]
+> Für manuelle Testübertragungen kann es hilfreich sein, zuvor den Debug-Modus zu aktivieren. Im regulären, CE-konformen Betrieb wird Bluetooth während einer LoRaWAN-Übertragung kurz abgeschaltet; das verbessert zugleich die Funkempfindlichkeit. Im Debug-Modus erscheinen die Übertragungsinformationen zeitnah im Terminal.
+>
+> Aktivieren mit:
+> - `@$dbg 1` (für einfache Ausgabe)
+> - `@$dbg 2` (inkl. Kommunikation mit dem Modem)
+>
+> Deaktivieren mit:
+> - `@$dbg 0`
+
 Starten Sie im BLX-Terminal eine manuelle Übertragung:
 
 ```text
@@ -389,6 +399,15 @@ LoRa-Transfer (verified) OK (DR:0)
 
 Prüfen Sie danach die LTX Microcloud. Ein neuer Logger wird vom LTX-Endpunkt anhand seiner DevEUI/MAC zugeordnet beziehungsweise bei zulässigem API-Key angelegt.
 
+Schalten Sie den Debug-Modus danach gegebenenfalls wieder aus. `i` funktioniert auch im regulären Modus:
+
+
+```text
+@$dbg 0
+i
+```
+
+
 ### A8. DevNonces nur nach einem Modem-Reset zurücksetzen
 
 Wenn am Logger `@AT+RFS` ausgeführt wurde, müssen auch die auf TTN gespeicherten DevNonces zurückgesetzt werden. Öffnen Sie die erweiterten Join-/Geräteeinstellungen und verwenden Sie **Reset used DevNonces**. Die Option, Nonce-Resets dauerhaft zu erlauben, sollte nur während einer kontrollierten Wiederinbetriebnahme aktiv sein.
@@ -416,7 +435,7 @@ Die folgenden Schritte bilden dieselbe Kette für ChirpStack ab: Anwendung, Ger�
 
 ### B2. Geräteprofil anlegen
 
-Öffnen Sie beim Tenant **Device Profiles → Add device profile**. Verwenden Sie für die gezeigte LTX-Firmware:
+Öffnen Sie im gewählten Tenant **Device Profiles → Add device profile**. Verwenden Sie für die gezeigte LTX-Firmware:
 
 | Feld | Einstellung |
 |---|---|
@@ -444,7 +463,7 @@ ChirpStack hat im Geräteprofil ein gemeinsames JavaScript-Codefeld für beide R
 1. vollständiger Inhalt von [`payload_ltx_clean.js`](https://github.com/joembedded/payload-decoder/blob/master/payload_ltx_clean.js);
 2. direkt dahinter der vollständige Inhalt von [`paydown_ltx.js`](https://github.com/joembedded/payload-decoder/blob/master/paydown_ltx.js).
 
-Danach speichern Sie das Geräteprofil mit **Submit**.
+Fügen Sie zwischen den beiden Codebestandteilen eine Leerzeile ein und speichern Sie das Geräteprofil anschließend mit **Submit**.
 
 ![ChirpStack: gemeinsamer JavaScript-Codec für Up- und Downlink](lora_images/22_chirpstack_codec.png)
 
@@ -502,6 +521,18 @@ Die offizielle [ChirpStack-HTTP-Dokumentation](https://www.chirpstack.io/docs/ch
 
 ### B6. Übertragung auslösen und Join prüfen
 
+> [!TIP]
+> Für manuelle Testübertragungen kann es hilfreich sein, zuvor den Debug-Modus zu aktivieren. Im regulären, CE-konformen Betrieb wird Bluetooth während einer LoRaWAN-Übertragung kurz abgeschaltet; das verbessert zugleich die Funkempfindlichkeit. Im Debug-Modus erscheinen die Übertragungsinformationen zeitnah im Terminal.
+>
+> Aktivieren mit:
+> - `@$dbg 1` (für einfache Ausgabe)
+> - `@$dbg 2` (inkl. Kommunikation mit dem Modem)
+>
+> Deaktivieren mit:
+> - `@$dbg 0`
+
+
+
 Starten Sie wie bei TTN im BLX-Terminal:
 
 ```text
@@ -512,34 +543,22 @@ i
 
 *Derselbe Loggerbefehl wird unabhängig vom gewählten LoRaWAN-Stack verwendet.*
 
-Für eine ausführliche, vorübergehende Diagnose:
-
-Einfach:
-```text
-@$dbg 1
-i
-```
-
-Ausführlich:
-```text
-@$dbg 2
-i
-```
-
 
 Im dokumentierten Test meldete der Logger beim ersten Versuch `JOIN_FAILED`, obwohl ChirpStack bereits `JoinRequest` und `JoinAccept` zeigte:
 
 ![Erster ChirpStack-Joinversuch mit JOIN_FAILED am Logger](lora_images/27_chirpstack_erster_join_fehler.png)
 
-*Der Server hat die Anfrage möglicherweise verarbeitet, der Logger aber den Downlink nicht sicher empfangen. Das ist ein Hinweis auf den Downlink-Pfad und kein Beleg für falsche Uplink-Funktion.*
+*Der Server hat die Anfrage verarbeitet und einen JoinAccept an das Gateway übergeben. Der Logger hat den Downlink jedoch möglicherweise nicht sicher empfangen. Das weist auf den Downlink-Pfad hin und ist kein Beleg für eine falsche Uplink-Konfiguration.*
 
 Kontrollieren Sie unter **LoRaWAN frames**, ob `JoinRequest` und `JoinAccept` sichtbar sind:
 
 ![ChirpStack zeigt JoinRequest und JoinAccept](lora_images/28_chirpstack_join_frames.png)
 
-*Sind beide Frames vorhanden, hat der Server den Join akzeptiert und an ein Gateway zum Downlink übergeben.*
+*Sind beide Frames vorhanden, hat der Server den Join akzeptiert und den JoinAccept zum Downlink an das Gateway übergeben. Erst ein folgender erfolgreicher Uplink bestätigt den Empfang im Logger.*
 
-Warten Sie kurz und lösen Sie einmalig einen zweiten Transfer aus. Im gezeigten Test war dieser erfolgreich. Schalten Sie den Debugmodus danach sofort wieder aus:
+Warten Sie kurz und lösen Sie einmalig einen zweiten Transfer aus. Im gezeigten Test war dieser erfolgreich.
+
+Schalten Sie den Debug-Modus danach gegebenenfalls wieder aus. `i` funktioniert auch im regulären Modus:
 
 ```text
 @$dbg 0
@@ -601,11 +620,11 @@ Die Serverzeit wird beim Join beziehungsweise über die LTX-Zeitanforderung sync
 
 ### 4.2 Diagnoseeinstellungen wieder zurücknehmen
 
-Während der Einrichtung kann man testweise `@$dbg 1` (einfache Ausgaben) oder `@$dbg 2` (inkl. AT-Kommandos) setzen. Dann erfolgen wähend des Transfers AUsgaben am Terminal der APP. Das Kommando deaktiviert sich automatisch nach 2 Stunden oder manuell mittels `@$dbg 0`.
+Während der Einrichtung können Sie testweise `@$dbg 1` (einfache Ausgaben) oder `@$dbg 2` (einschließlich der Kommunikation mit dem Modem) setzen. Während des Transfers erscheinen dann Ausgaben im Terminal der App. Der Debug-Modus deaktiviert sich nach zwei Stunden automatisch oder manuell mit `@$dbg 0`.
 
 > [!IMPORTANT]
-> Für den CE-konformen Dauerbetrieb dürfen aber Bluetooth und LoRaWAN nicht gleichzeitig aktiv sind. Die BLE-Verbindung wird im regulären Modus während eines Transfers dann kurz getrennt und anschließend wieder aufgebaut. 
-> Der CE-konforme Modus ist, wenn der Parameter `Config0_U31` auf `16` (Bit 4) gesetzt ist und `@$dbg 0`.
+> Für den CE-konformen Dauerbetrieb dürfen Bluetooth und LoRaWAN nicht gleichzeitig aktiv sein. Die BLE-Verbindung wird im regulären Modus während eines Transfers kurz getrennt und anschließend wieder aufgebaut.
+> Der CE-konforme Modus ist am Gerät aktiv, wenn der Parameter `Config0_U31` auf `16` (Bit 4) gesetzt und der Debug-Modus mit `@$dbg 0` deaktiviert ist.
 
 
 > [!IMPORTANT]
@@ -640,6 +659,7 @@ Bestätigte Nachrichten und Downlinks verbrauchen zusätzliche Gateway-Airtime. 
 | `NbTrans` weicht bei `ADR=1` von einer manuellen Testvorgabe ab | der Network Server hat den Wert über `LinkADRReq` geändert | stackabhängige ADR-Strategie und Paketverluste prüfen; `NbTrans` überwachen; für ChirpStack gilt mit dem aktuellen Standardalgorithmus `1...3` |
 | `NbTrans` steht nach einem Reset wieder auf `1` | `AT+NBTRANS=X` ist nur für Tests implementiert und wird nicht gespeichert | erwartetes Verhalten; bei `ADR=0` den Default `1` verwenden, bei `ADR=1` die serverseitige Regelstrategie prüfen |
 | Batterie wird während des Tests stark belastet | Debugmodus, DR0, häufige Joins, `NbTrans>1` oder viele Confirmed Uplinks | `@$dbg 0`, ADR, `NbTrans`, Datenrate und Intervalle optimieren, Join-Ursache beheben |
+| Die Meldung `Retransmission` oder `Duplicated` erscheint im LoRaWAN-Stack | Bei `NbTrans>1` werden Pakete mehrfach gesendet. | Das ist kein Fehler, sondern ein Hinweis auf die konfigurierten Wiederholungen. |
 
 Für ChirpStack empfiehlt die offizielle [Troubleshooting-Anleitung](https://www.chirpstack.io/docs/guides/connect-device.html#troubleshooting), Gateway-Frames, Geräte-Frames und Events in dieser Reihenfolge zu prüfen. Bei TTN liefern [Live data](https://www.thethingsindustries.com/docs/hardware/devices/troubleshooting/) und die [Webhook-Fehlersuche](https://www.thethingsindustries.com/docs/integrations/webhooks/troubleshooting/) die entsprechenden Informationen.
 
@@ -653,6 +673,7 @@ Für ChirpStack empfiehlt die offizielle [Troubleshooting-Anleitung](https://www
 - Prüfen Sie bei TTN regelmäßig Fair Use und Tarifbedingungen.
 - Überwachen Sie bei `ADR=1` im jeweiligen Network Server die tatsächlich gesetzten Funkparameter einschließlich `NbTrans`; für ChirpStack gilt mit dem aktuellen Standardalgorithmus der Bereich `1...3`.
 - Dimensionieren Sie Mess- und Sendeintervalle nach Batterielaufzeit, Funkqualität, Payload-Länge, Datenrate, `NbTrans` und gesetzlichen Vorgaben.
+- Fragen Sie uns gern. Wir helfen bei Einrichtung und Betrieb.
 
 ## 7. Kompakte Checkliste
 
@@ -689,7 +710,7 @@ Für ChirpStack empfiehlt die offizielle [Troubleshooting-Anleitung](https://www
 
 - [ ] Messwerte in der LTX Microcloud sichtbar
 - [ ] `@$dbg 0` ausgeführt
-- [ ] `Config0_U31` für den Dauerbetrieb wieder auf Bitmaske `16` gesetzt
+- [ ] Geprüft, dass in `Config0_U31` für den CE-konformen Dauerbetrieb die Bitmaske `16` gesetzt ist
 - [ ] Sendeintervall, Airtime und Batterieverbrauch geprüft
 - [ ] Schlüssel und Installationsdaten sicher dokumentiert
 
