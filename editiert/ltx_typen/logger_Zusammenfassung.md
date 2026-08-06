@@ -1,6 +1,6 @@
 # Zusammenfassung: LTX Logger mit SDI-12 – Varianten
 
-**Version:** V0.4 / 07.05.2026 / JoEm
+**Version:** V0.5 / 06.08.2026 / JoEm
 
 ---
 
@@ -298,7 +298,7 @@ Die Platine stellt eine hochgesteppte SDI-12-Spannung von **9,6 V** bereit.
 | Typ1800 | LTE Cat1 / 2G, 48 Messkanaele |
 | Typ1801 | LTE Cat1 / 2G, 90 Messkanaele; Hardware wie Typ1800, eigene Firmware |
 | _Typ1850_ | _LTE-450 Cat1 / 2G (450 MHz)_ **nur zur Info**|
-| Typ1810 | LTE-M / NB / 2G |
+| Typ1810 | LTE-M / NB / 2G, 48 Messkanaele |
 | Typ1820 | LoRa EU868 |
 | _Typ1830_ | _LoRa GLOBAL mit max. 20 dBm Sendeleistung_ **nur zur Info**|
 
@@ -329,14 +329,14 @@ Die Platine stellt eine hochgesteppte SDI-12-Spannung von **9,6 V** bereit.
 
 | Typ | Funk |
 |---|---|
-| Typ1790 | Logger ohne Funk - Modem optional nachrüstbar |
-| Typ1500 | LTE-M / NB / 2G – Modem direkt integriert |
+| Typ1790 | Logger ohne Funk - Modem optional nachrüstbar, 30 Messkanäle |
+| Typ1500 | LTE-M / NB / 2G – Modem direkt integriert, , 30 Messkanäle |
 | Typ1710 | LTE-M / NB / 2G als Shield (**technisch identisch zu Typ1500, rein mechanischer Unterschied**) |
-| Typ1700 | LTE Cat1 / 2G |
+| Typ1700 | LTE Cat1 / 2G, 30 Messkanäle |
 | _Typ1750_ | _LTE-450 Cat1 / 2G (450 MHz)_ **nur zur Info**|
-| Typ1720 | LoRa EU868 |
+| Typ1720 | LoRa EU868, 20 Messkanäle |
 | _Typ1730_ | _LoRa GLOBAL mit max. 20 dBm Sendeleistung_ **nur zur Info**|
-| Typ2000 | Kleiner Logger ('Midi'), kein Modem, präzise Uhr (max. +/- 60 sec/Jahr) |
+| Typ2000 | Kleiner Logger ('Midi'), kein Modem, präzise Uhr (max. +/- 60 sec/Jahr), 10 Messkanäle |
 
 #### Beispiele 'in Bildern'
 
