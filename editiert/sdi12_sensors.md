@@ -1,6 +1,6 @@
 # Open-SDI12-Blue Sensoren, Interfaces und weitere SDI-12-Geräte
 
-Stand: 2026-07-27
+Stand: 2026-08-11
 
 Diese Übersicht fasst die aktuell im Web-Archiv verfügbaren Open-SDI12-Blue-Typen zusammen. Der Ordner `Obsolete` ist bewusst nicht enthalten. Die Typen 210, 930 und 950 sind keine eigentlichen Messsensoren, sondern Konverter, Funkinterface beziehungsweise ein virtueller Server-Gerätetyp; sie sind am Ende separat aufgeführt. Zusätzlich enthält die Übersicht besondere Geräte außerhalb der OSX-/Open-SDI12-Blue-Plattform, wenn sie über SDI-12 mit LTX-Loggern eingesetzt werden können.
 
@@ -32,6 +32,10 @@ Digitale Drucksonde für Wasserstandsmessungen und dauerndes Eintauchen bis zum 
 - Typ 310: Standard-Temperatursensor, typisch +/- 2 °C
 - Typ 311: Präzisionstemperatur, +/- 0,1 °C von -20 bis +50 °C
 - Typ 312: wie Typ 311, zusätzlich 3-Achsen-Lagesensor
+- Antwort auf den Identifikationsbefehl `aI!` (`a`: SDI-12-Adresse, `v`: PCB-Version, `xxxxxxxx`: letzte vier Bytes der Seriennummer):
+  - Typ 310: `a13TT_KLD_v_0310_OSXxxxxxxxx`
+  - Typ 311: `a13TT_KLDHv_0311_OSXxxxxxxxx`
+  - Typ 312: `a13TT_KLDXv_0312_OSXxxxxxxxx`
 - Versorgung: 3,6 bis 16 V
 - [Datenblatt Typ 31x (PDF)](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0310_0312_PiezoPressure/osx_PiezoPressure.pdf)
 - Firmware: [Typ 310](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0310_0312_PiezoPressure/firmware_0310_KellerLD_1v2.sec), [Typ 311](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0310_0312_PiezoPressure/firmware_0311_KellerLD_1v2.sec), [Typ 312](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0310_0312_PiezoPressure/firmware_0312_KellerLD_1v2.sec)
