@@ -134,7 +134,8 @@ Preisgünstige digitale Temperaturkette für nicht eingetauchte Anwendungen. Das
 Robuste digitale Sensorkette für viele hochpräzise Temperatur- und Druckmessstellen. Temperatur- und Drucksensoren können in Linien- oder Sterntopologie kombiniert werden.
 
 - bis zu 50 Sensoren, optional bis zu 300
-- Leitungslänge insgesamt bis 500 m ohne Genauigkeitsverlust durch die Leitung
+- Leitungslängen 100 m Standard, bis 250 m oder mehr auf Anfrage.
+- Leitungslänge insgesamt bis maximal 500 m ohne Genauigkeitsverlust durch die Leitung.
 - Standardsensoren bis 5 bar beziehungsweise 50 m Wassersäule; höhere Druckbereiche optional
 - eingetauchte Sensoren IP68, Interface nur IP54
 - Messzeit typischerweise 1 bis 3 s; Ergebnisse werden in Gruppen von bis zu neun Werten übertragen

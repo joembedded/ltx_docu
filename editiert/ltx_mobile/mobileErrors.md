@@ -1,7 +1,7 @@
 # Exkurs: Haeufige Mobil-Funk-Fehler (LTX)
 
 Quelle: `ltx-server -> .../sw/docu/mobileErrors.txt`  
-Stand: 22.02.2026
+Stand: 18.08.2026
 
 Diese Seite fasst haeufige Fehlercodes im Mobilfunk-Kontext zusammen.
 
@@ -9,21 +9,31 @@ Diese Seite fasst haeufige Fehlercodes im Mobilfunk-Kontext zusammen.
 
 | Code | Bedeutung |
 |---|---|
-| -20xx | CREG-bezogene Fehler |
+| -20xx | Modem-, Einbuchungs-, CFUN- und PDP/IP-Fehler |
+| -2001 | Keine SIM-Karte bzw. SIM nicht bereit |
+| -2002 | SIM-PIN falsch oder nicht akzeptiert |
 | -2005 | Roaming denied |
 | -2006 | Net denied |
 | -2007, -2017 | APN |
+| -2008 | Keine IP-Adresse nach erfolgreicher PDP-Aktivierung erhalten |
 | -2011 | PowerDown-Fehler: Modem antwortet nicht |
 | -2012 | PowerDown-Fehler: Modem bestaetigt PowerDown-Cmd nicht |
 | -2013 | PowerDown-Fehler: Modem-Abmeldung schlug fehl |
 | -2018 | APN-Timeout |
+| -2019 | `AT+CFUN?` liefert nach dem Aufwecken keine erwartete `OK`-Antwort; moegliche Ursachen sind ein noch schlafendes/zuruecksetzendes Modem, UART-/Flow-Control-Probleme oder eine schwache Versorgung. Kein CREG/CEREG-Registrierungsfehler. |
+| -2020 | Wechsel von minimaler zu voller Modemfunktion (`AT+CFUN=1,1`) nicht moeglich |
+| -2024 | Keine Antwort auf CREG/CEREG-Abfrage (Hinweis auf nicht ansprechbares Modem bzw. schwache Versorgung) |
+| -2025 | Einrichten oder Abfragen der erweiterten CREG/CEREG-Meldungen fehlgeschlagen |
+| -2027 | NoNetFound (creg=0: noch nie bzw. nicht registriert) |
 | -2029 | NoNetFound (creg=2) |
 | -2030 | Denied Net (creg=3) |
 | -2031 | Unknown Net (creg=4) |
 | -2032 | Roaming Error Net (creg=5, falls nicht erlaubt) |
 | -2033 bis -2036 | No Net (creg=6..8, sollte nicht vorkommen) |
-| -2000, -1001 | Keine Antwort vom Modem |
-| -240x | DNS Failure |
+| -2000 | Keine Antwort vom Modem |
+| -1001 | Hardware-Timeout bei der Modemkommunikation |
+| -2401 | DNS-Aufloesung fehlgeschlagen |
+| -2402 | DNS-Aufloesung ohne verwendbare Adresse beendet |
 | -2303 | Server nicht erreichbar (gprs_transfer.c) |
 
 ## UDP
