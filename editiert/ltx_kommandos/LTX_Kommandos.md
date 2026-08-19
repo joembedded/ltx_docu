@@ -249,7 +249,7 @@ Modemfamilie wird über `osx_pins.h` gesetzt, z. B. `QUECTEL_BG600L`,
 | Kommando | Funktion |
 |---|---|
 | `i` | manuelle Internet-Übertragung starten (`internet_transfer(REASON_MANUAL)`) |
-| `i<flags>` | wie `i`, mit Verbose-/Debugflags; im Code kommentiert: 1 Verbose, 2 ExtraLong, 128 Debug |
+| `i<flags>` | wie `i`, mit Diagnose-Bitmaske: `1` = ausführlichere Ausgabe, `2` = längere Netzsuche, `128` = AT-Kommandos protokollieren |
 | `m` | Modem ins Netz einbuchen / registrieren |
 | `m<verbose>` | Registrierung mit Verbose-Level |
 | `M` | Modem ausbuchen / abmelden (aktiv abschalten)|
@@ -269,6 +269,7 @@ Beispiele:
 ```text
 i
 i129
+i131
 ?
 ??
 @AT
@@ -277,6 +278,12 @@ i129
 m1
 M
 ```
+
+> [!TIP]
+> **Mobilfunk-Diagnose protokollieren:** `i129` kombiniert die Werte `1 + 128` und startet eine manuelle Internetübertragung mit ausführlicher Ausgabe sowie protokollierten AT-Kommandos. `i131` kombiniert zusätzlich den Wert `2` (`1 + 2 + 128`) und erlaubt dem Modem eine längere Netzsuche. Im BLX Dashboard sollte vorher mit `.lines 200` der Terminalpuffer vergrößert werden; der Standardwert liegt nur bei etwa 30 Zeilen. Das browserbasierte Dashboard speichert den Puffer in der IndexedDB des Browsers. BlueShell schreibt dagegen eine separate Terminal-Logdatei, die über die gesamte Sitzung mitwächst. Diagnoseprotokolle können sensible Netz-, Server- und Gerätedaten enthalten und sollten vor der Weitergabe geprüft werden.
+
+> [!IMPORTANT]
+> Die Diagnose-Bitmaske `1`, `2` und `128` gilt nur für Mobilfunkmodems. LoRaWAN-Geräte besitzen ebenfalls den Loggerbefehl `i`, die Varianten `i129` und `i131` aktivieren dort jedoch keine entsprechende Mobilfunkdiagnose.
 
 `AT+COPS=?` bekommt im BLE-Pfad einen langen Timeout, weil der Netzscan beim
 Quectel-Modem mehrere Minuten dauern kann.
@@ -324,6 +331,9 @@ i
 @$info
 @$initeu868
 ```
+
+> [!NOTE]
+> Bei LoRaWAN startet `i` eine manuelle LoRaWAN-Übertragung. Die bei Mobilfunk verwendeten Diagnosevarianten `i129` und `i131` haben hier keine entsprechende Wirkung; für LoRaWAN gelten die modemspezifischen Debug-Kommandos.
 
 ### LTX-LoRa-Systemkommandos (`@$...`)
 

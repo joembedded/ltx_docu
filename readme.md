@@ -42,6 +42,12 @@ Es können zusätzlich alle anderen SDI-12-V1.3-kompatiblen Sensoren angeschloss
 
 ---
 
+## Informationen zu relevanten Webseiten
+
+Im Verzeichnis [`web/`](./web/) liegen kompakte, KI-taugliche Zusammenfassungen relevanter externer Webseiten, darunter die [GEOprecision-Übersicht](./web/wwwgeoprec.md) und die [Thermistor-String-Dokumentation](./web/wwwthermistorstring.md). Diese Dateien dienen als kuratierte Quellen für die Suchindexierung und erleichtern das Auffinden von Hersteller-, Produkt- und Unternehmensinformationen.
+
+---
+
 **Firmware- und Datenblatt-Archiv:** [https://joembedded.de/x3/ltx_firmware/index.php](https://joembedded.de/x3/ltx_firmware/index.php)
 
 *Stand: Juli 2026 – V0.7*

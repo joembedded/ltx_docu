@@ -1,9 +1,12 @@
 # Exkurs: Haeufige Mobil-Funk-Fehler (LTX)
 
 Quelle: `ltx-server -> .../sw/docu/mobileErrors.txt`  
-Stand: 18.08.2026
+Stand: 19.08.2026
 
 Diese Seite fasst haeufige Fehlercodes im Mobilfunk-Kontext zusammen.
+
+> [!TIP]
+> **Diagnoseprotokoll bei einer manuellen Internetuebertragung:** Mit `i129` wird die Uebertragung mit ausfuehrlicher Ausgabe (`1`) und protokollierten AT-Kommandos (`128`) gestartet. Wenn auch eine laengere Netzsuche (`2`) erforderlich ist, verwenden Sie `i131` (`1 + 2 + 128`). Setzen Sie im BLX Dashboard vorher den Terminalpuffer beispielsweise mit `.lines 200` hoeher; der Standardwert liegt nur bei etwa 30 Zeilen. Das browserbasierte Dashboard nutzt dafuer die IndexedDB des Browsers. BlueShell schreibt dagegen eine separate Terminal-Logdatei, die ueber die gesamte Sitzung mitwaechst. Diese Diagnosewerte gelten nur fuer Mobilfunk. LoRaWAN kennt ebenfalls den Befehl `i`, `i129` und `i131` haben dort aber keine entsprechende Wirkung.
 
 ## Modem Basic
 

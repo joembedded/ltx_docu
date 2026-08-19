@@ -183,6 +183,12 @@ Nur bei bestehender Verbindung wirksam.
 ### `.l [ANZ]` / `.lines [ANZ]`
 Setzt oder zeigt die Anzahl der Zeilen im Terminal-Ausgabebereich.
 
+```text
+.lines 200
+```
+
+> **Hinweis:** Der Standardwert liegt nur bei etwa 30 Zeilen. Fuer ein Mobilfunk-Diagnoseprotokoll, beispielsweise bei einer mit `i129` oder `i131` gestarteten manuellen Internetuebertragung, sind etwa 200 Zeilen zweckmaessig. Das browserbasierte BLX Dashboard haelt die Terminaldaten in der IndexedDB des Browsers. BlueShell kann dagegen waehrend der gesamten Sitzung in eine separate Terminal-Logdatei schreiben. Die Diagnoseoptionen von `i129` und `i131` gelten nur fuer Mobilfunk; der auch bei LoRaWAN vorhandene Befehl `i` nutzt diese Optionen nicht entsprechend.
+
 ---
 
 ### `.sl MSEC` / `.sleep MSEC`

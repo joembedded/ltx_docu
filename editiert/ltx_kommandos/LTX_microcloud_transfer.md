@@ -31,12 +31,12 @@ BLX Dashboard --Bluetooth--> LTX data logger --mobile network--> server
 
 # 1. Where to get the software
 
-Choose the application according to the product and task. Every GeoPrecision app version provides a terminal in which `i1`, `i129` and the other supported logger commands can be entered. If the terminal is not visible in the default layout, open the application's terminal, expert or service view.
+Choose the application according to the product and task. Every GeoPrecision app version provides a terminal in which `i1`, `i129`, `i131` and the other supported logger commands can be entered. If the terminal is not visible in the default layout, open the application's terminal, expert or service view.
 
 | Requirement | Recommended software |
 |---|---|
 | Regular operation, measurements and data reading | The GeoPrecision app recommended for the product; if none is specified, use the newest general-purpose version |
-| Terminal commands `i1`, `i129` and advanced service work | Any GeoPrecision app version or the original BLX Dashboard; all versions accept the same commands in their terminal. Use the original BLX Dashboard when its additional diagnostic text is useful |
+| Terminal commands `i1`, `i129`, `i131` and advanced service work | Any GeoPrecision app version or the original BLX Dashboard; all versions accept the same commands in their terminal. Use the original BLX Dashboard when its additional diagnostic text is useful |
 | Development of a customer-specific variant | Original BLX Dashboard source code after collaborator access has been granted |
 
 ## 1.1 User-friendly GeoPrecision apps
@@ -97,7 +97,7 @@ The internet-transfer command is available on the following mobile-network logge
 
 | Device group | Device types | Manual mobile transfer |
 |---|---|---|
-| Mobile-network LTX logger | 1500, 1700, 1750, 1800, 1801, 1850 | Supported with `i1` or `i129` |
+| Mobile-network LTX logger | 1500, 1700, 1750, 1800, 1801, 1850 | Supported with `i1`, `i129` or `i131` |
 | LTX sensor | Types below 1000, including the Type 470 shown in the first video | Not supported; UI example only |
 | Logger without a modem | 2000, 3000 | Not available |
 
@@ -152,21 +152,32 @@ For extended troubleshooting, use:
 i129
 ```
 
-`i129` combines verbose output with the firmware's debug flag and therefore prints substantially more internal transfer detail. Use it when `i1` fails or when support personnel need a detailed trace.
+`i129` combines verbose output with AT-command logging and therefore prints substantially more internal transfer detail. Use it when `i1` fails or when support personnel need a detailed trace.
+
+If network registration itself takes unusually long or fails, use:
+
+```text
+i131
+```
+
+The numeric suffix is a bit mask used by mobile-network firmware: `1` enables more verbose output, `2` allows a longer network search and `128` logs the modem AT commands. Thus, `i129` means `1 + 128`; `i131` means `1 + 2 + 128`.
+
+> **Note:** Before recording a mobile-network diagnostic trace in BLX Dashboard, enter `.lines 200` to increase the terminal history; its default is only about 30 lines. The browser-based dashboard keeps this history in the browser's IndexedDB. BlueShell can instead write a separate terminal log file, which grows for the duration of the session. These diagnostic suffixes apply only to mobile-network modems. LoRaWAN loggers also support `i`, but `i129` and `i131` do not enable the same diagnostics there.
 
 > **Important:** Do not enter `e` when the intention is to upload data. `e` starts an immediate measurement, but it does not start the server transfer. To acquire a fresh value and then upload it, wait for `e` to finish before sending `i1`.
 
 | Command | Purpose | Use in this procedure |
 |---|---|---|
 | `i1` | Start a manual mobile internet transfer with progress output | Recommended |
-| `i129` | Start the same transfer with very detailed debug output | Troubleshooting only |
+| `i129` | Start the same transfer with verbose output and AT-command logging | Troubleshooting only |
+| `i131` | Add a longer network search to the `i129` diagnostics | Troubleshooting network registration |
 | `e` | Take an immediate measurement without uploading it | Optional, before `i1` |
 
 Do not select legacy functions such as **Load Data to Disk** or **View Data from Disk**. Those functions copy files to the PC and are unrelated to the direct logger-to-server transfer described here.
 
 > **Note:** Bluetooth can be slow or disconnect temporarily while the modem is active. Wait for the transfer cycle to finish, then reconnect if necessary.
 
-> **Caution:** The `i129` output can contain network, server and device details. Do not publish an unredacted diagnostic trace or send it to anyone who is not authorized to receive the device configuration.
+> **Caution:** The `i129` and `i131` output can contain network, server and device details. Do not publish an unredacted diagnostic trace or send it to anyone who is not authorized to receive the device configuration.
 
 # 6. Verify the transfer
 
@@ -191,7 +202,7 @@ Internet Transfer -> Modem Power On -> network search -> IP address
 | `PIN required` remains visible | The logger is connected but not authorized | Enter the correct PIN or scan the correct device label, then wait for device information to load |
 | `i1` is rejected or no transfer starts | A sensor or logger without a mobile modem was selected, the command was entered incorrectly, or authorization is missing | Use a supported mobile-network logger, enter lowercase `i1` without spaces, and confirm that the PIN has been accepted |
 | Bluetooth disconnects after `i1` | The logger or app temporarily loses the BLE link while the modem is active | Wait for the transfer cycle to finish and reconnect; do not immediately send repeated commands |
-| Logger reports a network or transfer error | Mobile registration, APN, server settings or radio coverage is not ready | Check the logger's mobile communication configuration and radio coverage before retrying; use `i129` if a detailed trace is needed |
+| Logger reports a network or transfer error | Mobile registration, APN, server settings or radio coverage is not ready | Check the logger's mobile communication configuration and radio coverage before retrying; use `i129` for a detailed trace or `i131` when a longer network search is also needed |
 | Logger reports success but no new Microcloud data appears | Server URL, device API key, webhook or device assignment is incorrect | Check the server-side device configuration and the timestamp for the correct logger |
 | A current measurement is missing | No new measurement was taken before the transfer | Send `e`, wait for the measurement to finish, then send `i1` |
 
@@ -204,7 +215,7 @@ The terminal command `?` can also be used during troubleshooting to request sign
 - [ ] Correct mobile-network LTX logger selected by name or MAC address
 - [ ] **Info: Connected** shown
 - [ ] PIN accepted and device information loaded
-- [ ] Lowercase `i1` sent from the BLX terminal, or `i129` for diagnostics
+- [ ] Lowercase `i1` sent from the BLX terminal, `i129` for diagnostics or `i131` for diagnostics with a longer network search
 - [ ] Logger returned `Transfer OK` and a final `OK`
 - [ ] New record or timestamp visible on the server or in the LTX Microcloud
 
