@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">RIVERCAST Datenfluss von der Messstelle bis zum KI-Modell</title>
+  <desc id="desc">Die LTX-Trägerplatine erfasst und speichert Messwerte. Ein austauschbares Shield stellt die Verbindung über vorhandene terrestrische Netze oder ein künftig zu entwickelndes Satelliten-Shield her. Die Datenpipeline versorgt das KI-Modell und das Lagebild.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f8fc"/>
+      <stop offset="1" stop-color="#e8f1f8"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#18354d" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#2878a5"/>
+    </marker>
+    <style>
+      .heading { font: 700 27px Arial, sans-serif; fill: #17354d; }
+      .sub { font: 400 17px Arial, sans-serif; fill: #486273; }
+      .box-title { font: 700 22px Arial, sans-serif; fill: #17354d; }
+      .body { font: 400 17px Arial, sans-serif; fill: #29485d; }
+      .small { font: 400 15px Arial, sans-serif; fill: #526b7b; }
+      .badge { font: 700 14px Arial, sans-serif; }
+      .arrow-label { font: 700 15px Arial, sans-serif; fill: #2878a5; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="820" rx="24" fill="url(#bg)"/>
+  <text x="70" y="62" class="heading">RIVERCAST: modulare Mess- und Kommunikationskette für AP5</text>
+  <text x="70" y="94" class="sub">Lokale Vollaufzeichnung, redundante Übertragung und priorisierte Ereignis-Datagramme</text>
+
+  <g filter="url(#shadow)">
+    <rect x="60" y="150" width="230" height="255" rx="18" fill="#ffffff" stroke="#b7ccd9" stroke-width="2"/>
+    <rect x="335" y="150" width="310" height="255" rx="18" fill="#ffffff" stroke="#56a1c9" stroke-width="3"/>
+    <rect x="690" y="125" width="295" height="305" rx="18" fill="#ffffff" stroke="#56a1c9" stroke-width="3"/>
+    <rect x="1030" y="150" width="310" height="255" rx="18" fill="#ffffff" stroke="#b7ccd9" stroke-width="2"/>
+  </g>
+
+  <circle cx="175" cy="205" r="30" fill="#d9edf7"/>
+  <path d="M175 181 C154 210 152 218 175 237 C198 218 196 210 175 181 Z" fill="#2878a5"/>
+  <text x="88" y="274" class="box-title">Sensorik</text>
+  <text x="88" y="309" class="body">Pegel / Temperatur</text>
+  <text x="88" y="338" class="body">weitere SDI-12-Sensoren</text>
+  <text x="88" y="372" class="small">Messstelle im Einzugsgebiet</text>
+
+  <rect x="365" y="181" width="250" height="50" rx="9" fill="#e4f3ea"/>
+  <text x="386" y="213" class="badge" fill="#23744a">VORHANDEN: 17xx / 18xx</text>
+  <text x="365" y="273" class="box-title">Datenerfassung</text>
+  <text x="365" y="309" class="body">Messung und Zeitstempel</text>
+  <text x="365" y="338" class="body">8 MB Ringspeicher</text>
+  <text x="365" y="367" class="body">Housekeeping und BLE</text>
+
+  <rect x="720" y="157" width="235" height="50" rx="9" fill="#e4f3ea"/>
+  <text x="742" y="189" class="badge" fill="#23744a">TERRESTRISCH VERFÜGBAR</text>
+  <text x="720" y="245" class="box-title">Konnektivitäts-Shield</text>
+  <text x="720" y="281" class="body">Mobilfunk / NB-IoT</text>
+  <text x="720" y="310" class="body">LoRaWAN / LTE 450</text>
+  <rect x="720" y="338" width="235" height="57" rx="9" fill="#fff0dd" stroke="#e99a32"/>
+  <text x="738" y="362" class="badge" fill="#a45a00">SATELLITEN-SHIELD</text>
+  <text x="738" y="384" class="small">noch zu entwickeln</text>
+
+  <text x="1060" y="205" class="box-title">Datenpipeline</text>
+  <text x="1060" y="241" class="body">Ingest und Deduplizierung</text>
+  <text x="1060" y="270" class="body">Zeitreihen und Zielschema</text>
+  <text x="1060" y="299" class="body">AP5: Training / Prognose</text>
+  <text x="1060" y="328" class="body">Lagebild und Warnung</text>
+  <rect x="1060" y="351" width="230" height="34" rx="8" fill="#d9edf7"/>
+  <text x="1078" y="373" class="badge" fill="#22688c">OpenAPI-Schnittstelle</text>
+
+  <line x1="290" y1="278" x2="325" y2="278" stroke="#2878a5" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="645" y1="278" x2="680" y2="278" stroke="#2878a5" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="985" y1="278" x2="1020" y2="278" stroke="#2878a5" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <g filter="url(#shadow)">
+    <rect x="150" y="505" width="1100" height="235" rx="18" fill="#ffffff" stroke="#b7ccd9" stroke-width="2"/>
+  </g>
+  <text x="190" y="551" class="box-title">Drei Ebenen der Datensicherheit</text>
+
+  <circle cx="205" cy="607" r="22" fill="#2878a5"/><text x="198" y="614" font-family="Arial" font-size="19" font-weight="700" fill="#fff">1</text>
+  <text x="245" y="602" class="body">Vollständige Messreihe bleibt unabhängig vom Netz im lokalen Ringspeicher.</text>
+  <text x="245" y="628" class="small">Fehlende Datensätze werden nach Wiederkehr einer geeigneten Verbindung nachgeliefert.</text>
+
+  <circle cx="205" cy="667" r="22" fill="#2878a5"/><text x="198" y="674" font-family="Arial" font-size="19" font-weight="700" fill="#fff">2</text>
+  <text x="245" y="662" class="body">Regelübertragung nutzt verfügbare terrestrische und künftig satellitengestützte Wege.</text>
+  <text x="245" y="688" class="small">Sequenznummern und Zeitstempel erlauben die serverseitige Deduplizierung.</text>
+
+  <circle cx="205" cy="727" r="22" fill="#e48716"/><text x="198" y="734" font-family="Arial" font-size="19" font-weight="700" fill="#fff">3</text>
+  <text x="245" y="722" class="body">Im Störungsfall priorisieren kleine Datagramme die neuesten Mess- und Statuswerte.</text>
+  <text x="245" y="748" class="small">Der Satellitenweg ist dafür bevorzugt, sobald das geplante Shield verfügbar und validiert ist.</text>
+</svg>
