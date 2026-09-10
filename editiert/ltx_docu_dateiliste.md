@@ -37,6 +37,9 @@ Beschreibt Messgrößen, Bereiche, Genauigkeiten, Versorgung und Besonderheiten 
 
 Web-Einstieg: [Open-SDI12-Blue-Sensors](https://joembedded.de/x3/ltx_firmware/index.php?dir=./Open-SDI12-Blue-Sensors)
 
+### [0470_RadarDistA.md](osx_sdi12_sensors/osx_radar/0470_RadarDistA.md)
+Ausführliches TerraTransfer-Datenblatt für den Aquatos Radar Typ 0470 auf Basis der deutschen ODT-Originalquelle. Enthält technische Daten, die Erklärung von bis zu drei Echos, Montage und Anschluss, SDI-12-Befehle, K0 bis K11, BLX Dashboard und die optionale Anbindung an LTX-Logger 15xx/17xx (Aquatos Web LTX). Die angebotene Elektronik ist IP67 und nicht vergossen. [PDF-Fassung](../output/pdf/0470_RadarDistA.pdf).
+
 ---
 
 ## BLX Dashboard

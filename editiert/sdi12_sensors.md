@@ -197,9 +197,10 @@ Energieeffizienter 60-GHz-Radarsensor für hochpräzise Wasserstands- und Abstan
 - Messbereich 0,10 bis 12 m, optional bis 20 m
 - typische Genauigkeit <= 2 mm; Auflösung 1 mm
 - bis zu drei Distanzen gleichzeitig; zusätzlich jeweilige Signalstärke
-- etwa 10° Öffnungswinkel mit Standardoptik; etwa 11 dBm EIRP
+- etwa 10° Öffnungswinkel mit Standardoptik
 - grafischer Rohscan und Live-Plot zur Ausrichtung über BLX Dashboard
-- Schutzart IP54, optional IP68; Versorgung 3,6 bis 16 V
+- angebotene TerraTransfer-Ausführung: Elektronik IP67, nicht vergossen; Versorgung 3,6 bis 16 V
+- [Ausführliches TerraTransfer-Datenblatt Typ 0470](osx_sdi12_sensors/osx_radar/0470_RadarDistA.md) mit Echo-Grafik, SDI-12-Befehlen, Parameterreferenz und LTX-Anbindung; [PDF-Fassung](../output/pdf/0470_RadarDistA.pdf)
 - [Datenblatt deutsch (PDF)](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0470_RadarDistA/osx_radar_a121_de.pdf), [OEM-Ausführung deutsch (PDF)](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0470_RadarDistA/osx_radar_a121_oem_de.pdf), [englische Vorschau (PDF)](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0470_RadarDistA/osx_radar_a121_en_preview.pdf)
 - [Firmware Typ 470](https://joembedded.de/x3/ltx_firmware/Open-SDI12-Blue-Sensors/0470_RadarDistA/firmware_0470_RadarDistA_1v3.sec)
 
